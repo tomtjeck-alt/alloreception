@@ -139,14 +139,15 @@ h2 { font-size: 1.9rem; color: var(--bleu); margin-bottom: 1.5rem; }
 }
 
 /* Vidéos */
+/* Vidéos verticales (format téléphone 9:16) */
 .grille-videos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
 .grille-videos video {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 9 / 16;
   background: var(--bleu-fonce);
   border-radius: 8px;
 }
@@ -214,5 +215,6 @@ details p { margin: 10px 0 0; }
   .section { padding: 48px 0; }
   .menu a { font-size: 0.85rem; }
   .bouton { display: block; width: 100%; }
-  .grille-videos, .cartes, .grille-forfaits { grid-template-columns: 1fr; }
+  .cartes, .grille-forfaits { grid-template-columns: 1fr; }
+  .grille-videos { grid-template-columns: 1fr 1fr; gap: 10px; }
 }
