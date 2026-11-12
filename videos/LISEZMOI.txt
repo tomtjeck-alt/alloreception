@@ -1,0 +1,5 @@
+Place ici tes vidéos, avec exactement ces noms :
+AR01.mp4, AR02.mp4, AR03.mp4, AR04.mp4, AR05.mp4,
+AR06.mp4, AR07.mp4, AR08.mp4, AR09.mp4, AR10.mp4
+
+Limite GitHub : chaque fichier doit faire moins de 100 Mo.
