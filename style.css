@@ -60,6 +60,23 @@ h2 { font-size: 1.9rem; color: var(--bleu); margin-bottom: 1.5rem; }
   font-size: 0.95rem;
 }
 .menu a:hover { color: var(--jaune); }
+/* Onglet de la page où on se trouve */
+.menu a.actif {
+  color: var(--jaune);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+/* Le pied de page reste en bas, même sur les pages courtes */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; display: flex; flex-direction: column; }
+main > section:last-child { flex: 1; }
+
+/* Titre principal des pages Solution, Vidéos, Forfaits, FAQ, Contact */
+.section h1 { font-size: 1.9rem; color: var(--bleu); margin-bottom: 1.5rem; }
+.section-bleue h1 { color: var(--jaune); }
 
 /* Boutons */
 .bouton {
@@ -217,7 +234,7 @@ details p { margin: 10px 0 0; }
   body { font-size: 16px; }
   .accueil { padding: 56px 0 64px; }
   .accueil h1 { font-size: 2rem; }
-  h2 { font-size: 1.6rem; }
+  h2, .section h1 { font-size: 1.6rem; }
   .section { padding: 48px 0; }
   .menu a { font-size: 0.85rem; }
   .bouton { display: block; width: 100%; }
