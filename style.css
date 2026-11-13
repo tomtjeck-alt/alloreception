@@ -205,6 +205,12 @@ details p { margin: 10px 0 0; }
   font-size: 0.9rem;
 }
 .pied p { margin: 0; }
+.pied p + p { margin-top: 6px; }
+.pied a { color: var(--jaune); }
+
+/* Courriel dans la section Contact */
+.courriel { margin: 1.5rem 0 0; font-size: 1.05rem; }
+.courriel a { color: var(--jaune); font-weight: 700; word-break: break-all; }
 
 /* Téléphone */
 @media (max-width: 600px) {
