@@ -3,8 +3,8 @@
 // Ne jamais mettre ici la clé « service_role » de Supabase ni une clé Stripe/Vapi secrète.
 window.ALLO_CONFIG = {
   // --- Espace client (Supabase) ---
-  supabaseUrl: "A_REMPLACER",        // ex. https://abcdefgh.supabase.co
-  supabaseCleAnon: "A_REMPLACER",    // clé « anon » / « publishable »
+  supabaseUrl: "https://gippffybbnhbnrxqwlla.supabase.co",
+  supabaseCleAnon: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpcHBmZnliYm5oYm5yeHF3bGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1ODU3MjEsImV4cCI6MjExMDE2MTcyMX0.lyqQI2B70m6LC1c0DLShbMZCs0EP7JvrePkhGLSnmno",   // clé publique « anon » (rôle vérifié : anon)
 
   // --- Formulaire de devis (page Contact) ---
   // Clé gratuite : https://web3forms.com → entrer contact@alloreception.ca → la clé arrive par courriel.
