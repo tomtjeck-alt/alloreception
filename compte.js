@@ -161,9 +161,38 @@
       nom("e-minutes").textContent = utilise.toLocaleString("fr-CA") + " / " + limite.toLocaleString("fr-CA") + " min";
       nom("e-minutes-detail").textContent = e.statut === "essai"
         ? "Minutes d'essai gratuit" + (e.essai_fin ? " · jusqu'au " + new Date(e.essai_fin).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) : "")
-        : "Ce mois-ci" + (utilise > limite ? " · " + Math.ceil(utilise - limite) + " min supplémentaires à 0,35 $" : "");
+        : "Ce mois-ci" + (utilise > limite && e.minutes_a_l_usage ? " · " + Math.ceil(utilise - limite) + " min supplémentaires à 0,35 $" : "");
       nom("e-jauge").style.width = pct + "%";
       if (pct >= 80) nom("e-jauge").classList.add("jauge-alerte");
+      if (e.minutes_pack > 0) nom("e-minutes-detail").textContent += " · Pack : " + e.minutes_pack.toLocaleString("fr-CA") + " min en réserve";
+
+      // Forfaits sans facturation à la minute (annuels) : packs de minutes et forfait supérieur
+      if (e.statut === "actif" && !e.minutes_a_l_usage) {
+        var epuise = utilise >= limite && e.minutes_pack < 1;
+        var texte = epuise
+          ? "Vos minutes du mois sont épuisées. Votre réceptionniste répond toujours, mais prend seulement les messages (nom, numéro, raison de l'appel). Ajoutez des minutes pour retrouver le service complet."
+          : pct >= 80
+            ? "Vous avez utilisé " + pct + " % de vos minutes ce mois-ci. Ajoutez un pack pour ne manquer aucun appel."
+            : "Besoin de plus de minutes ? Ajoutez un pack de 100 minutes pour 35 $ (sans expiration) ou passez au forfait supérieur.";
+        nom("alerte-texte").textContent = texte;
+        nom("alerte-minutes").hidden = false;
+        if (epuise || pct >= 80) nom("alerte-minutes").classList.add("alerte-forte");
+        nom("bouton-pack").hidden = false;
+        if (e.forfait !== "premium") nom("bouton-superieur").hidden = false;
+      }
+      if (new URLSearchParams(location.search).get("pack") === "merci") {
+        message("Merci ! Vos minutes seront ajoutées dans quelques secondes. Actualisez la page pour les voir.", "succes");
+      }
+      nom("bouton-pack").addEventListener("click", async function () {
+        occupe(this, true, "Ouverture…");
+        try { location.href = (await fonction("acheter-minutes")).url; }
+        catch (err) { occupe(this, false); message(err.message, "erreur"); }
+      });
+      nom("bouton-superieur").addEventListener("click", async function () {
+        occupe(this, true, "Ouverture…");
+        try { location.href = (await fonction("portail-stripe", { action: "changer-forfait" })).url; }
+        catch (err) { occupe(this, false); message(err.message, "erreur"); }
+      });
 
       var pret = new URLSearchParams(location.search).get("pret");
       if (pret) {

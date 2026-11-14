@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
   <link rel="stylesheet" href="assistant.css?v=14">
   <link rel="stylesheet" href="anim.css?v=14">
 </head>
@@ -59,6 +59,14 @@
             <div class="stat"><p class="mono">Numéro de la réceptionniste</p><p class="stat-val" id="e-numero"></p></div>
             <div class="stat stat-large"><p class="mono">Minutes utilisées</p><p class="stat-val" id="e-minutes"></p>
               <div class="jauge"><i id="e-jauge"></i></div><p class="stat-detail" id="e-minutes-detail"></p></div>
+          </div>
+
+          <div id="alerte-minutes" class="alerte-minutes" hidden>
+            <p id="alerte-texte"></p>
+            <div class="actions-espace">
+              <button id="bouton-pack" class="bouton bouton-jaune bouton-petit" hidden>Ajouter 100 minutes · 35 $</button>
+              <button id="bouton-superieur" class="bouton bouton-contour-clair bouton-petit" hidden>Passer au forfait supérieur</button>
+            </div>
           </div>
 
           <h2 class="titre-appels">Derniers appels</h2>
@@ -112,6 +120,6 @@
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
   <script>document.body.dataset.page = "espace";</script>
-  <script src="compte.js?v=14"></script>
+  <script src="compte.js?v=15"></script>
 </body>
 </html>

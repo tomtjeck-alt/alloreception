@@ -788,3 +788,15 @@ dialog.paiement.integre .checkout-secours { display: none; }
 .merci { text-align: center; }
 .merci-icone { font-size: 3rem; margin: 0 0 8px; }
 .merci .etapes { text-align: left; margin-top: 28px; }
+
+/* Espace client : alerte de minutes et packs */
+.alerte-minutes {
+  margin-top: 16px;
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
+}
+.alerte-minutes p { margin: 0; flex: 1 1 320px; }
+.alerte-minutes.alerte-forte { background: rgba(250, 204, 21, 0.08); border-color: rgba(250, 204, 21, 0.4); }
