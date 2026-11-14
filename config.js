@@ -9,7 +9,7 @@ window.ALLO_CONFIG = {
   // --- Paiement intégré (fenêtre « style Canva », page Forfaits) ---
   // Clé PUBLIABLE Stripe (pk_live_…), jamais la clé secrète sk_live_…
   // Tant que c'est "A_REMPLACER", la fenêtre envoie vers les liens de paiement Stripe.
-  stripeClePublique: "A_REMPLACER",
+  stripeClePublique: "pk_live_51Ub7cyK6126Hqx8MlCnuoWoGw1QnhUCql4ySWn6f6ZC5KDR5yKUK2NsMqj1esQHVmO5oFBuhRn5c9Yc3QkFSZVq900UjjJKPvw",
 
   // --- Formulaire de devis (page Contact) ---
   // Clé gratuite : https://web3forms.com → entrer contact@alloreception.ca → la clé arrive par courriel.
