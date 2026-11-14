@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>La solution — Allo Réception</title>
   <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau. Essai gratuit de 14 jours.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -75,12 +72,21 @@
       </div>
       <div>
         <p class="pied-titre">Aide</p>
-        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="#" class="gerer-temoins">Gérer les témoins</a>
       </div>
     </div>
-    <p class="pied-bas">© 2026 Allo Réception — Ottawa-Gatineau</p>
+    <p class="pied-bas">© 2026 Allo Réception — Ottawa-Gatineau · <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
   </footer>
 
-  <script src="script.js?v=5"></script>
+  <div class="temoins" id="temoins" role="dialog" aria-labelledby="temoins-titre" hidden>
+    <p class="temoins-titre" id="temoins-titre">🍪 Témoins (cookies)</p>
+    <p>Ce site n'utilise que ce qui est nécessaire à son fonctionnement. Avec votre accord, nous pourrions mesurer les visites de façon anonyme pour améliorer le site. <a href="confidentialite.html">En savoir plus</a></p>
+    <div class="temoins-boutons">
+      <button type="button" class="bouton bouton-contour" data-choix="refuse">Refuser</button>
+      <button type="button" class="bouton bouton-bleu" data-choix="accepte">Accepter</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=6"></script>
 </body>
 </html>

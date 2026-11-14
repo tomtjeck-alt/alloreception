@@ -72,3 +72,29 @@ if (etiquette && noms[forfait]) {
       encodeURIComponent("Essai gratuit Allo Réception — forfait " + noms[forfait]);
   }
 }
+
+// ===== Témoins (cookies) : consentement des visiteurs =====
+// Choix gardé dans le navigateur : "accepte" ou "refuse".
+// Si vous ajoutez un jour une mesure d'audience, mettez-la dans chargerMesureAudience() :
+// elle ne sera lancée que si le visiteur a accepté.
+var CLE_TEMOINS = "allo-temoins";
+function lireChoix() { try { return localStorage.getItem(CLE_TEMOINS); } catch (e) { return null; } }
+function garderChoix(c) { try { localStorage.setItem(CLE_TEMOINS, c); } catch (e) {} }
+function chargerMesureAudience() { /* rien pour l'instant */ }
+
+var bandeau = document.getElementById("temoins");
+if (bandeau) {
+  var choix = lireChoix();
+  if (choix === "accepte") chargerMesureAudience();
+  if (!choix) bandeau.hidden = false;
+  bandeau.querySelectorAll("[data-choix]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      garderChoix(b.dataset.choix);
+      bandeau.hidden = true;
+      if (b.dataset.choix === "accepte") chargerMesureAudience();
+    });
+  });
+  document.querySelectorAll(".gerer-temoins").forEach(function (lien) {
+    lien.addEventListener("click", function (e) { e.preventDefault(); bandeau.hidden = false; });
+  });
+}
