@@ -10,9 +10,9 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=11">
-  <link rel="stylesheet" href="assistant.css?v=11">
-  <link rel="stylesheet" href="anim.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="assistant.css?v=12">
+  <link rel="stylesheet" href="anim.css?v=12">
 </head>
 <body>
 
@@ -54,8 +54,8 @@
             <span class="mono en-direct"><span class="point"></span>En direct · <span class="chrono">00:00</span></span>
           </div>
           <div class="agent-voix">
+            <div class="orbe-ia" aria-hidden="true"><span class="orbe-icone">☎</span></div>
             <div class="onde" aria-hidden="true"><i style="--h:18"></i><i style="--h:34"></i><i style="--h:52"></i><i style="--h:70"></i><i style="--h:44"></i><i style="--h:88"></i><i style="--h:60"></i><i style="--h:96"></i><i style="--h:72"></i><i style="--h:40"></i><i style="--h:64"></i><i style="--h:92"></i><i style="--h:56"></i><i style="--h:30"></i><i style="--h:78"></i><i style="--h:50"></i><i style="--h:86"></i><i style="--h:62"></i><i style="--h:38"></i><i style="--h:70"></i><i style="--h:46"></i><i style="--h:26"></i><i style="--h:58"></i><i style="--h:34"></i><i style="--h:20"></i></div>
-            <div class="micro" aria-hidden="true"><span>☎</span></div>
             <p class="agent-nom">Allo · Français</p>
           </div>
           <div class="transcription">
@@ -236,9 +236,10 @@
     </div>
   </div>
 
-  <script src="script.js?v=11"></script>
-  <script src="assistant.js?v=11"></script>
-  <script src="anim.js?v=11"></script>
+  <script src="script.js?v=12"></script>
+  <script src="assistant.js?v=12"></script>
+  <script src="anim.js?v=12"></script>
+  <script src="ia-visuel.js?v=12"></script>
   <script>
     var pages = { "#solution": "solution.html", "#videos": "videos.html", "#forfaits": "forfaits.html", "#faq": "faq.html", "#contact": "contact.html" };
     if (pages[location.hash]) location.replace(pages[location.hash]);

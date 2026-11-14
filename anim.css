@@ -281,3 +281,22 @@
   .defilant-piste { animation: none; }
   .titre-mots .mot, .demo-ligne, .demo-carte { opacity: 1; transform: none; filter: none; }
 }
+
+/* ===== Visuels IA ===== */
+/* Réseau de neurones en fond d'en-tête */
+.reseau-ia { position: absolute; inset: 0; z-index: 0; opacity: 0.85; pointer-events: none; }
+.hero > .conteneur { z-index: 1; }
+
+/* Orbe IA en particules 3D */
+.orbe-ia { position: relative; width: 250px; max-width: 75%; aspect-ratio: 1; margin: -6px auto 0; }
+.orbe-ia canvas { position: absolute; inset: 0; }
+.orbe-icone {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--jaune); color: var(--bleu-fonce);
+  display: grid; place-items: center; font-size: 1.2rem;
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.6);
+  z-index: 1;
+  animation: respire 2.4s ease-in-out infinite;
+}
+.agent-voix .onde { height: 40px; margin-top: -4px; }
