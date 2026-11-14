@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installation — Allo Réception</title>
+  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME partout au Canada. Essai gratuit de 14 jours.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#070B1A">
+  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="assistant.css?v=13">
+  <link rel="stylesheet" href="anim.css?v=13">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur entete-contenu">
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <nav class="menu" id="menu">
+          <a href="index.html">Accueil</a>
+          <a href="solution.html">Solution</a>
+          <a href="videos.html">Vidéos</a>
+          <a href="forfaits.html">Forfaits</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        <a href="espace-client.html" class="lien-compte">Espace client</a>
+        <a href="contact.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section section-compte">
+      <div class="conteneur conteneur-compte large">
+        <div class="carte-compte">
+          <p class="surtitre">Forfait <span id="forfait-actuel"></span></p>
+          <h1 id="titre-installation">Installons votre réceptionniste</h1>
+          <p class="intro-compte">Ces informations servent à votre réceptionniste pour répondre à vos clients. Vous pourrez les modifier à tout moment.</p>
+          <p id="message" class="message" hidden></p>
+          <form id="form-installation" class="formulaire" hidden>
+            <div class="grille-2">
+              <label>Nom de l'entreprise *<input name="nom" required maxlength="80" placeholder="Garage Tremblay"></label>
+              <label>Secteur<input name="secteur" maxlength="80" placeholder="Garage, mécanique générale"></label>
+            </div>
+            <div class="grille-2">
+              <label>Adresse<input name="adresse" maxlength="200" placeholder="123 rue Principale, Gatineau"></label>
+              <label>Votre numéro de téléphone actuel<input name="telephone_entreprise" type="tel" maxlength="20" placeholder="819 555-1234"></label>
+            </div>
+            <label>Heures d'ouverture *<textarea name="heures" rows="2" required maxlength="500" placeholder="Lundi au vendredi 8 h à 17 h, samedi 9 h à 13 h, fermé le dimanche"></textarea></label>
+            <label>Services et prix<textarea name="services_prix" rows="4" maxlength="3000" placeholder="Changement d'huile : 79 $&#10;Pose de 4 pneus : 80 $&#10;Diagnostic : 95 $/h"></textarea></label>
+            <label>Consignes pour la réceptionniste<textarea name="consignes" rows="3" maxlength="2000" placeholder="Ex. : on ne fait pas de carrosserie. Pour une urgence, dire de laisser son numéro."></textarea></label>
+            <label>Courriel pour recevoir les résumés d'appels<input name="courriel_resumes" type="email" maxlength="200"></label>
+            <label>Choisir un mot de passe (pour vous reconnecter plus tard)<input name="motdepasse" type="password" autocomplete="new-password" minlength="8" placeholder="Laisser vide pour ne pas le changer"></label>
+            <button type="submit" class="bouton bouton-jaune">Enregistrer et activer ma réceptionniste</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur pied-grille">
+      <div>
+        <p class="logo">Allo <span>Réception</span></p>
+        <p>La réceptionniste IA bilingue des garages et PME de partout au Canada.</p>
+      </div>
+      <div>
+        <p class="pied-titre">Produit</p>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="videos.html">Vidéos</a>
+      </div>
+      <div>
+        <p class="pied-titre">Aide</p>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="#" class="gerer-temoins">Gérer les témoins</a>
+      </div>
+    </div>
+    <p class="pied-bas">© 2026 Allo Réception — Canada · <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+  </footer>
+
+  <div class="temoins" id="temoins" role="dialog" aria-labelledby="temoins-titre" hidden>
+    <p class="temoins-titre" id="temoins-titre">🍪 Témoins (cookies)</p>
+    <p>Ce site n'utilise que ce qui est nécessaire à son fonctionnement. Avec votre accord, nous pourrions mesurer les visites de façon anonyme pour améliorer le site. <a href="confidentialite.html">En savoir plus</a></p>
+    <div class="temoins-boutons">
+      <button type="button" class="bouton bouton-contour" data-choix="refuse">Refuser</button>
+      <button type="button" class="bouton bouton-bleu" data-choix="accepte">Accepter</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=13"></script>
+  <script src="assistant.js?v=13"></script>
+  <script src="anim.js?v=13"></script>
+  <script src="ia-visuel.js?v=13"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js?v=13"></script>
+  <script>document.body.dataset.page = "installation";</script>
+  <script src="compte.js?v=13"></script>
+</body>
+</html>

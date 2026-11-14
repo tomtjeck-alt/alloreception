@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion — Allo Réception</title>
+  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME partout au Canada. Essai gratuit de 14 jours.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#070B1A">
+  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="assistant.css?v=13">
+  <link rel="stylesheet" href="anim.css?v=13">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur entete-contenu">
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <nav class="menu" id="menu">
+          <a href="index.html">Accueil</a>
+          <a href="solution.html">Solution</a>
+          <a href="videos.html">Vidéos</a>
+          <a href="forfaits.html">Forfaits</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        <a href="espace-client.html" class="lien-compte">Espace client</a>
+        <a href="contact.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section section-compte">
+      <div class="conteneur conteneur-compte">
+        <div class="carte-compte">
+          <p class="surtitre">Espace client</p>
+          <h1>Connexion</h1>
+          <p id="message" class="message" hidden></p>
+          <form id="form-connexion" class="formulaire">
+            <label>Courriel<input type="email" name="courriel" autocomplete="email" required></label>
+            <label>Mot de passe<input type="password" name="motdepasse" autocomplete="current-password" required></label>
+            <button type="submit" class="bouton bouton-jaune">Se connecter</button>
+            <div class="liens-compte">
+              <button type="button" id="lien-magique" class="lien">Recevoir un lien de connexion par courriel</button>
+              <button type="button" id="oubli" class="lien">Mot de passe oublié ?</button>
+            </div>
+          </form>
+          <form id="form-nouveau" class="formulaire" hidden>
+            <label>Nouveau mot de passe (8 caractères minimum)<input type="password" name="motdepasse" autocomplete="new-password" minlength="8" required></label>
+            <button type="submit" class="bouton bouton-jaune">Enregistrer</button>
+          </form>
+          <p class="note-compte">Pas encore client ? <a href="forfaits.html">Voir les forfaits</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur pied-grille">
+      <div>
+        <p class="logo">Allo <span>Réception</span></p>
+        <p>La réceptionniste IA bilingue des garages et PME de partout au Canada.</p>
+      </div>
+      <div>
+        <p class="pied-titre">Produit</p>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="videos.html">Vidéos</a>
+      </div>
+      <div>
+        <p class="pied-titre">Aide</p>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="#" class="gerer-temoins">Gérer les témoins</a>
+      </div>
+    </div>
+    <p class="pied-bas">© 2026 Allo Réception — Canada · <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+  </footer>
+
+  <div class="temoins" id="temoins" role="dialog" aria-labelledby="temoins-titre" hidden>
+    <p class="temoins-titre" id="temoins-titre">🍪 Témoins (cookies)</p>
+    <p>Ce site n'utilise que ce qui est nécessaire à son fonctionnement. Avec votre accord, nous pourrions mesurer les visites de façon anonyme pour améliorer le site. <a href="confidentialite.html">En savoir plus</a></p>
+    <div class="temoins-boutons">
+      <button type="button" class="bouton bouton-contour" data-choix="refuse">Refuser</button>
+      <button type="button" class="bouton bouton-bleu" data-choix="accepte">Accepter</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=13"></script>
+  <script src="assistant.js?v=13"></script>
+  <script src="anim.js?v=13"></script>
+  <script src="ia-visuel.js?v=13"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js?v=13"></script>
+  <script>document.body.dataset.page = "connexion";</script>
+  <script src="compte.js?v=13"></script>
+</body>
+</html>
