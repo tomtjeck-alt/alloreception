@@ -6,6 +6,11 @@ window.ALLO_CONFIG = {
   supabaseUrl: "https://gippffybbnhbnrxqwlla.supabase.co",
   supabaseCleAnon: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpcHBmZnliYm5oYm5yeHF3bGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1ODU3MjEsImV4cCI6MjExMDE2MTcyMX0.lyqQI2B70m6LC1c0DLShbMZCs0EP7JvrePkhGLSnmno",   // clé publique « anon » (rôle vérifié : anon)
 
+  // --- Paiement intégré (fenêtre « style Canva », page Forfaits) ---
+  // Clé PUBLIABLE Stripe (pk_live_…), jamais la clé secrète sk_live_…
+  // Tant que c'est "A_REMPLACER", la fenêtre envoie vers les liens de paiement Stripe.
+  stripeClePublique: "A_REMPLACER",
+
   // --- Formulaire de devis (page Contact) ---
   // Clé gratuite : https://web3forms.com → entrer contact@alloreception.ca → la clé arrive par courriel.
   // Tant que c'est "A_REMPLACER", le formulaire ouvre le logiciel de courriel du visiteur à la place.

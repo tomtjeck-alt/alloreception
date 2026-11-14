@@ -710,3 +710,81 @@ details.appel summary .duree { color: var(--texte-doux); font-size: 0.88rem; fon
 .note-formulaire { margin: 0; font-size: 0.85rem; color: var(--texte-doux); }
 .contact-grille-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 32px; }
 .contact-carte[hidden] { display: none; }
+
+/* ===== Fenêtre de paiement (style Canva) ===== */
+.mention-essai { margin: 10px 0 0; text-align: center; font-size: 0.82rem; color: var(--texte-doux); }
+dialog.paiement {
+  width: min(980px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--bordure-forte);
+  border-radius: 24px;
+  background: var(--carte);
+  color: var(--texte);
+  box-shadow: var(--ombre-forte);
+  overflow: auto;
+}
+dialog.paiement::backdrop { background: rgba(3, 6, 16, 0.72); backdrop-filter: blur(4px); }
+.paiement-fermer {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--bordure-forte); background: var(--fond-2); color: var(--titre);
+  font-size: 1rem; cursor: pointer;
+}
+.paiement-fermer:hover { border-color: var(--jaune); }
+.paiement-grille { display: grid; grid-template-columns: 1fr 1fr; }
+.paiement-resume { padding: 40px; border-right: 1px solid var(--bordure); }
+.paiement-etiquette { color: var(--jaune); margin: 0 0 6px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.paiement-resume h2 { font-size: 2rem; margin: 0 0 22px; }
+
+.paiement-periodes { display: grid; gap: 10px; margin-bottom: 28px; }
+.periode-choix {
+  display: flex; gap: 12px; align-items: center;
+  padding: 14px 16px; border: 1px solid var(--bordure-forte); border-radius: 14px;
+  background: var(--fond-2); cursor: pointer;
+}
+.periode-choix:has(input:checked) { border-color: var(--jaune); box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.15); }
+.periode-choix input { accent-color: var(--jaune); width: 18px; height: 18px; flex: none; }
+.periode-choix span { display: grid; gap: 2px; color: var(--titre); }
+.periode-choix small { color: var(--texte-doux); font-size: 0.88rem; }
+.periode-choix .economie { font-style: normal; justify-self: start; }
+
+.ligne-temps { list-style: none; margin: 0 0 22px; padding: 0; position: relative; }
+.ligne-temps::before {
+  content: ""; position: absolute; left: 19px; top: 22px; bottom: 22px; width: 2px;
+  background: linear-gradient(var(--jaune), var(--bordure-forte));
+}
+.ligne-temps li { display: flex; gap: 14px; position: relative; padding-bottom: 18px; }
+.ligne-temps li:last-child { padding-bottom: 0; }
+.lt-icone {
+  flex: none; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.05rem;
+  background: var(--fond-2); border: 1px solid var(--bordure-forte);
+}
+.lt-actif .lt-icone { background: rgba(250, 204, 21, 0.15); border-color: var(--jaune); }
+.ligne-temps strong { display: block; color: var(--titre); margin-bottom: 2px; }
+.ligne-temps div { font-size: 0.92rem; color: var(--texte-doux); padding-top: 2px; }
+.paiement-garanties { margin: 0; font-size: 0.82rem; color: var(--texte-doux); }
+
+.paiement-carte { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+.checkout-zone { display: none; min-height: 420px; border-radius: 16px; overflow: hidden; background: #fff; }
+dialog.paiement.integre .checkout-zone { display: block; }
+dialog.paiement.integre .checkout-secours { display: none; }
+.checkout-chargement { color: #4B5563; text-align: center; padding: 160px 20px; margin: 0; }
+.checkout-secours .mono { color: var(--vert); margin: 0 0 8px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.checkout-secours h3 { font-size: 1.5rem; margin: 0 0 12px; }
+.checkout-secours p { color: var(--texte-doux); }
+.checkout-secours .bouton { width: 100%; margin: 12px 0; }
+.paiement-logos { font-size: 0.85rem; text-align: center; }
+
+@media (max-width: 760px) {
+  .paiement-grille { grid-template-columns: 1fr; }
+  .paiement-resume { border-right: none; border-bottom: 1px solid var(--bordure); padding: 28px 22px; }
+  .paiement-carte { padding: 24px 22px 28px; }
+  .paiement-resume h2 { font-size: 1.6rem; padding-right: 40px; }
+}
+
+/* ===== Page Merci (après le paiement) ===== */
+.merci { text-align: center; }
+.merci-icone { font-size: 3rem; margin: 0 0 8px; }
+.merci .etapes { text-align: left; margin-top: 28px; }

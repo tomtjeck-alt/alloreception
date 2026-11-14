@@ -20,10 +20,8 @@ function choisirPeriode(periode) {
   document.querySelectorAll(".prix-detail").forEach(function (el) {
     el.textContent = el.dataset[periode];
   });
-  // Abonnement direct : lien de paiement Stripe mensuel ou annuel
-  document.querySelectorAll(".lien-abonner").forEach(function (el) {
-    el.href = el.dataset[periode + "Href"];
-  });
+  // La fenêtre de paiement (paiement.js) s'ouvre sur la même période
+  window.periodeChoisie = periode;
 }
 var boutonsPeriode = document.querySelectorAll(".bascule button");
 if (boutonsPeriode.length) {

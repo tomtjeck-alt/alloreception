@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=15">
   <link rel="stylesheet" href="assistant.css?v=14">
   <link rel="stylesheet" href="anim.css?v=14">
 </head>
@@ -55,8 +55,9 @@
             <p class="prix"><span class="montant" data-mensuel="199" data-annuel="166">199 $</span><span class="par">/mois</span></p>
             <p class="prix-detail" data-mensuel="Facturé chaque mois · installation 149 $" data-annuel="Facturé 1 990 $ par an · 2 mois gratuits · installation offerte">Facturé chaque mois · installation 149 $</p>
             <p class="minutes"><strong>200 minutes</strong> d'appel incluses par mois</p>
-            <a href="contact.html?forfait=essentiel" class="bouton bouton-bleu">Essai gratuit de 14 jours</a>
-            <a href="https://buy.stripe.com/6oUdRa4AA17NgoGe0Cd3i03" class="lien-abonner" data-mensuel-href="https://buy.stripe.com/14A5kEffe3fVgoG09Md3i02" data-annuel-href="https://buy.stripe.com/6oUdRa4AA17NgoGe0Cd3i03" target="_blank" rel="noopener">ou s'abonner directement →</a>
+            <button type="button" class="bouton bouton-bleu ouvrir-paiement" data-forfait="essentiel" data-mensuel-href="https://buy.stripe.com/14A5kEffe3fVgoG09Md3i02" data-annuel-href="https://buy.stripe.com/6oUdRa4AA17NgoGe0Cd3i03">Essai gratuit de 14 jours</button>
+            <p class="mention-essai">Carte demandée · 0 $ aujourd'hui</p>
+            <a href="contact.html?forfait=essentiel" class="lien-abonner">Une question avant ? Écrivez-nous →</a>
             <ul class="liste-coches petite"><li>Réponse aux appels 24/7</li><li>Infos sur votre entreprise</li><li>Résumé des appels par courriel</li></ul>
           </div>
           <div class="forfait forfait-vedette">
@@ -65,8 +66,9 @@
             <p class="prix"><span class="montant" data-mensuel="399" data-annuel="333">399 $</span><span class="par">/mois</span></p>
             <p class="prix-detail" data-mensuel="Facturé chaque mois · installation 149 $" data-annuel="Facturé 3 990 $ par an · 2 mois gratuits · installation offerte">Facturé chaque mois · installation 149 $</p>
             <p class="minutes"><strong>500 minutes</strong> d'appel incluses par mois</p>
-            <a href="contact.html?forfait=pro" class="bouton bouton-jaune">Essai gratuit de 14 jours</a>
-            <a href="https://buy.stripe.com/28EeVed762bRfkC1dQd3i04" class="lien-abonner" data-mensuel-href="https://buy.stripe.com/6oU00k4AA7wbb4maOqd3i01" data-annuel-href="https://buy.stripe.com/28EeVed762bRfkC1dQd3i04" target="_blank" rel="noopener">ou s'abonner directement →</a>
+            <button type="button" class="bouton bouton-jaune ouvrir-paiement" data-forfait="pro" data-mensuel-href="https://buy.stripe.com/6oU00k4AA7wbb4maOqd3i01" data-annuel-href="https://buy.stripe.com/28EeVed762bRfkC1dQd3i04">Essai gratuit de 14 jours</button>
+            <p class="mention-essai">Carte demandée · 0 $ aujourd'hui</p>
+            <a href="contact.html?forfait=pro" class="lien-abonner">Une question avant ? Écrivez-nous →</a>
             <ul class="liste-coches petite"><li>Tout l'Essentiel</li><li>Prise de rendez-vous</li><li>Bilingue français-anglais</li></ul>
           </div>
           <div class="forfait">
@@ -75,8 +77,9 @@
             <p class="prix"><span class="montant" data-mensuel="699" data-annuel="583">699 $</span><span class="par">/mois</span></p>
             <p class="prix-detail" data-mensuel="Facturé chaque mois · installation 149 $" data-annuel="Facturé 6 990 $ par an · 2 mois gratuits · installation offerte">Facturé chaque mois · installation 149 $</p>
             <p class="minutes"><strong>1 000 minutes</strong> d'appel incluses par mois</p>
-            <a href="contact.html?forfait=premium" class="bouton bouton-bleu">Essai gratuit de 14 jours</a>
-            <a href="https://buy.stripe.com/7sYbJ27MM2bRb4mcWyd3i05" class="lien-abonner" data-mensuel-href="https://buy.stripe.com/aFa4gAd76bMr6O61dQd3i00" data-annuel-href="https://buy.stripe.com/7sYbJ27MM2bRb4mcWyd3i05" target="_blank" rel="noopener">ou s'abonner directement →</a>
+            <button type="button" class="bouton bouton-bleu ouvrir-paiement" data-forfait="premium" data-mensuel-href="https://buy.stripe.com/aFa4gAd76bMr6O61dQd3i00" data-annuel-href="https://buy.stripe.com/7sYbJ27MM2bRb4mcWyd3i05">Essai gratuit de 14 jours</button>
+            <p class="mention-essai">Carte demandée · 0 $ aujourd'hui</p>
+            <a href="contact.html?forfait=premium" class="lien-abonner">Une question avant ? Écrivez-nous →</a>
             <ul class="liste-coches petite"><li>Tout le Pro</li><li>Rapports mensuels</li><li>Voix et réponses personnalisées</li></ul>
           </div>
         </div>
@@ -196,10 +199,60 @@
     </div>
   </div>
 
-  <script src="config.js?v=14"></script>
-  <script src="script.js?v=16"></script>
+
+  <!-- ===== Fenêtre de paiement (style Canva) ===== -->
+  <dialog class="paiement" id="paiement" aria-labelledby="paiement-titre">
+    <button type="button" class="paiement-fermer" aria-label="Fermer">✕</button>
+    <div class="paiement-grille">
+      <div class="paiement-resume">
+        <p class="mono paiement-etiquette">Essai gratuit de 14 jours</p>
+        <h2 id="paiement-titre">Forfait <span id="p-nom">Pro</span></h2>
+        <div class="paiement-periodes" role="radiogroup" aria-label="Période de facturation">
+          <label class="periode-choix">
+            <input type="radio" name="p-periode" value="annuel" checked>
+            <span><strong>Annuel</strong> <em class="economie">2 mois gratuits</em><small id="p-prix-annuel"></small></span>
+          </label>
+          <label class="periode-choix">
+            <input type="radio" name="p-periode" value="mensuel">
+            <span><strong>Mensuel</strong><small id="p-prix-mensuel"></small></span>
+          </label>
+        </div>
+
+        <ol class="ligne-temps">
+          <li class="lt-actif">
+            <span class="lt-icone" aria-hidden="true">🔓</span>
+            <div><strong>Aujourd'hui · 0 $</strong>Votre réceptionniste est installée et répond à vos clients (jusqu'à 40 minutes d'appel).</div>
+          </li>
+          <li>
+            <span class="lt-icone" aria-hidden="true">🔔</span>
+            <div><strong id="p-date-rappel">Jour 7</strong>On vous envoie un rappel par courriel. Annulez en 1 clic si ça ne vous convient pas.</div>
+          </li>
+          <li>
+            <span class="lt-icone" aria-hidden="true">💳</span>
+            <div><strong id="p-date-paiement">Jour 15</strong>Premier paiement : <span id="p-montant"></span> (taxes en sus).</div>
+          </li>
+        </ol>
+        <p class="paiement-garanties">✓ Aucun frais avant le 15<sup>e</sup> jour &nbsp;·&nbsp; ✓ Sans contrat en mensuel &nbsp;·&nbsp; ✓ Paiement sécurisé par Stripe</p>
+      </div>
+
+      <div class="paiement-carte">
+        <div id="checkout" class="checkout-zone"></div>
+        <div id="checkout-secours" class="checkout-secours">
+          <p class="mono">Paiement sécurisé</p>
+          <h3>Entrez votre carte, payez 0 $ aujourd'hui</h3>
+          <p>Vous serez redirigé vers la page sécurisée de Stripe pour entrer votre carte. Aucun montant n'est prélevé avant la fin de l'essai.</p>
+          <a href="#" id="p-lien-stripe" class="bouton bouton-jaune" target="_blank" rel="noopener">Continuer vers le paiement sécurisé</a>
+          <p class="paiement-logos">🔒 Visa · Mastercard · Amex · Apple Pay · Google Pay</p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="config.js?v=15"></script>
+  <script src="script.js?v=17"></script>
   <script src="assistant.js?v=14"></script>
   <script src="anim.js?v=14"></script>
   <script src="ia-visuel.js?v=14"></script>
+  <script src="paiement.js?v=1"></script>
 </body>
 </html>
