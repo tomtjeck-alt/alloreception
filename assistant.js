@@ -115,7 +115,7 @@
       "• " + f.min + " minutes d'appel incluses par mois<br>" +
       (r.nbNumeros ? "• " + r.nbNumeros + " numéro" + s + " supplémentaire" + s + " (+49 $/mois chacun)<br>" : "") +
       "• Total : <strong>" + total + " $/mois</strong>, ou 2 mois gratuits en payant à l'année<br>" +
-      "• 14 jours d'essai gratuit";
+      "• 14 jours d'essai gratuit (jusqu'à 40 minutes d'appel)";
     var resume = "Bonjour,\n\nVoici mes réponses à l'assistante du site :\n" +
       QUESTIONS.map(function (q) { return "- " + q.court + " : " + reponses[q.id]; }).join("\n") +
       "\n\nForfait recommandé : " + f.nom + " (" + total + " $/mois)" +
