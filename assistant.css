@@ -1,0 +1,90 @@
+/* ===== Assistant virtuel (bulle en bas à droite) ===== */
+.assistant { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; flex-direction: column; align-items: flex-end; }
+.assistant-bulle {
+  position: relative;
+  width: 62px; height: 62px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bleu);
+  color: var(--blanc);
+  font-size: 1.7rem;
+  cursor: pointer;
+  box-shadow: var(--ombre-forte);
+  transition: transform 0.2s;
+  display: grid; place-items: center;
+}
+.assistant-bulle:hover { transform: scale(1.07); }
+.assistant-ouvert .assistant-bulle-icone { font-size: 0; }
+.assistant-ouvert .assistant-bulle-icone::before { content: "✕"; font-size: 1.4rem; }
+.assistant-pastille {
+  position: absolute; top: -2px; right: -2px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--jaune); color: var(--bleu-fonce);
+  font-size: 0.75rem; font-weight: 800;
+  display: grid; place-items: center;
+  border: 2px solid var(--blanc);
+}
+.assistant-panneau {
+  width: 370px;
+  max-width: calc(100vw - 32px);
+  height: 560px;
+  max-height: calc(100vh - 120px);
+  background: var(--blanc);
+  border-radius: 20px;
+  box-shadow: var(--ombre-forte);
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--bordure);
+}
+.assistant-panneau[hidden] { display: none; }
+.assistant-entete {
+  background: linear-gradient(160deg, var(--bleu), var(--bleu-fonce));
+  color: var(--blanc);
+  padding: 16px 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.assistant-avatar {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: var(--jaune); color: var(--bleu-fonce);
+  display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0;
+}
+.assistant-nom { margin: 0; font-weight: 700; }
+.assistant-statut { margin: 0; font-size: 0.8rem; opacity: 0.85; }
+.assistant-statut::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22C55E; margin-right: 6px; vertical-align: middle; }
+.assistant-fermer { margin-left: auto; background: none; border: none; color: var(--blanc); font-size: 1.1rem; cursor: pointer; padding: 6px; opacity: 0.8; }
+.assistant-fermer:hover { opacity: 1; }
+.assistant-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: var(--gris-clair);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.assistant-msg { max-width: 85%; padding: 10px 14px; border-radius: 16px; font-size: 0.93rem; line-height: 1.45; animation: assistant-apparait 0.25s ease; }
+.assistant-msg-ia { background: var(--blanc); color: var(--texte); border: 1px solid var(--bordure); border-bottom-left-radius: 4px; align-self: flex-start; }
+.assistant-msg-client { background: var(--bleu); color: var(--blanc); border-bottom-right-radius: 4px; align-self: flex-end; }
+.assistant-ecrit { display: flex; gap: 4px; padding: 14px; }
+.assistant-ecrit span { width: 7px; height: 7px; border-radius: 50%; background: var(--texte-doux); animation: assistant-points 1s infinite; }
+.assistant-ecrit span:nth-child(2) { animation-delay: 0.15s; }
+.assistant-ecrit span:nth-child(3) { animation-delay: 0.3s; }
+.assistant-choix { padding: 12px; display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--bordure); background: var(--blanc); }
+.assistant-choix:empty { display: none; }
+.assistant-option {
+  font: inherit; font-size: 0.88rem; font-weight: 600;
+  border: 1.5px solid var(--bleu); color: var(--bleu); background: var(--blanc);
+  border-radius: 999px; padding: 8px 14px; cursor: pointer; text-decoration: none;
+}
+.assistant-option:hover { background: var(--bleu-clair); }
+.assistant-option-principale { background: var(--jaune); border-color: var(--jaune); color: var(--bleu-fonce); }
+.assistant-option-principale:hover { background: var(--jaune-fonce); }
+@keyframes assistant-apparait { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes assistant-points { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+@media (max-width: 640px) {
+  .assistant { right: 12px; bottom: 12px; }
+  .assistant-panneau { height: calc(100vh - 100px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .assistant-msg, .assistant-ecrit span { animation: none; }
+}
