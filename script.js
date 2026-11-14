@@ -122,6 +122,7 @@ if (formDevis) {
     if (!cle) {
       location.href = "mailto:contact@alloreception.ca?subject=" +
         encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps);
+      afficherDevis("Votre logiciel de courriel devrait s'ouvrir avec votre demande. S'il ne s'ouvre pas, écrivez-nous directement à contact@alloreception.ca.", "info");
       return;
     }
 
