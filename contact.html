@@ -10,9 +10,9 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=13">
-  <link rel="stylesheet" href="assistant.css?v=13">
-  <link rel="stylesheet" href="anim.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="assistant.css?v=14">
+  <link rel="stylesheet" href="anim.css?v=14">
 </head>
 <body>
 
@@ -44,7 +44,51 @@
     </section>
 
     <section class="section">
-      <div class="conteneur contact-grille">
+      <div class="conteneur conteneur-compte large">
+        <div class="carte-compte">
+          <h2>Demander un devis ou un essai</h2>
+          <p class="intro-compte">Remplissez ce formulaire : on vous répond en moins de 24 h (jours ouvrables).</p>
+          <form id="form-devis" class="formulaire" novalidate>
+            <div class="grille-2">
+              <label>Votre nom
+                <input type="text" name="nom" autocomplete="name" required>
+              </label>
+              <label>Nom de l'entreprise
+                <input type="text" name="entreprise" autocomplete="organization" required>
+              </label>
+            </div>
+            <div class="grille-2">
+              <label>Courriel
+                <input type="email" name="courriel" autocomplete="email" required>
+              </label>
+              <label>Téléphone (facultatif)
+                <input type="tel" name="telephone" autocomplete="tel">
+              </label>
+            </div>
+            <label>Forfait qui vous intéresse
+              <select name="forfait" id="champ-forfait">
+                <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+                <option value="essentiel">Essentiel (mensuel)</option>
+                <option value="pro">Pro (mensuel)</option>
+                <option value="premium">Premium (mensuel)</option>
+                <option value="essentiel-annuel">Essentiel (annuel)</option>
+                <option value="pro-annuel">Pro (annuel)</option>
+                <option value="premium-annuel">Premium (annuel)</option>
+              </select>
+            </label>
+            <label>Votre message (facultatif)
+              <textarea name="message" rows="4" placeholder="Ex. : garage de 4 baies, on manque environ 10 appels par semaine."></textarea>
+            </label>
+            <!-- Piège à robots : caché aux humains -->
+            <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="bouton bouton-jaune">Envoyer ma demande</button>
+            <p class="note-formulaire">En envoyant ce formulaire, vous acceptez qu'on utilise ces renseignements pour vous répondre. <a href="confidentialite.html">Confidentialité</a></p>
+          </form>
+          <p class="message" id="devis-message" role="status" hidden></p>
+        </div>
+      </div>
+
+      <div class="conteneur contact-grille contact-grille-3">
         <div class="contact-carte">
           <span class="carte-icone">💬</span>
           <h2>Sur Facebook</h2>
@@ -56,6 +100,12 @@
           <h2>Par courriel</h2>
           <p>Dites-nous le nom de votre entreprise et le forfait qui vous intéresse.</p>
           <a href="mailto:contact@alloreception.ca?subject=Essai%20gratuit%20Allo%20R%C3%A9ception" class="bouton bouton-bleu" id="lien-courriel">contact@alloreception.ca</a>
+        </div>
+        <div class="contact-carte" id="carte-rdv" hidden>
+          <span class="carte-icone">📅</span>
+          <h2>Réserver un appel</h2>
+          <p>Choisissez un moment pour un appel de 15 minutes avec nous.</p>
+          <a href="#" class="bouton bouton-contour" id="lien-rdv" target="_blank" rel="noopener">Voir les disponibilités</a>
         </div>
       </div>
       <div class="conteneur">
@@ -96,9 +146,10 @@
     </div>
   </div>
 
-  <script src="script.js?v=13"></script>
-  <script src="assistant.js?v=13"></script>
-  <script src="anim.js?v=13"></script>
-  <script src="ia-visuel.js?v=13"></script>
+  <script src="config.js?v=14"></script>
+  <script src="script.js?v=14"></script>
+  <script src="assistant.js?v=14"></script>
+  <script src="anim.js?v=14"></script>
+  <script src="ia-visuel.js?v=14"></script>
 </body>
 </html>

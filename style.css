@@ -694,3 +694,19 @@ details.appel summary .duree { color: var(--texte-doux); font-size: 0.88rem; fon
 
 /* Un élément caché reste caché, même s'il a un style d'affichage */
 [hidden] { display: none !important; }
+
+/* ===== Page Contact : formulaire de devis ===== */
+.formulaire select {
+  font: inherit; font-weight: 400; font-size: 1rem;
+  color: var(--titre);
+  background: var(--fond-2);
+  border: 1px solid var(--bordure-forte);
+  border-radius: 12px;
+  padding: 12px 14px;
+  width: 100%;
+}
+.formulaire select:focus { outline: none; border-color: var(--jaune); box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.18); }
+.formulaire .piege { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.note-formulaire { margin: 0; font-size: 0.85rem; color: var(--texte-doux); }
+.contact-grille-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 32px; }
+.contact-carte[hidden] { display: none; }
