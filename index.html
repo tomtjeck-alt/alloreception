@@ -9,10 +9,10 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#1E3A8A">
-  <link rel="stylesheet" href="style.css?v=9">
-  <link rel="stylesheet" href="assistant.css?v=9">
-  <link rel="stylesheet" href="anim.css?v=9">
+  <meta name="theme-color" content="#070B1A">
+  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="assistant.css?v=10">
+  <link rel="stylesheet" href="anim.css?v=10">
 </head>
 <body>
 
@@ -37,29 +37,38 @@
     <section class="hero">
       <div class="conteneur hero-grille">
         <div>
-          <p class="pastille">🇨🇦 Partout au Canada · Français et anglais</p>
-          <h1>Ne perdez plus jamais un appel.</h1>
+          <p class="surtitre surtitre-hero">Réceptionniste IA · Partout au Canada</p>
+          <h1>Ne perdez plus jamais <span class="accent">un appel.</span></h1>
           <p class="rotatif">Votre réceptionniste répond <span class="mot-rotatif" data-mots="le soir|la fin de semaine|quand vous êtes sous une voiture|en français et en anglais|les jours fériés">le soir</span></p>
           <p class="sous-titre">Allo Réception est la réceptionniste IA qui répond à vos clients 24 h sur 24, prend les rendez-vous et vous envoie un résumé. Pendant ce temps, vous travaillez.</p>
           <div class="boutons">
             <a href="contact.html" class="bouton bouton-jaune">Essai gratuit de 14 jours</a>
             <a href="videos.html" class="bouton bouton-contour-clair">Voir une démo ▶</a>
           </div>
-          <ul class="garanties">
-            <li>✓ Sans contrat</li><li>✓ Installation faite pour vous</li><li>✓ Annulable en tout temps</li>
-          </ul>
+          <p class="garanties">14 jours ou 40 minutes gratuits · Sans contrat · Installation faite pour vous</p>
         </div>
-        <div class="maquette maquette-animee" aria-label="Exemple de résumé d'appel">
-          <div class="maquette-entete"><span class="point"></span>Résumé d'appel · 21 h 42</div>
-          <div class="bulle bulle-client">Bonjour, j'ai une crevaison. Vous êtes ouverts demain ?</div>
-          <div class="bulle bulle-ia">Bonjour ! Oui, dès 8 h. Je peux vous réserver 8 h 30. Ça vous convient ?</div>
-          <div class="bulle bulle-client">Parfait, merci !</div>
-          <div class="maquette-resume">
-            <p><strong>Client :</strong> Marc T. · Honda Civic</p>
-            <p><strong>Besoin :</strong> réparation de crevaison</p>
-            <p class="ok">✓ RDV demain 8 h 30 ajouté au calendrier</p>
+
+        <div class="agent maquette-animee" aria-label="Exemple d'appel répondu par Allo Réception">
+          <div class="agent-entete">
+            <span class="mono">Exemple d'appel</span>
+            <span class="mono en-direct"><span class="point"></span>En direct · 21 h 42</span>
           </div>
-          <p class="maquette-note">Exemple illustratif</p>
+          <div class="agent-voix">
+            <div class="onde" aria-hidden="true"><i style="--h:18"></i><i style="--h:34"></i><i style="--h:52"></i><i style="--h:70"></i><i style="--h:44"></i><i style="--h:88"></i><i style="--h:60"></i><i style="--h:96"></i><i style="--h:72"></i><i style="--h:40"></i><i style="--h:64"></i><i style="--h:92"></i><i style="--h:56"></i><i style="--h:30"></i><i style="--h:78"></i><i style="--h:50"></i><i style="--h:86"></i><i style="--h:62"></i><i style="--h:38"></i><i style="--h:70"></i><i style="--h:46"></i><i style="--h:26"></i><i style="--h:58"></i><i style="--h:34"></i><i style="--h:20"></i></div>
+            <div class="micro" aria-hidden="true"><span>☎</span></div>
+            <p class="agent-nom">Allo · Français</p>
+          </div>
+          <div class="transcription">
+            <p class="bulle"><span class="mono">00:02</span><strong>Client</strong>Bonjour, j'ai une crevaison. Vous êtes ouverts demain ?</p>
+            <p class="bulle bulle-ia"><span class="mono">00:06</span><strong>Allo</strong>Oui, dès 8 h. Je peux vous réserver 8 h 30. Ça vous convient ?</p>
+            <p class="bulle"><span class="mono">00:11</span><strong>Client</strong>Parfait, merci !</p>
+            <p class="maquette-resume"><span class="mono">Résultat</span>✓ RDV demain 8 h 30 ajouté au calendrier · résumé envoyé</p>
+          </div>
+          <div class="agent-stats">
+            <div><strong>24 h/24</strong><span>7 jours sur 7</span></div>
+            <div><strong>FR + EN</strong><span>Bilingue</span></div>
+            <div><strong>Résumé</strong><span>Après chaque appel</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -75,6 +84,21 @@
 
     <section class="section">
       <div class="conteneur">
+        <div class="panneau-comparaison">
+          <p class="mono etiquette">Coût par mois · Ce que vous payez pour ne rater aucun appel</p>
+          <div class="barres">
+            <div class="barre-ligne"><span>Réceptionniste à temps plein</span><div class="barre"><i style="--l:100%"></i></div><b>3 000 $ et plus</b></div>
+            <div class="barre-ligne"><span>Allo Réception Premium</span><div class="barre"><i class="jaune" style="--l:23%"></i></div><b>699 $</b></div>
+            <div class="barre-ligne"><span>Allo Réception Pro</span><div class="barre"><i class="jaune" style="--l:13%"></i></div><b>399 $</b></div>
+            <div class="barre-ligne"><span>Allo Réception Essentiel</span><div class="barre"><i class="jaune" style="--l:7%"></i></div><b>199 $</b></div>
+          </div>
+          <p class="barres-note"><strong>Jusqu'à 15 fois moins cher</strong> qu'une réceptionniste, et disponible la nuit et la fin de semaine.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-claire">
+      <div class="conteneur">
         <p class="surtitre">Le problème</p>
         <h2>Vos problèmes, on les connaît</h2>
         <ul class="cartes">
@@ -87,7 +111,7 @@
       </div>
     </section>
 
-    <section class="section section-claire">
+    <section class="section">
       <div class="conteneur">
         <p class="surtitre">Comment ça marche</p>
         <h2>Prêt en 3 étapes</h2>
@@ -178,9 +202,9 @@
     </div>
   </div>
 
-  <script src="script.js?v=9"></script>
-  <script src="assistant.js?v=9"></script>
-  <script src="anim.js?v=9"></script>
+  <script src="script.js?v=10"></script>
+  <script src="assistant.js?v=10"></script>
+  <script src="anim.js?v=10"></script>
   <script>
     var pages = { "#solution": "solution.html", "#videos": "videos.html", "#forfaits": "forfaits.html", "#faq": "faq.html", "#contact": "contact.html" };
     if (pages[location.hash]) location.replace(pages[location.hash]);

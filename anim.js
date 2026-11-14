@@ -6,7 +6,7 @@
   // 1. Apparition des éléments quand on fait défiler la page
   var cibles = document.querySelectorAll(
     ".section h2, .surtitre, .carte, .fonctions li, .etapes li, .apercu, .forfait, .calculateur, " +
-    ".tableau-conteneur, details, .contact-carte, .grille-videos video, .chiffres > div, .cta-final .boutons-centre"
+    ".tableau-conteneur, details, .contact-carte, .grille-videos video, .chiffres > div, .cta-final .boutons-centre, .panneau-comparaison"
   );
   // Décalage pour que les éléments d'une même grille arrivent l'un après l'autre
   cibles.forEach(function (el) {
