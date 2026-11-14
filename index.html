@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Allo Réception — Réceptionniste IA bilingue à Ottawa-Gatineau</title>
   <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau. Essai gratuit de 14 jours.">
-  <link rel="stylesheet" href="style.css?v=8">
-  <link rel="stylesheet" href="assistant.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="assistant.css?v=9">
+  <link rel="stylesheet" href="anim.css?v=9">
 </head>
 <body>
 
@@ -33,6 +34,7 @@
         <div>
           <p class="pastille">Nouveau à Ottawa-Gatineau · Français et anglais</p>
           <h1>Ne perdez plus jamais un appel.</h1>
+          <p class="rotatif">Votre réceptionniste répond <span class="mot-rotatif" data-mots="le soir|la fin de semaine|quand vous êtes sous une voiture|en français et en anglais|les jours fériés">le soir</span></p>
           <p class="sous-titre">Allo Réception est la réceptionniste IA qui répond à vos clients 24 h sur 24, prend les rendez-vous et vous envoie un résumé. Pendant ce temps, vous travaillez.</p>
           <div class="boutons">
             <a href="contact.html" class="bouton bouton-jaune">Essai gratuit de 14 jours</a>
@@ -42,7 +44,7 @@
             <li>✓ Sans contrat</li><li>✓ Installation faite pour vous</li><li>✓ Annulable en tout temps</li>
           </ul>
         </div>
-        <div class="maquette" aria-label="Exemple de résumé d'appel">
+        <div class="maquette maquette-animee" aria-label="Exemple de résumé d'appel">
           <div class="maquette-entete"><span class="point"></span>Résumé d'appel · 21 h 42</div>
           <div class="bulle bulle-client">Bonjour, j'ai une crevaison. Vous êtes ouverts demain ?</div>
           <div class="bulle bulle-ia">Bonjour ! Oui, dès 8 h. Je peux vous réserver 8 h 30. Ça vous convient ?</div>
@@ -54,6 +56,15 @@
           </div>
           <p class="maquette-note">Exemple illustratif</p>
         </div>
+      </div>
+    </section>
+
+    <section class="bande-chiffres">
+      <div class="conteneur chiffres">
+        <div><p class="chiffre"><span class="compteur" data-fin="24">0</span> h/24</p><p>Toujours disponible</p></div>
+        <div><p class="chiffre"><span class="compteur" data-fin="7">0</span> j/7</p><p>Même les fins de semaine</p></div>
+        <div><p class="chiffre"><span class="compteur" data-fin="2">0</span> langues</p><p>Français et anglais</p></div>
+        <div><p class="chiffre"><span class="compteur" data-fin="14">0</span> jours</p><p>D'essai gratuit</p></div>
       </div>
     </section>
 
@@ -162,8 +173,9 @@
     </div>
   </div>
 
-  <script src="script.js?v=8"></script>
-  <script src="assistant.js?v=8"></script>
+  <script src="script.js?v=9"></script>
+  <script src="assistant.js?v=9"></script>
+  <script src="anim.js?v=9"></script>
   <script>
     var pages = { "#solution": "solution.html", "#videos": "videos.html", "#forfaits": "forfaits.html", "#faq": "faq.html", "#contact": "contact.html" };
     if (pages[location.hash]) location.replace(pages[location.hash]);
