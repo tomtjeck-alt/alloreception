@@ -10,9 +10,9 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=10">
-  <link rel="stylesheet" href="assistant.css?v=10">
-  <link rel="stylesheet" href="anim.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="assistant.css?v=11">
+  <link rel="stylesheet" href="anim.css?v=11">
 </head>
 <body>
 
@@ -48,10 +48,10 @@
           <p class="garanties">14 jours ou 40 minutes gratuits · Sans contrat · Installation faite pour vous</p>
         </div>
 
-        <div class="agent maquette-animee" aria-label="Exemple d'appel répondu par Allo Réception">
+        <div class="agent agent-lueur maquette-animee" aria-label="Exemple d'appel répondu par Allo Réception">
           <div class="agent-entete">
             <span class="mono">Exemple d'appel</span>
-            <span class="mono en-direct"><span class="point"></span>En direct · 21 h 42</span>
+            <span class="mono en-direct"><span class="point"></span>En direct · <span class="chrono">00:00</span></span>
           </div>
           <div class="agent-voix">
             <div class="onde" aria-hidden="true"><i style="--h:18"></i><i style="--h:34"></i><i style="--h:52"></i><i style="--h:70"></i><i style="--h:44"></i><i style="--h:88"></i><i style="--h:60"></i><i style="--h:96"></i><i style="--h:72"></i><i style="--h:40"></i><i style="--h:64"></i><i style="--h:92"></i><i style="--h:56"></i><i style="--h:30"></i><i style="--h:78"></i><i style="--h:50"></i><i style="--h:86"></i><i style="--h:62"></i><i style="--h:38"></i><i style="--h:70"></i><i style="--h:46"></i><i style="--h:26"></i><i style="--h:58"></i><i style="--h:34"></i><i style="--h:20"></i></div>
@@ -72,6 +72,13 @@
         </div>
       </div>
     </section>
+
+    <div class="defilant" aria-label="Pour qui">
+      <div class="defilant-piste">
+        <span>Garages</span><span>Mécanique</span><span>Pneus</span><span>Carrosserie</span><span>Cliniques</span><span>Dentistes</span><span>Salons</span><span>Esthétique</span><span>Plombiers</span><span>Électriciens</span><span>Entrepreneurs</span><span>PME</span>
+        <span aria-hidden="true">Garages</span><span aria-hidden="true">Mécanique</span><span aria-hidden="true">Pneus</span><span aria-hidden="true">Carrosserie</span><span aria-hidden="true">Cliniques</span><span aria-hidden="true">Dentistes</span><span aria-hidden="true">Salons</span><span aria-hidden="true">Esthétique</span><span aria-hidden="true">Plombiers</span><span aria-hidden="true">Électriciens</span><span aria-hidden="true">Entrepreneurs</span><span aria-hidden="true">PME</span>
+      </div>
+    </div>
 
     <section class="bande-chiffres">
       <div class="conteneur chiffres">
@@ -108,6 +115,33 @@
           <li class="carte"><span class="carte-icone">🗣️</span><strong>Vous perdez des clients anglophones.</strong> Ou des francophones, selon qui répond.</li>
           <li class="carte"><span class="carte-icone">💸</span><strong>Une réceptionniste coûte cher.</strong> Un salaire à temps plein, c'est plus de 3 000 $ par mois.</li>
         </ul>
+      </div>
+    </section>
+
+    <section class="section section-demo">
+      <div class="conteneur">
+        <p class="surtitre centre">Démonstration</p>
+        <h2 class="centre">Chaque appel se termine avec le travail déjà fait.</h2>
+        <div class="onglets" role="tablist" aria-label="Exemples d'appels">
+          <button role="tab" aria-selected="true" data-onglet="0">Rendez-vous<i></i></button>
+          <button role="tab" aria-selected="false" data-onglet="1">Heures et prix<i></i></button>
+          <button role="tab" aria-selected="false" data-onglet="2">En anglais<i></i></button>
+          <button role="tab" aria-selected="false" data-onglet="3">Le soir<i></i></button>
+        </div>
+        <div class="demo-fenetre">
+          <div class="demo-barre"><span></span><span></span><span></span><p class="mono">Exemple</p></div>
+          <div class="demo-corps">
+            <div class="demo-appel">
+              <p class="mono demo-titre">Appel entrant <b class="en-direct"><span class="point"></span>En direct</b></p>
+              <div class="demo-lignes"></div>
+            </div>
+            <div class="demo-resultat">
+              <p class="mono demo-titre">Fait automatiquement</p>
+              <div class="demo-cartes"></div>
+            </div>
+          </div>
+          <p class="demo-bas"><span class="mono">Résultat</span> <span class="demo-resume"></span></p>
+        </div>
       </div>
     </section>
 
@@ -202,9 +236,9 @@
     </div>
   </div>
 
-  <script src="script.js?v=10"></script>
-  <script src="assistant.js?v=10"></script>
-  <script src="anim.js?v=10"></script>
+  <script src="script.js?v=11"></script>
+  <script src="assistant.js?v=11"></script>
+  <script src="anim.js?v=11"></script>
   <script>
     var pages = { "#solution": "solution.html", "#videos": "videos.html", "#forfaits": "forfaits.html", "#faq": "faq.html", "#contact": "contact.html" };
     if (pages[location.hash]) location.replace(pages[location.hash]);

@@ -121,3 +121,163 @@
 .js-anim .panneau-comparaison .barre-ligne:nth-child(2) i { transition-delay: 0.15s; }
 .js-anim .panneau-comparaison .barre-ligne:nth-child(3) i { transition-delay: 0.3s; }
 .js-anim .panneau-comparaison .barre-ligne:nth-child(4) i { transition-delay: 0.45s; }
+
+/* ================= Animations inspirées de Dasha, Ainora, Techsy ================= */
+
+/* Machine à écrire avec curseur clignotant */
+.mot-rotatif.machine { border-bottom: none; min-height: 1.2em; }
+.mot-rotatif.machine::after {
+  content: "";
+  display: inline-block;
+  width: 2px; height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: var(--jaune);
+  animation: curseur 0.9s steps(1) infinite;
+}
+@keyframes curseur { 50% { opacity: 0; } }
+
+/* Bordure lumineuse qui tourne autour de la carte agent */
+@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.agent-lueur { isolation: isolate; }
+.agent-lueur::before {
+  content: "";
+  position: absolute; inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--angle), transparent 0deg, rgba(250,204,21,0.9) 60deg, transparent 120deg, transparent 200deg, rgba(110,139,255,0.8) 260deg, transparent 320deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: tourne 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes tourne { to { --angle: 360deg; } }
+
+/* Projecteur : lueur qui suit la souris sur les cartes */
+.projecteur { position: relative; }
+.projecteur::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(250, 204, 21, 0.10), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.projecteur:hover::after { opacity: 1; }
+
+/* Titres qui apparaissent mot par mot */
+.titre-mots .mot {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  filter: blur(6px);
+  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;
+  transition-delay: calc(var(--k) * 60ms);
+}
+.titre-mots.montre .mot { opacity: 1; transform: none; filter: none; }
+
+/* Bande qui défile en continu */
+.defilant {
+  overflow: hidden;
+  border-top: 1px solid var(--bordure);
+  background: var(--fond);
+  padding: 18px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.defilant-piste { display: flex; width: max-content; gap: 48px; animation: defile 38s linear infinite; }
+.defilant span {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.85rem;
+  color: var(--texte-doux);
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 48px;
+}
+.defilant span::after { content: "✦"; color: var(--jaune); font-size: 0.7rem; }
+.defilant:hover .defilant-piste { animation-play-state: paused; }
+@keyframes defile { to { transform: translateX(-50%); } }
+
+/* ===== Démonstration à onglets ===== */
+.centre { text-align: center; }
+.section-demo h2 { max-width: 780px; margin-left: auto; margin-right: auto; }
+.onglets {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 4px;
+  width: fit-content; max-width: 100%;
+  margin: 0 auto 28px;
+  padding: 5px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+}
+.onglets button {
+  position: relative; overflow: hidden;
+  font: inherit; font-weight: 600; font-size: 0.93rem;
+  color: var(--texte-doux);
+  background: none; border: 1px solid transparent;
+  padding: 9px 18px; border-radius: 999px; cursor: pointer;
+}
+.onglets button:hover { color: var(--titre); }
+.onglets button[aria-selected="true"] { color: var(--titre); background: var(--carte-2); border-color: var(--bordure-forte); }
+.onglets button i { position: absolute; left: 14px; right: 14px; bottom: 3px; height: 2px; border-radius: 2px; background: var(--jaune); transform: scaleX(0); transform-origin: left; }
+.onglets button.progresse i { animation: progression 7s linear forwards; }
+@keyframes progression { to { transform: scaleX(1); } }
+
+.demo-fenetre {
+  background: var(--carte);
+  border: 1px solid var(--bordure-forte);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--ombre-forte);
+}
+.demo-barre { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--bordure); }
+.demo-barre span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+.demo-barre p { margin: 0 0 0 auto; }
+.demo-corps { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 330px; }
+.demo-appel, .demo-resultat { padding: 24px; }
+.demo-resultat { border-left: 1px solid var(--bordure); background: rgba(255,255,255,0.015); }
+.demo-titre { display: flex; justify-content: space-between; align-items: center; margin: 0 0 18px; }
+.demo-titre .en-direct { font-weight: 400; }
+.demo-ligne {
+  display: grid; grid-template-columns: 50px 1fr; column-gap: 10px;
+  margin: 0 0 14px; font-size: 0.95rem; color: var(--texte);
+}
+.demo-ligne .mono { grid-row: span 2; padding-top: 3px; }
+.demo-ligne strong { font-size: 0.78rem; color: var(--texte-doux); font-weight: 600; }
+.demo-ligne.ia strong { color: var(--jaune); }
+.demo-carte {
+  position: relative;
+  background: var(--carte-2);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  padding: 14px 44px 14px 16px;
+  margin-bottom: 12px;
+}
+.demo-carte p { margin: 0; color: var(--titre); font-weight: 600; font-size: 0.95rem; }
+.demo-carte p.mono { color: var(--bleu); font-weight: 400; font-size: 0.7rem; margin-bottom: 4px; }
+.demo-carte .coche {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(52, 211, 153, 0.15); color: var(--vert); font-size: 0.8rem; font-weight: 800;
+}
+.demo-ligne, .demo-carte { opacity: 0; transform: translateY(10px); transition: opacity 0.45s, transform 0.45s; }
+.demo-ligne.montre, .demo-carte.montre { opacity: 1; transform: none; }
+.demo-bas { margin: 0; padding: 14px 20px; border-top: 1px solid var(--bordure); color: var(--titre); font-size: 0.95rem; }
+.demo-bas .mono { margin-right: 10px; }
+
+@media (max-width: 760px) {
+  .demo-corps { grid-template-columns: 1fr; }
+  .demo-resultat { border-left: none; border-top: 1px solid var(--bordure); }
+  .onglets { border-radius: 16px; }
+  .onglets button { padding: 8px 12px; font-size: 0.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .defilant-piste { animation: none; }
+  .titre-mots .mot, .demo-ligne, .demo-carte { opacity: 1; transform: none; filter: none; }
+}
