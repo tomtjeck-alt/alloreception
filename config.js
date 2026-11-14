@@ -14,7 +14,7 @@ window.ALLO_CONFIG = {
   // --- Formulaire de devis (page Contact) ---
   // Clé gratuite : https://web3forms.com → entrer contact@alloreception.ca → la clé arrive par courriel.
   // Tant que c'est "A_REMPLACER", le formulaire ouvre le logiciel de courriel du visiteur à la place.
-  web3formsCle: "A_REMPLACER",
+  web3formsCle: "e306002d-5dfa-4255-b98c-7fd6853e0e9b",
 
   // --- Bouton « Réserver un appel » (page Contact) ---
   // Lien de votre page Cal.com, ex. https://cal.com/alloreception/15min
