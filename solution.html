@@ -4,47 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>La solution — Allo Réception</title>
-  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau. Essai gratuit de 14 jours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
   <header class="entete">
     <div class="conteneur entete-contenu">
-      <a href="index.html" class="logo">Allo <span>Réception</span></a>
-      <nav class="menu">
-        <a href="index.html">Accueil</a>
-        <a href="solution.html" class="actif" aria-current="page">Solution</a>
-        <a href="videos.html">Vidéos</a>
-        <a href="forfaits.html">Forfaits</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <nav class="menu" id="menu">
+          <a href="index.html">Accueil</a>
+          <a href="solution.html" class="actif" aria-current="page">Solution</a>
+          <a href="videos.html">Vidéos</a>
+          <a href="forfaits.html">Forfaits</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        <a href="contact.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
       </nav>
     </div>
   </header>
 
   <main>
 
-    <section id="solution" class="section section-bleue">
+    <section class="hero hero-court">
       <div class="conteneur">
-        <h1>La solution</h1>
-        <p class="intro">Allo Réception répond à votre place, avec une voix naturelle, en français et en anglais.</p>
-        <ul class="liste-coches">
-          <li>Répond à tous les appels, jour et nuit.</li>
-          <li>Donne vos heures, votre adresse et vos prix.</li>
-          <li>Prend les rendez-vous directement dans votre calendrier.</li>
-          <li>Vous envoie un résumé de chaque appel.</li>
-          <li>Vous laisse travailler en paix.</li>
+        <h1>Une réceptionniste qui ne prend jamais de pause</h1>
+        <p class="sous-titre">Allo Réception répond à votre place, avec une voix naturelle, en français et en anglais.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="conteneur">
+        <ul class="fonctions">
+          <li><span class="carte-icone">📞</span><strong>Répond à tous les appels</strong>Jour, nuit, fins de semaine et jours fériés.</li>
+          <li><span class="carte-icone">ℹ️</span><strong>Renseigne vos clients</strong>Heures, adresse, prix, services : elle connaît votre entreprise par cœur.</li>
+          <li><span class="carte-icone">📅</span><strong>Prend les rendez-vous</strong>Directement dans votre calendrier, sans double réservation.</li>
+          <li><span class="carte-icone">✉️</span><strong>Vous envoie un résumé</strong>Qui a appelé, pourquoi, et ce qui a été fait. Par courriel.</li>
+          <li><span class="carte-icone">🇨🇦</span><strong>Bilingue</strong>Elle répond dans la langue du client, en français ou en anglais.</li>
+          <li><span class="carte-icone">📊</span><strong>Rapports mensuels</strong>Avec le forfait Premium : le nombre d'appels, les rendez-vous pris et les tendances.</li>
         </ul>
+      </div>
+    </section>
+
+    <section class="section cta-final">
+      <div class="conteneur">
+        <h2>Prêt à ne plus manquer d'appels ?</h2>
+        <p>Essayez Allo Réception gratuitement pendant 14 jours. Sans contrat, annulable en tout temps.</p>
+        <div class="boutons-centre">
+          <a href="contact.html" class="bouton bouton-jaune">Commencer l'essai gratuit</a>
+          <a href="forfaits.html" class="bouton bouton-contour-clair">Voir les forfaits</a>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer class="pied">
-    <p>© 2026 Allo Réception — Ottawa-Gatineau</p>
-    <p><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+    <div class="conteneur pied-grille">
+      <div>
+        <p class="logo">Allo <span>Réception</span></p>
+        <p>La réceptionniste IA bilingue des garages et PME d'Ottawa-Gatineau.</p>
+      </div>
+      <div>
+        <p class="pied-titre">Produit</p>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="videos.html">Vidéos</a>
+      </div>
+      <div>
+        <p class="pied-titre">Aide</p>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>
+      </div>
+    </div>
+    <p class="pied-bas">© 2026 Allo Réception — Ottawa-Gatineau</p>
   </footer>
 
+  <script src="script.js?v=5"></script>
 </body>
 </html>

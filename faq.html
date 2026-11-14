@@ -4,55 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Questions fréquentes — Allo Réception</title>
-  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau. Essai gratuit de 14 jours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
   <header class="entete">
     <div class="conteneur entete-contenu">
-      <a href="index.html" class="logo">Allo <span>Réception</span></a>
-      <nav class="menu">
-        <a href="index.html">Accueil</a>
-        <a href="solution.html">Solution</a>
-        <a href="videos.html">Vidéos</a>
-        <a href="forfaits.html">Forfaits</a>
-        <a href="faq.html" class="actif" aria-current="page">FAQ</a>
-        <a href="contact.html">Contact</a>
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <nav class="menu" id="menu">
+          <a href="index.html">Accueil</a>
+          <a href="solution.html">Solution</a>
+          <a href="videos.html">Vidéos</a>
+          <a href="forfaits.html">Forfaits</a>
+          <a href="faq.html" class="actif" aria-current="page">FAQ</a>
+          <a href="contact.html">Contact</a>
+        <a href="contact.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
       </nav>
     </div>
   </header>
 
   <main>
 
-    <section id="faq" class="section">
+    <section class="hero hero-court">
       <div class="conteneur">
         <h1>Questions fréquentes</h1>
-        <details>
-          <summary>Est-ce que mes clients sauront que c'est une IA ?</summary>
-          <p>La réceptionniste se présente comme l'assistante virtuelle de votre entreprise. Elle est polie, claire et naturelle.</p>
-        </details>
-        <details>
-          <summary>Combien de temps pour l'installer ?</summary>
-          <p>Quelques jours. Nous configurons tout pour vous.</p>
-        </details>
-        <details>
-          <summary>Et les données de mes clients ?</summary>
-          <p>Elles sont traitées avec soin, dans le respect des lois sur la protection des renseignements personnels, dont la Loi 25 au Québec.</p>
-        </details>
-        <details>
-          <summary>Puis-je annuler ?</summary>
-          <p>Oui, en tout temps, sans frais.</p>
-        </details>
+        <p class="sous-titre">Vous ne trouvez pas votre réponse ? <a href="contact.html">Écrivez-nous.</a></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="conteneur conteneur-etroit">
+        <details><summary>Est-ce que mes clients sauront que c'est une IA ?</summary><p>La réceptionniste se présente comme l'assistante virtuelle de votre entreprise. Elle est polie, claire et naturelle.</p></details>
+        <details><summary>Combien de temps pour l'installer ?</summary><p>Quelques jours. Nous configurons tout pour vous.</p></details>
+        <details><summary>Et les données de mes clients ?</summary><p>Elles sont traitées avec soin, dans le respect des lois sur la protection des renseignements personnels, dont la Loi 25 au Québec.</p></details>
+        <details><summary>Comment fonctionne l'essai gratuit ?</summary><p>14 jours gratuits sur tous les forfaits. Vous arrêtez quand vous voulez, sans frais.</p></details>
+        <details><summary>Puis-je annuler ?</summary><p>En mensuel, oui, en tout temps et sans frais. En annuel, l'abonnement est payé d'avance pour 12 mois : c'est ce qui vous donne les 2 mois gratuits.</p></details>
+      </div>
+    </section>
+
+    <section class="section cta-final">
+      <div class="conteneur">
+        <h2>Prêt à ne plus manquer d'appels ?</h2>
+        <p>Essayez Allo Réception gratuitement pendant 14 jours. Sans contrat, annulable en tout temps.</p>
+        <div class="boutons-centre">
+          <a href="contact.html" class="bouton bouton-jaune">Commencer l'essai gratuit</a>
+          <a href="forfaits.html" class="bouton bouton-contour-clair">Voir les forfaits</a>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer class="pied">
-    <p>© 2026 Allo Réception — Ottawa-Gatineau</p>
-    <p><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+    <div class="conteneur pied-grille">
+      <div>
+        <p class="logo">Allo <span>Réception</span></p>
+        <p>La réceptionniste IA bilingue des garages et PME d'Ottawa-Gatineau.</p>
+      </div>
+      <div>
+        <p class="pied-titre">Produit</p>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="videos.html">Vidéos</a>
+      </div>
+      <div>
+        <p class="pied-titre">Aide</p>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>
+      </div>
+    </div>
+    <p class="pied-bas">© 2026 Allo Réception — Ottawa-Gatineau</p>
   </footer>
 
+  <script src="script.js?v=5"></script>
 </body>
 </html>

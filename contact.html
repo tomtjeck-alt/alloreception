@@ -4,42 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact — Allo Réception</title>
-  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau. Essai gratuit de 14 jours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
   <header class="entete">
     <div class="conteneur entete-contenu">
-      <a href="index.html" class="logo">Allo <span>Réception</span></a>
-      <nav class="menu">
-        <a href="index.html">Accueil</a>
-        <a href="solution.html">Solution</a>
-        <a href="videos.html">Vidéos</a>
-        <a href="forfaits.html">Forfaits</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html" class="actif" aria-current="page">Contact</a>
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <nav class="menu" id="menu">
+          <a href="index.html">Accueil</a>
+          <a href="solution.html">Solution</a>
+          <a href="videos.html">Vidéos</a>
+          <a href="forfaits.html">Forfaits</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html" class="actif" aria-current="page">Contact</a>
+        <a href="contact.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
       </nav>
     </div>
   </header>
 
   <main>
 
-    <section id="contact" class="section section-bleue contact">
+    <section class="hero hero-court">
       <div class="conteneur">
-        <h1>Prêt à ne plus manquer d'appels ?</h1>
-        <p class="intro">Écrivez-nous sur Facebook pour une démonstration gratuite.</p>
-        <a href="https://www.facebook.com/profile.php?id=61596422613652" class="bouton bouton-jaune" target="_blank" rel="noopener">Nous écrire sur Facebook</a>
-        <p class="courriel">Ou par courriel : <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+        <h1>Commencez votre essai gratuit</h1>
+        <p class="sous-titre">14 jours gratuits, sans contrat. On s'occupe de toute l'installation.</p>
+        <p class="forfait-choisi" id="forfait-choisi" hidden></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="conteneur contact-grille">
+        <div class="contact-carte">
+          <span class="carte-icone">💬</span>
+          <h2>Sur Facebook</h2>
+          <p>Le plus rapide. Écrivez-nous pour une démonstration gratuite.</p>
+          <a href="https://www.facebook.com/profile.php?id=61596422613652" class="bouton bouton-jaune" target="_blank" rel="noopener">Nous écrire sur Facebook</a>
+        </div>
+        <div class="contact-carte">
+          <span class="carte-icone">✉️</span>
+          <h2>Par courriel</h2>
+          <p>Dites-nous le nom de votre entreprise et le forfait qui vous intéresse.</p>
+          <a href="mailto:contact@alloreception.ca?subject=Essai%20gratuit%20Allo%20R%C3%A9ception" class="bouton bouton-bleu" id="lien-courriel">contact@alloreception.ca</a>
+        </div>
+      </div>
+      <div class="conteneur">
+        <ol class="etapes etapes-petites">
+          <li><span class="etape-num">1</span><strong>Vous nous écrivez</strong>On vous répond rapidement.</li>
+          <li><span class="etape-num">2</span><strong>Appel de 15 minutes</strong>On apprend à connaître votre entreprise.</li>
+          <li><span class="etape-num">3</span><strong>Votre essai commence</strong>Votre réceptionniste répond à vos clients.</li>
+        </ol>
       </div>
     </section>
 
   </main>
 
   <footer class="pied">
-    <p>© 2026 Allo Réception — Ottawa-Gatineau</p>
-    <p><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+    <div class="conteneur pied-grille">
+      <div>
+        <p class="logo">Allo <span>Réception</span></p>
+        <p>La réceptionniste IA bilingue des garages et PME d'Ottawa-Gatineau.</p>
+      </div>
+      <div>
+        <p class="pied-titre">Produit</p>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="videos.html">Vidéos</a>
+      </div>
+      <div>
+        <p class="pied-titre">Aide</p>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>
+      </div>
+    </div>
+    <p class="pied-bas">© 2026 Allo Réception — Ottawa-Gatineau</p>
   </footer>
 
+  <script src="script.js?v=5"></script>
 </body>
 </html>

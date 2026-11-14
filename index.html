@@ -4,57 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Allo Réception — Réceptionniste IA bilingue à Ottawa-Gatineau</title>
-  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau. Essai gratuit de 14 jours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
   <header class="entete">
     <div class="conteneur entete-contenu">
-      <a href="index.html" class="logo">Allo <span>Réception</span></a>
-      <nav class="menu">
-        <a href="index.html" class="actif" aria-current="page">Accueil</a>
-        <a href="solution.html">Solution</a>
-        <a href="videos.html">Vidéos</a>
-        <a href="forfaits.html">Forfaits</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <nav class="menu" id="menu">
+          <a href="index.html" class="actif" aria-current="page">Accueil</a>
+          <a href="solution.html">Solution</a>
+          <a href="videos.html">Vidéos</a>
+          <a href="forfaits.html">Forfaits</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        <a href="contact.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
       </nav>
     </div>
   </header>
 
   <main>
 
-    <section id="accueil" class="accueil">
-      <div class="conteneur">
-        <h1>Ne perdez plus jamais un appel.</h1>
-        <p class="sous-titre">Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME d'Ottawa-Gatineau.</p>
-        <a href="forfaits.html" class="bouton bouton-jaune">Voir les forfaits</a>
+    <section class="hero">
+      <div class="conteneur hero-grille">
+        <div>
+          <p class="pastille">Nouveau à Ottawa-Gatineau · Français et anglais</p>
+          <h1>Ne perdez plus jamais un appel.</h1>
+          <p class="sous-titre">Allo Réception est la réceptionniste IA qui répond à vos clients 24 h sur 24, prend les rendez-vous et vous envoie un résumé. Pendant ce temps, vous travaillez.</p>
+          <div class="boutons">
+            <a href="contact.html" class="bouton bouton-jaune">Essai gratuit de 14 jours</a>
+            <a href="videos.html" class="bouton bouton-contour-clair">Voir une démo ▶</a>
+          </div>
+          <ul class="garanties">
+            <li>✓ Sans contrat</li><li>✓ Installation faite pour vous</li><li>✓ Annulable en tout temps</li>
+          </ul>
+        </div>
+        <div class="maquette" aria-label="Exemple de résumé d'appel">
+          <div class="maquette-entete"><span class="point"></span>Résumé d'appel · 21 h 42</div>
+          <div class="bulle bulle-client">Bonjour, j'ai une crevaison. Vous êtes ouverts demain ?</div>
+          <div class="bulle bulle-ia">Bonjour ! Oui, dès 8 h. Je peux vous réserver 8 h 30. Ça vous convient ?</div>
+          <div class="bulle bulle-client">Parfait, merci !</div>
+          <div class="maquette-resume">
+            <p><strong>Client :</strong> Marc T. · Honda Civic</p>
+            <p><strong>Besoin :</strong> réparation de crevaison</p>
+            <p class="ok">✓ RDV demain 8 h 30 ajouté au calendrier</p>
+          </div>
+          <p class="maquette-note">Exemple illustratif</p>
+        </div>
       </div>
     </section>
 
-    <section id="problemes" class="section">
+    <section class="section">
       <div class="conteneur">
+        <p class="surtitre">Le problème</p>
         <h2>Vos problèmes, on les connaît</h2>
         <ul class="cartes">
-          <li class="carte"><strong>Vous êtes sous une voiture quand le téléphone sonne.</strong> Le client tombe sur la boîte vocale… et appelle un autre garage.</li>
-          <li class="carte"><strong>Vos clients appellent le soir et la fin de semaine.</strong> Une crevaison n'attend pas lundi matin.</li>
-          <li class="carte"><strong>Vous êtes dérangé toute la journée.</strong> Chaque appel coupe votre travail et vous fait perdre du temps.</li>
-          <li class="carte"><strong>Vous perdez des clients anglophones.</strong> Ou des francophones, selon qui répond.</li>
-          <li class="carte"><strong>Une réceptionniste coûte cher.</strong> Un salaire à temps plein, c'est plus de 3 000 $ par mois.</li>
+          <li class="carte"><span class="carte-icone">🔧</span><strong>Vous êtes sous une voiture quand le téléphone sonne.</strong> Le client tombe sur la boîte vocale… et appelle un autre garage.</li>
+          <li class="carte"><span class="carte-icone">🌙</span><strong>Vos clients appellent le soir et la fin de semaine.</strong> Une crevaison n'attend pas lundi matin.</li>
+          <li class="carte"><span class="carte-icone">⏱️</span><strong>Vous êtes dérangé toute la journée.</strong> Chaque appel coupe votre travail.</li>
+          <li class="carte"><span class="carte-icone">🗣️</span><strong>Vous perdez des clients anglophones.</strong> Ou des francophones, selon qui répond.</li>
+          <li class="carte"><span class="carte-icone">💸</span><strong>Une réceptionniste coûte cher.</strong> Un salaire à temps plein, c'est plus de 3 000 $ par mois.</li>
         </ul>
+      </div>
+    </section>
+
+    <section class="section section-claire">
+      <div class="conteneur">
+        <p class="surtitre">Comment ça marche</p>
+        <h2>Prêt en 3 étapes</h2>
+        <ol class="etapes">
+          <li><span class="etape-num">1</span><strong>On discute</strong>Vous nous donnez vos heures, vos prix et vos services. 15 minutes suffisent.</li>
+          <li><span class="etape-num">2</span><strong>On configure</strong>Nous préparons votre réceptionniste et la relions à votre calendrier.</li>
+          <li><span class="etape-num">3</span><strong>Elle répond</strong>Votre réceptionniste répond à vos clients. Vous recevez un résumé de chaque appel.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-claire" id="calculateur">
+      <div class="conteneur">
+        <p class="surtitre">Calculateur</p>
+        <h2>Combien vous coûtent vos appels manqués ?</h2>
+        <div class="calculateur">
+          <div class="calc-champs">
+            <label>Appels manqués par semaine
+              <input type="range" id="calc-appels" min="1" max="40" value="10">
+              <output id="calc-appels-val">10</output>
+            </label>
+            <label>Valeur moyenne d'un client ($)
+              <input type="range" id="calc-valeur" min="50" max="1500" step="50" value="300">
+              <output id="calc-valeur-val">300 $</output>
+            </label>
+            <p class="calc-hypothese">Hypothèse : 1 appel manqué sur 3 aurait donné un client. Un mois compte 4,3 semaines.</p>
+          </div>
+          <div class="calc-resultat">
+            <p>Revenus perdus chaque mois</p>
+            <p class="calc-gros" id="calc-perdu">4 300 $</p>
+            <p>Forfait Pro : <strong>399 $/mois</strong>, soit environ <strong id="calc-ratio">11 fois moins</strong>.</p>
+            <a href="contact.html" class="bouton bouton-jaune">Récupérer ces appels</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="conteneur">
+        <p class="surtitre">Forfaits</p>
+        <h2>Moins cher qu'une seule journée de réceptionniste par semaine</h2>
+        <div class="apercu-forfaits">
+          <a href="forfaits.html" class="apercu"><strong>Essentiel</strong><span>dès 166 $/mois</span></a>
+          <a href="forfaits.html" class="apercu apercu-vedette"><em>Le plus populaire</em><strong>Pro</strong><span>dès 333 $/mois</span></a>
+          <a href="forfaits.html" class="apercu"><strong>Premium</strong><span>dès 583 $/mois</span></a>
+        </div>
+        <p class="note">Prix en facturation annuelle : 2 mois gratuits et installation offerte. <a href="forfaits.html">Comparer les forfaits →</a></p>
+      </div>
+    </section>
+
+    <section class="section cta-final">
+      <div class="conteneur">
+        <h2>Prêt à ne plus manquer d'appels ?</h2>
+        <p>Essayez Allo Réception gratuitement pendant 14 jours. Sans contrat, annulable en tout temps.</p>
+        <div class="boutons-centre">
+          <a href="contact.html" class="bouton bouton-jaune">Commencer l'essai gratuit</a>
+          <a href="forfaits.html" class="bouton bouton-contour-clair">Voir les forfaits</a>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer class="pied">
-    <p>© 2026 Allo Réception — Ottawa-Gatineau</p>
-    <p><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
+    <div class="conteneur pied-grille">
+      <div>
+        <p class="logo">Allo <span>Réception</span></p>
+        <p>La réceptionniste IA bilingue des garages et PME d'Ottawa-Gatineau.</p>
+      </div>
+      <div>
+        <p class="pied-titre">Produit</p>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="videos.html">Vidéos</a>
+      </div>
+      <div>
+        <p class="pied-titre">Aide</p>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>
+      </div>
+    </div>
+    <p class="pied-bas">© 2026 Allo Réception — Ottawa-Gatineau</p>
   </footer>
 
+  <script src="script.js?v=5"></script>
   <script>
-    // Redirige les anciens liens du site d'une seule page vers la nouvelle page
     var pages = { "#solution": "solution.html", "#videos": "videos.html", "#forfaits": "forfaits.html", "#faq": "faq.html", "#contact": "contact.html" };
     if (pages[location.hash]) location.replace(pages[location.hash]);
   </script>
