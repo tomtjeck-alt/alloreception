@@ -824,3 +824,12 @@ dialog.paiement.integre .checkout-secours { display: none; }
 
 .note-conditions { margin-top: 1.4rem; font-size: 0.92rem; }
 .note-conditions + .note { margin-top: 0.4rem; }
+
+/* Page d'administration */
+.grille-admin { grid-template-columns: repeat(4, 1fr); margin-bottom: 24px; }
+.tableau-admin .comparatif { min-width: 980px; }
+.tableau-admin .comparatif th, .tableau-admin .comparatif td { text-align: left; font-weight: 500; color: var(--texte); font-size: 0.92rem; padding: 12px 14px; }
+.tableau-admin .comparatif th[scope="row"] { color: var(--titre); font-weight: 600; }
+.tableau-admin a { color: var(--bleu); }
+.vide-admin { text-align: center !important; color: var(--texte-doux) !important; padding: 28px !important; }
+@media (max-width: 760px) { .grille-admin { grid-template-columns: 1fr 1fr; } }
