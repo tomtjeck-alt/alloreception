@@ -16,6 +16,8 @@
     premium:   { nom: "Premium",   mensuel: 699, annuel: 6990 }
   };
   var JOURS_ESSAI = 14, JOURS_RAPPEL = 7;
+  // Version des conditions et de la politique : la même que dans la fonction creer-paiement
+  var VERSION_CONDITIONS = "2026-11-14";
 
   var C = window.ALLO_CONFIG || {};
   var cleStripe = C.stripeClePublique && C.stripeClePublique !== "A_REMPLACER" ? C.stripeClePublique : "";
@@ -47,6 +49,14 @@
     preparerPaiement();
   }
 
+  // ---------- Case « J'accepte les conditions » ----------
+  // Le paiement (intégré ou lien de secours) n'apparaît qu'une fois la case cochée.
+  function accepte() { return $("p-accepte").checked; }
+  function majAcceptation() {
+    dialog.classList.toggle("non-accepte", !accepte());
+    $("p-lien-stripe").setAttribute("aria-disabled", accepte() ? "false" : "true");
+  }
+
   // ---------- Paiement intégré Stripe ----------
   var stripePromesse = null;
   function chargerStripe() {
@@ -68,11 +78,13 @@
 
   function preparerPaiement() {
     if (checkoutActif) { checkoutActif.destroy(); checkoutActif = null; }
+    majAcceptation();
     if (!cleStripe) return modeSecours();
+    if (!accepte()) { demande++; $("checkout").innerHTML = ""; dialog.classList.add("integre"); return; }
     dialog.classList.add("integre");
     $("checkout").innerHTML = '<p class="checkout-chargement">Chargement du paiement sécurisé…</p>';
     var numero = ++demande;
-    var choix = { forfait: etat.forfait, periode: etat.periode };
+    var choix = { forfait: etat.forfait, periode: etat.periode, conditions: VERSION_CONDITIONS };
 
     chargerStripe().then(function (stripe) {
       return stripe.initEmbeddedCheckout({
@@ -107,6 +119,9 @@
       afficher();
     });
   });
+
+  $("p-accepte").addEventListener("change", preparerPaiement);
+  $("p-lien-stripe").addEventListener("click", function (e) { if (!accepte()) e.preventDefault(); });
 
   dialog.querySelectorAll('input[name="p-periode"]').forEach(function (r) {
     r.addEventListener("change", function () { etat.periode = r.value; afficher(); });

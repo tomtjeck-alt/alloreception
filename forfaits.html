@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Forfaits — Allo Réception</title>
-  <meta name="description" content="Allo Réception, la réceptionniste IA bilingue qui répond à vos clients 24 h sur 24, 7 jours sur 7. Pour les garages et les PME partout au Canada. Essai gratuit de 14 jours.">
+  <meta name="description" content="Allo Réception, la réceptionniste IA qui répond à vos clients 24 h sur 24, 7 jours sur 7. Bilingue avec les forfaits Pro et Premium. Pour les garages et les PME partout au Canada. Essai gratuit de 14 jours.">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
   <link rel="stylesheet" href="assistant.css?v=14">
   <link rel="stylesheet" href="anim.css?v=14">
 </head>
@@ -38,7 +38,7 @@
     <section class="hero hero-court">
       <div class="conteneur">
         <h1>Des prix simples, sans surprise</h1>
-        <p class="sous-titre">14 jours d'essai gratuit (jusqu'à 40 minutes d'appel) sur tous les forfaits. Installation toujours incluse. Payez à l'année : 2 mois gratuits.</p>
+        <p class="sous-titre">Tous les forfaits : 14 jours d'essai gratuit (jusqu'à 40 minutes d'appel) et installation incluse, en mensuel comme en annuel.</p>
         <div class="bascule" role="group" aria-label="Période de facturation">
           <button type="button" data-periode="mensuel" aria-pressed="false">Mensuel</button>
           <button type="button" data-periode="annuel" aria-pressed="true">Annuel <span class="economie">2 mois gratuits</span></button>
@@ -53,7 +53,7 @@
             <h3>Essentiel</h3>
             <p class="forfait-pour">Pour ne plus rater d'appel.</p>
             <p class="prix"><span class="montant" data-mensuel="199" data-annuel="166">199 $</span><span class="par">/mois</span></p>
-            <p class="prix-detail" data-mensuel="Facturé chaque mois · installation incluse" data-annuel="Facturé 1 990 $ par an · 2 mois gratuits">Facturé chaque mois · installation incluse</p>
+            <p class="prix-detail" data-mensuel="Facturé chaque mois" data-annuel="Facturé 1 990 $ par an · 2 mois gratuits">Facturé chaque mois</p>
             <p class="minutes"><strong>200 minutes</strong> d'appel incluses par mois</p>
             <button type="button" class="bouton bouton-bleu ouvrir-paiement" data-forfait="essentiel" data-mensuel-href="https://buy.stripe.com/14A5kEffe3fVgoG09Md3i02" data-annuel-href="https://buy.stripe.com/6oUdRa4AA17NgoGe0Cd3i03">Essai gratuit de 14 jours</button>
             <p class="mention-essai">Carte demandée · 0 $ aujourd'hui</p>
@@ -64,7 +64,7 @@
             <p class="badge">Le plus populaire</p><h3>Pro</h3>
             <p class="forfait-pour">Pour ne manquer aucune demande de rendez-vous.</p>
             <p class="prix"><span class="montant" data-mensuel="399" data-annuel="333">399 $</span><span class="par">/mois</span></p>
-            <p class="prix-detail" data-mensuel="Facturé chaque mois · installation incluse" data-annuel="Facturé 3 990 $ par an · 2 mois gratuits">Facturé chaque mois · installation incluse</p>
+            <p class="prix-detail" data-mensuel="Facturé chaque mois" data-annuel="Facturé 3 990 $ par an · 2 mois gratuits">Facturé chaque mois</p>
             <p class="minutes"><strong>500 minutes</strong> d'appel incluses par mois</p>
             <button type="button" class="bouton bouton-jaune ouvrir-paiement" data-forfait="pro" data-mensuel-href="https://buy.stripe.com/6oU00k4AA7wbb4maOqd3i01" data-annuel-href="https://buy.stripe.com/28EeVed762bRfkC1dQd3i04">Essai gratuit de 14 jours</button>
             <p class="mention-essai">Carte demandée · 0 $ aujourd'hui</p>
@@ -75,14 +75,15 @@
             <h3>Premium</h3>
             <p class="forfait-pour">Pour les entreprises occupées.</p>
             <p class="prix"><span class="montant" data-mensuel="699" data-annuel="583">699 $</span><span class="par">/mois</span></p>
-            <p class="prix-detail" data-mensuel="Facturé chaque mois · installation incluse" data-annuel="Facturé 6 990 $ par an · 2 mois gratuits">Facturé chaque mois · installation incluse</p>
+            <p class="prix-detail" data-mensuel="Facturé chaque mois" data-annuel="Facturé 6 990 $ par an · 2 mois gratuits">Facturé chaque mois</p>
             <p class="minutes"><strong>1 000 minutes</strong> d'appel incluses par mois</p>
             <button type="button" class="bouton bouton-bleu ouvrir-paiement" data-forfait="premium" data-mensuel-href="https://buy.stripe.com/aFa4gAd76bMr6O61dQd3i00" data-annuel-href="https://buy.stripe.com/7sYbJ27MM2bRb4mcWyd3i05">Essai gratuit de 14 jours</button>
             <p class="mention-essai">Carte demandée · 0 $ aujourd'hui</p>
             <a href="contact.html?forfait=premium" class="lien-abonner">Une question avant ? Écrivez-nous →</a>
-            <ul class="liste-coches petite"><li>Tout le Pro</li><li>1 000 minutes par mois</li><li>Le meilleur prix par minute (0,70 $)</li></ul>
+            <ul class="liste-coches petite"><li>Tout le Pro</li><li>Le meilleur prix par minute (0,70 $)</li></ul>
           </div>
         </div>
+        <p class="note note-conditions">En vous abonnant, vous acceptez nos <a href="conditions.html">conditions d'utilisation</a> et notre <a href="confidentialite.html">politique de confidentialité</a>.</p>
         <p class="note">Prix en dollars canadiens, taxes en sus. Sans contrat en mensuel, annulable en tout temps.</p>
       </div>
     </section>
@@ -92,7 +93,13 @@
         <p class="surtitre">Options</p>
         <h2>Ajoutez seulement ce dont vous avez besoin</h2>
         <ul class="cartes">
-          <li class="carte"><span class="carte-icone">⏱️</span><strong>Minutes supplémentaires</strong>0,35 $ la minute en plus (forfaits mensuels) ; forfaits annuels : packs de minutes (100 minutes pour 35 $). Votre réceptionniste ne s'arrête jamais de répondre.</li>
+          <li class="carte" id="depassement"><span class="carte-icone">⏱️</span><strong>Minutes supplémentaires</strong>Mensuel : 0,35 $ la minute en plus. Annuel : pack de 100 minutes pour 35 $. Votre réceptionniste ne s'arrête jamais de répondre.
+            <details class="detail-carte"><summary>Comment ça marche ?</summary>
+              <p><strong>Mensuel :</strong> les minutes en plus sont ajoutées à votre prochaine facture.</p>
+              <p><strong>Annuel :</strong> un courriel vous prévient à 80 % de vos minutes. Vous ajoutez un pack en un clic, et il n'expire jamais.</p>
+              <p><strong>Toutes les minutes épuisées :</strong> votre réceptionniste prend les messages (nom, numéro, raison de l'appel) jusqu'au mois suivant ou jusqu'à l'ajout d'un pack.</p>
+              <p>Vous dépassez souvent ? Le forfait supérieur devient plus avantageux.</p>
+            </details></li>
           <li class="carte"><span class="carte-icone">☎️</span><strong>Plusieurs succursales ?</strong><a href="contact.html">Écrivez-nous</a> : on prépare une offre sur mesure.</li>
         </ul>
       </div>
@@ -100,13 +107,12 @@
 
     <section class="section section-claire">
       <div class="conteneur">
-        <h2>Comparer les forfaits</h2>
+        <details class="detail-tableau"><summary>Comparer les forfaits en détail</summary>
         <div class="tableau-conteneur">
           <table class="comparatif">
             <thead><tr><th scope="col">Fonction</th><th scope="col">Essentiel</th><th scope="col" class="col-vedette">Pro</th><th scope="col">Premium</th></tr></thead>
             <tbody>
               <tr><th scope="row">Minutes d'appel incluses par mois</th><td>200</td><td>500</td><td>1 000</td></tr>
-              <tr><th scope="row">Minutes en plus</th><td>0,35 $ la minute (mensuel)<br><small>annuel : pack de 100 min pour 35 $</small></td><td>0,35 $ la minute (mensuel)<br><small>annuel : pack de 100 min pour 35 $</small></td><td>0,35 $ la minute (mensuel)<br><small>annuel : pack de 100 min pour 35 $</small></td></tr>
               <tr><th scope="row">Réponse aux appels 24/7</th><td>✓</td><td>✓</td><td>✓</td></tr>
               <tr><th scope="row">Informations sur votre entreprise (heures, prix, adresse)</th><td>✓</td><td>✓</td><td>✓</td></tr>
               <tr><th scope="row">Résumé de chaque appel par courriel</th><td>✓</td><td>✓</td><td>✓</td></tr>
@@ -114,58 +120,31 @@
               <tr><th scope="row">Demandes de rendez-vous notées et envoyées par courriel</th><td>—</td><td>✓</td><td>✓</td></tr>
               <tr><th scope="row">Prix par minute incluse</th><td>1,00 $</td><td>0,80 $</td><td>0,70 $</td></tr>
               <tr><th scope="row">Réponses adaptées à vos consignes</th><td>✓</td><td>✓</td><td>✓</td></tr>
-              <tr><th scope="row">Plusieurs succursales</th><td><a href="contact.html">Sur mesure</a></td><td><a href="contact.html">Sur mesure</a></td><td><a href="contact.html">Sur mesure</a></td></tr>
-              <tr><th scope="row">Installation et configuration</th><td>Incluse</td><td>Incluse</td><td>Incluse</td></tr>
             </tbody>
           </table>
         </div>
+        <p class="note">Minutes en plus et succursales : voir <a href="#depassement">Options</a>. Installation incluse partout.</p>
+        </details>
       </div>
     </section>
 
-    <section class="section section-claire" id="calculateur">
-      <div class="conteneur">
-        <p class="surtitre">Calculateur</p>
-        <h2>Combien vous coûtent vos appels manqués ?</h2>
-        <div class="calculateur">
-          <div class="calc-champs">
-            <label>Appels manqués par semaine
-              <input type="range" id="calc-appels" min="1" max="40" value="10">
-              <output id="calc-appels-val">10</output>
-            </label>
-            <label>Valeur moyenne d'un client ($)
-              <input type="range" id="calc-valeur" min="50" max="1500" step="50" value="300">
-              <output id="calc-valeur-val">300 $</output>
-            </label>
-            <p class="calc-hypothese">Hypothèse : 1 appel manqué sur 3 aurait donné un client. Un mois compte 4,3 semaines.</p>
-          </div>
-          <div class="calc-resultat">
-            <p>Revenus perdus chaque mois</p>
-            <p class="calc-gros" id="calc-perdu">4 300 $</p>
-            <p>Forfait Pro : <strong>399 $/mois</strong>, soit environ <strong id="calc-ratio">11 fois moins</strong>.</p>
-            <a href="contact.html" class="bouton bouton-jaune">Récupérer ces appels</a>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="section">
       <div class="conteneur conteneur-etroit">
         <h2>Questions sur la facturation</h2>
-        <details><summary>Comment fonctionne l'essai gratuit ?</summary><p>Allo Réception répond gratuitement à vos appels pendant 14 jours, jusqu'à 40 minutes d'appel (environ 20 appels). L'essai se termine à la première de ces deux limites. Si vous n'êtes pas convaincu, vous arrêtez et ne payez rien.</p></details>
-        <details><summary>Puis-je changer de forfait ?</summary><p>Oui, à tout moment. Le nouveau prix s'applique au mois suivant.</p></details>
-        <details><summary>Pourquoi choisir l'annuel ?</summary><p>Vous payez 10 mois et profitez de 12 : c'est 2 mois gratuits.</p></details>
-        <details><summary>Que se passe-t-il si je dépasse mes minutes ?</summary><p>Votre réceptionniste continue toujours de répondre. <strong>Forfaits mensuels :</strong> chaque minute en plus coûte 0,35 $, ajoutée à votre prochaine facture. <strong>Forfaits annuels :</strong> vous recevez un courriel à 80 % de vos minutes, et vous pouvez ajouter en un clic un pack de 100 minutes pour 35 $ (sans expiration). Si toutes vos minutes sont épuisées, votre réceptionniste prend les messages (nom, numéro et raison de l'appel) jusqu'au mois suivant ou jusqu'à l'ajout d'un pack. Si vous dépassez souvent, le forfait supérieur devient plus avantageux.</p></details>
-        <details><summary>Y a-t-il des frais d'installation ?</summary><p>Non. L'installation et la configuration de votre réceptionniste sont incluses dans tous les forfaits, en mensuel comme en annuel.</p></details>
+        <details id="essai"><summary>Comment fonctionne l'essai gratuit ?</summary><p>Allo Réception répond gratuitement pendant 14 jours, jusqu'à 40 minutes d'appel (environ 20 appels). L'essai finit à la première de ces deux limites. Pas convaincu ? Vous arrêtez et ne payez rien.</p></details>
+        <details><summary>Puis-je changer de forfait ?</summary><p>Oui, à tout moment. La différence de prix est facturée tout de suite, au prorata.</p></details>
+        <details id="annuler"><summary>Mensuel ou annuel ? Puis-je annuler ?</summary><p><strong>Mensuel :</strong> sans contrat, annulable en tout temps et sans frais.</p><p><strong>Annuel :</strong> vous payez 10 mois et profitez de 12 (2 mois gratuits). L'abonnement est payé d'avance pour 12 mois. Annulé dans les 30 jours suivant le premier paiement, il est remboursé au prorata des jours non utilisés.</p><p>Un seul essai gratuit par entreprise. <a href="conditions.html">Conditions d'utilisation</a></p></details>
+        <details><summary>Que se passe-t-il si je dépasse mes minutes ?</summary><p>Votre réceptionniste continue de répondre. Prix et détails : <a href="#depassement">Options</a>.</p></details>
       </div>
     </section>
 
     <section class="section cta-final">
       <div class="conteneur">
         <h2>Prêt à ne plus manquer d'appels ?</h2>
-        <p>Essayez Allo Réception gratuitement pendant 14 jours (jusqu'à 40 minutes d'appel). Sans contrat, annulable en tout temps.</p>
         <div class="boutons-centre">
           <a href="contact.html" class="bouton bouton-jaune">Commencer l'essai gratuit</a>
-          <a href="forfaits.html" class="bouton bouton-contour-clair">Voir les forfaits</a>
+          <a href="index.html#calculateur" class="bouton bouton-contour-clair">Calculer mes appels manqués</a>
         </div>
       </div>
     </section>
@@ -176,7 +155,7 @@
     <div class="conteneur pied-grille">
       <div>
         <p class="logo">Allo <span>Réception</span></p>
-        <p>La réceptionniste IA bilingue des garages et PME de partout au Canada.</p>
+        <p>La réceptionniste IA des garages et PME de partout au Canada. Bilingue avec les forfaits Pro et Premium.</p>
       </div>
       <div>
         <p class="pied-titre">Produit</p>
@@ -184,7 +163,7 @@
       </div>
       <div>
         <p class="pied-titre">Aide</p>
-        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="#" class="gerer-temoins">Gérer les témoins</a>
+        <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="conditions.html">Conditions d'utilisation</a><a href="confidentialite.html">Confidentialité</a><a href="#" class="gerer-temoins">Gérer les témoins</a>
       </div>
     </div>
     <p class="pied-bas">© 2026 Allo Réception — Canada · <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a></p>
@@ -236,6 +215,11 @@
       </div>
 
       <div class="paiement-carte">
+        <label class="accepte-conditions">
+          <input type="checkbox" id="p-accepte">
+          <span>J'accepte les <a href="conditions.html" target="_blank" rel="noopener">conditions d'utilisation</a> et la <a href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</span>
+        </label>
+        <p class="accepte-rappel" id="p-accepte-rappel">Cochez la case ci-dessus pour afficher le paiement sécurisé.</p>
         <div id="checkout" class="checkout-zone"></div>
         <div id="checkout-secours" class="checkout-secours">
           <p class="mono">Paiement sécurisé</p>
@@ -253,6 +237,6 @@
   <script src="assistant.js?v=17"></script>
   <script src="anim.js?v=15"></script>
   <script src="ia-visuel.js?v=14"></script>
-  <script src="paiement.js?v=2"></script>
+  <script src="paiement.js?v=3"></script>
 </body>
 </html>

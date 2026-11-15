@@ -490,6 +490,11 @@ summary::-webkit-details-marker { display: none; }
 summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--jaune); }
 details[open] summary::after { content: "−"; }
 details p { margin: 12px 0 0; color: var(--texte-doux); }
+.carte details.detail-carte { margin: 12px 0 0; padding: 10px 14px; font-size: 0.95rem; }
+.carte details.detail-carte summary { font-size: 0.95rem; }
+details.detail-tableau { padding: 18px 20px; }
+details.detail-tableau summary { font-size: 1.2rem; }
+details.detail-tableau[open] summary { margin-bottom: 14px; }
 
 /* ===== Vidéos (verticales 9:16) ===== */
 .grille-videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); gap: 18px; }
@@ -800,3 +805,22 @@ dialog.paiement.integre .checkout-secours { display: none; }
 }
 .alerte-minutes p { margin: 0; flex: 1 1 320px; }
 .alerte-minutes.alerte-forte { background: rgba(250, 204, 21, 0.08); border-color: rgba(250, 204, 21, 0.4); }
+
+/* ===== Case « J'accepte les conditions » (fenêtre de paiement) ===== */
+.accepte-conditions { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; margin: 0 0 12px; cursor: pointer; }
+.accepte-conditions input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--jaune); }
+.accepte-rappel { display: none; font-size: 0.9rem; color: var(--texte-doux); margin: 0 0 12px; }
+.paiement.non-accepte .accepte-rappel { display: block; }
+.paiement.non-accepte #p-lien-stripe { opacity: 0.45; pointer-events: none; }
+
+/* ===== Pages juridiques ===== */
+.en-bref { border: 1px solid var(--bordure-forte); border-radius: var(--rayon); background: var(--carte); padding: 18px 22px; margin-bottom: 2rem; }
+.en-bref p { margin: 0 0 6px; }
+.en-bref ul { margin: 0; padding-left: 1.2rem; }
+.texte-long mark { background: rgba(250, 204, 21, 0.18); color: var(--jaune); border-radius: 4px; padding: 0 4px; }
+.texte-long .tableau-conteneur { margin: 1rem 0; }
+.comparatif.tableau-texte td { color: var(--texte-doux); font-weight: 500; }
+.texte-long details { margin-bottom: 10px; }
+
+.note-conditions { margin-top: 1.4rem; font-size: 0.92rem; }
+.note-conditions + .note { margin-top: 0.4rem; }
