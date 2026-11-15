@@ -15,8 +15,8 @@
     { id: "langue", q: "Avez-vous des clients anglophones ?",
       court: "Clients anglophones",
       choix: ["Oui", "Non, surtout francophones"] },
-    { id: "numeros", q: "Combien de numéros de téléphone (succursales, départements) avez-vous ?",
-      court: "Numéros de téléphone",
+    { id: "numeros", q: "Combien de succursales ou de numéros de téléphone avez-vous ?",
+      court: "Succursales ou numéros",
       choix: ["Un seul", "2", "3 ou plus"] },
     { id: "extra", q: "Dernière question : combien d'appels recevez-vous au total par jour ?",
       court: "Appels par jour",
@@ -32,13 +32,11 @@
     var cle = "essentiel", raisons = [];
     if (r.rdv === "Oui") { cle = "pro"; raisons.push("les demandes de rendez-vous"); }
     if (r.langue === "Oui") { cle = "pro"; raisons.push("le service bilingue"); }
-    // Les numéros supplémentaires existent seulement en Pro et Premium
-    if (r.numeros !== "Un seul") { if (cle === "essentiel") cle = "pro"; raisons.push("vos numéros supplémentaires"); }
     if (r.appels === "Plus de 15") { if (cle === "essentiel") cle = "pro"; raisons.push("votre volume d'appels"); }
     // Plus de 25 appels par jour ≈ plus de 1 000 minutes par mois : le Premium revient moins cher
     if (r.extra === "Plus de 25") { cle = "premium"; raisons.push("votre grand volume d'appels (1 000 minutes par mois, au meilleur prix)"); }
-    var nbNumeros = r.numeros === "2" ? 1 : r.numeros === "3 ou plus" ? 2 : 0;
-    return { cle: cle, raisons: raisons, nbNumeros: nbNumeros };
+    // Plusieurs succursales : pas de prix automatique, offre sur mesure
+    return { cle: cle, raisons: raisons, succursales: r.numeros !== "Un seul" };
   }
 
   // Construction de la bulle et du panneau
@@ -108,18 +106,18 @@
   function conclure() {
     zoneChoix.innerHTML = "";
     var r = recommander(reponses), f = FORFAITS[r.cle];
-    var total = f.prix + r.nbNumeros * 49;
+    var total = f.prix;
     var liste = r.raisons.length > 1 ? r.raisons.slice(0, -1).join(", ") + " et " + r.raisons[r.raisons.length - 1] : r.raisons[0];
     var pourquoi = r.raisons.length ? ", pour " + liste : "";
-    var s = r.nbNumeros > 1 ? "s" : "";
     var texte = "Merci ! ✅ Je vous recommande le forfait <strong>" + f.nom + "</strong>" + pourquoi + ".<br><br>" +
       "• " + f.min + " minutes d'appel incluses par mois<br>" +
-      (r.nbNumeros ? "• " + r.nbNumeros + " numéro" + s + " supplémentaire" + s + " (+49 $/mois chacun)<br>" : "") +
-      "• Total : <strong>" + total + " $/mois</strong>, ou 2 mois gratuits en payant à l'année<br>" +
+      "• <strong>" + total + " $/mois</strong>, ou 2 mois gratuits en payant à l'année<br>" +
+      (r.succursales ? "• Plusieurs succursales ? <a href=\"contact.html\">Écrivez-nous</a> : on prépare une offre sur mesure.<br>" : "") +
       "• 14 jours d'essai gratuit (jusqu'à 40 minutes d'appel)";
     var resume = "Bonjour,\n\nVoici mes réponses à l'assistante du site :\n" +
       QUESTIONS.map(function (q) { return "- " + q.court + " : " + reponses[q.id]; }).join("\n") +
       "\n\nForfait recommandé : " + f.nom + " (" + total + " $/mois)" +
+      (r.succursales ? "\nPlusieurs succursales : j'aimerais une offre sur mesure." : "") +
       "\n\nNom de mon entreprise :\nMon numéro de téléphone :\n";
     ecrire(texte, function () {
       boutons([
