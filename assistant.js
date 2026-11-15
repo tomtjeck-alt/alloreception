@@ -10,7 +10,7 @@
       court: "Appels manqués par semaine",
       choix: ["Moins de 5", "5 à 15", "Plus de 15", "Je ne sais pas"] },
     { id: "rdv", q: "Voulez-vous que la réceptionniste note les demandes de rendez-vous et vous les envoie par courriel ?",
-      court: "Prise de rendez-vous",
+      court: "Demandes de rendez-vous",
       choix: ["Oui", "Non, juste répondre"] },
     { id: "langue", q: "Avez-vous des clients anglophones ?",
       court: "Clients anglophones",
@@ -18,9 +18,9 @@
     { id: "numeros", q: "Combien de numéros de téléphone (succursales, départements) avez-vous ?",
       court: "Numéros de téléphone",
       choix: ["Un seul", "2", "3 ou plus"] },
-    { id: "extra", q: "Dernière question : les rapports mensuels et une voix personnalisée à votre image sont-ils importants pour vous ?",
-      court: "Rapports et voix personnalisée",
-      choix: ["Oui, important", "Pas nécessaire"] }
+    { id: "extra", q: "Dernière question : combien d'appels recevez-vous au total par jour ?",
+      court: "Appels par jour",
+      choix: ["Moins de 10", "10 à 25", "Plus de 25"] }
   ];
   var FORFAITS = {
     essentiel: { nom: "Essentiel", prix: 199, min: "200" },
@@ -30,12 +30,13 @@
 
   function recommander(r) {
     var cle = "essentiel", raisons = [];
-    if (r.rdv === "Oui") { cle = "pro"; raisons.push("la prise de rendez-vous"); }
+    if (r.rdv === "Oui") { cle = "pro"; raisons.push("les demandes de rendez-vous"); }
     if (r.langue === "Oui") { cle = "pro"; raisons.push("le service bilingue"); }
     // Les numéros supplémentaires existent seulement en Pro et Premium
     if (r.numeros !== "Un seul") { if (cle === "essentiel") cle = "pro"; raisons.push("vos numéros supplémentaires"); }
     if (r.appels === "Plus de 15") { if (cle === "essentiel") cle = "pro"; raisons.push("votre volume d'appels"); }
-    if (r.extra === "Oui, important") { cle = "premium"; raisons.push("les rapports et la voix personnalisée"); }
+    // Plus de 25 appels par jour ≈ plus de 1 000 minutes par mois : le Premium revient moins cher
+    if (r.extra === "Plus de 25") { cle = "premium"; raisons.push("votre grand volume d'appels (1 000 minutes par mois, au meilleur prix)"); }
     var nbNumeros = r.numeros === "2" ? 1 : r.numeros === "3 ou plus" ? 2 : 0;
     return { cle: cle, raisons: raisons, nbNumeros: nbNumeros };
   }
