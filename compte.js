@@ -29,7 +29,8 @@
 
   // Appelle une fonction du serveur et renvoie un message d'erreur clair
   async function fonction(nom, corps) {
-    var r = await sb.functions.invoke(nom, { body: corps || {} });
+    // Loi 25 : traitement forcé au Canada (région ca-central-1 de Supabase)
+    var r = await sb.functions.invoke(nom + "?forceFunctionRegion=ca-central-1", { body: corps || {} });
     if (r.error) {
       var detail = null;
       try { detail = await r.error.context.json(); } catch (e) {}

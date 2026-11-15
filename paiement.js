@@ -77,7 +77,7 @@
     chargerStripe().then(function (stripe) {
       return stripe.initEmbeddedCheckout({
         fetchClientSecret: function () {
-          return fetch(C.supabaseUrl + "/functions/v1/creer-paiement", {
+          return fetch(C.supabaseUrl + "/functions/v1/creer-paiement?forceFunctionRegion=ca-central-1", {   // Loi 25 : au Canada
             method: "POST",
             headers: { "Content-Type": "application/json", apikey: C.supabaseCleAnon },
             body: JSON.stringify(choix)
