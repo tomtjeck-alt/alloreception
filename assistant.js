@@ -9,7 +9,7 @@
     { id: "appels", q: "Environ combien d'appels manquez-vous par semaine ?",
       court: "Appels manqués par semaine",
       choix: ["Moins de 5", "5 à 15", "Plus de 15", "Je ne sais pas"] },
-    { id: "rdv", q: "Voulez-vous que la réceptionniste prenne les rendez-vous dans votre calendrier ?",
+    { id: "rdv", q: "Voulez-vous que la réceptionniste note les demandes de rendez-vous et vous les envoie par courriel ?",
       court: "Prise de rendez-vous",
       choix: ["Oui", "Non, juste répondre"] },
     { id: "langue", q: "Avez-vous des clients anglophones ?",
