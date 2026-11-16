@@ -213,6 +213,26 @@
   document.getElementById("tb-priorite").addEventListener("change", afficherTaches);
   document.getElementById("tb-qui").addEventListener("change", afficherTaches);
 
+  // ----- Une page par titre : le menu montre une seule section à la fois (rien n'est supprimé) -----
+  var PAGES = ["systeme", "clients", "travaux", "a-realiser", "comptes", "evolution"];
+  function montrerPage(nom, garderPosition) {
+    if (PAGES.indexOf(nom) === -1) nom = "systeme";
+    document.querySelectorAll(".admin-page").forEach(function (el) { el.hidden = el.getAttribute("data-page") !== nom; });
+    document.querySelectorAll(".admin-nav a").forEach(function (a) {
+      if (a.getAttribute("data-vers") === nom) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    if (location.hash !== "#" + nom) history.replaceState(null, "", "#" + nom);
+    if (!garderPosition) {
+      var nav = document.querySelector(".admin-nav");
+      if (nav && nav.getBoundingClientRect().top < 0) window.scrollTo(0, nav.getBoundingClientRect().top + window.scrollY - 90);
+    }
+  }
+  document.querySelectorAll(".admin-nav a").forEach(function (a) {
+    a.addEventListener("click", function (ev) { ev.preventDefault(); montrerPage(a.getAttribute("data-vers")); });
+  });
+  window.addEventListener("hashchange", function () { montrerPage(location.hash.slice(1)); });
+  montrerPage(location.hash.slice(1), true);
+
   document.getElementById("bouton-actualiser").addEventListener("click", function () { charger().catch(function () {}); chargerEtat(); chargerTableau(); });
   document.getElementById("bouton-deconnexion").addEventListener("click", async function () {
     await sb.auth.signOut(); location.replace("connexion.html");

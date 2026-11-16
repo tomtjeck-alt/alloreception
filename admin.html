@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=21">
+  <link rel="stylesheet" href="style.css?v=22">
   <link rel="stylesheet" href="anim.css?v=14">
 </head>
 <body>
@@ -46,16 +46,17 @@
               <button id="bouton-deconnexion" class="bouton bouton-contour-clair bouton-petit">Se déconnecter</button>
             </div>
           </div>
-          <nav class="admin-nav" aria-label="Sections de la page">
-            <a href="#titre-etat">Système</a><a href="#titre-clients">Clients</a><a href="#titre-travaux">Travaux</a><a href="#titre-taches">À réaliser</a><a href="#titre-couts">Comptes à payer</a><a href="#titre-evolution">Évolution</a>
+          <nav class="admin-nav" aria-label="Pages du tableau de bord">
+            <a href="#systeme" data-vers="systeme">Système</a><a href="#clients" data-vers="clients">Clients</a><a href="#travaux" data-vers="travaux">Travaux</a><a href="#a-realiser" data-vers="a-realiser">À réaliser</a><a href="#comptes" data-vers="comptes">Comptes à payer</a><a href="#evolution" data-vers="evolution">Évolution</a>
           </nav>
-          <section class="etat-systeme" aria-labelledby="titre-etat">
+          <section class="etat-systeme admin-page" data-page="systeme" aria-labelledby="titre-etat">
             <div class="etat-entete">
               <h2 id="titre-etat">État du système <span class="etat-direct">en direct</span></h2>
               <p class="note-compte" id="etat-maj">Vérification en cours…</p>
             </div>
             <ul class="etat-liste" id="etat-liste"></ul>
           </section>
+          <section class="admin-page" data-page="clients" aria-labelledby="titre-clients">
           <h2 class="admin-titre" id="titre-clients">Mes clients</h2>
           <div class="grille-stats grille-admin">
             <div class="stat"><p class="mono">Clients</p><p class="stat-val" id="a-total">0</p></div>
@@ -70,10 +71,11 @@
             </table>
           </div>
           <p class="note-compte" id="a-maj"></p>
+          </section>
 
           <p class="message message-erreur" id="tb-erreur" hidden></p>
 
-          <section class="admin-bloc" aria-labelledby="titre-travaux">
+          <section class="admin-bloc admin-page" data-page="travaux" aria-labelledby="titre-travaux">
             <h2 class="admin-titre" id="titre-travaux">Historique des travaux</h2>
             <p class="admin-intro" id="tb-avancement">Chargement…</p>
             <div class="admin-barre" id="tb-barre" role="img" aria-label="Part des travaux réalisés, en cours, à faire et non réalisés"></div>
@@ -88,7 +90,7 @@
             </div>
           </section>
 
-          <section class="admin-bloc" aria-labelledby="titre-taches">
+          <section class="admin-bloc admin-page" data-page="a-realiser" aria-labelledby="titre-taches">
             <h2 class="admin-titre" id="titre-taches">Mises à jour à réaliser</h2>
             <div class="admin-filtres">
               <label class="admin-filtre" for="tb-priorite">Priorité
@@ -106,7 +108,7 @@
             </div>
           </section>
 
-          <section class="admin-bloc" aria-labelledby="titre-couts">
+          <section class="admin-bloc admin-page" data-page="comptes" aria-labelledby="titre-couts">
             <h2 class="admin-titre" id="titre-couts">Comptes à payer</h2>
             <p class="admin-intro">Prix en dollars américains. « À vérifier » : le prix exact se lit dans le compte du fournisseur.</p>
             <div class="tableau-conteneur tableau-admin">
@@ -117,7 +119,7 @@
             </div>
           </section>
 
-          <section class="admin-bloc" aria-labelledby="titre-evolution">
+          <section class="admin-bloc admin-page" data-page="evolution" aria-labelledby="titre-evolution">
             <h2 class="admin-titre" id="titre-evolution">Évolution : changements publiés par jour</h2>
             <div class="admin-legende"><span><i class="leg-site"></i>Site</span><span><i class="leg-serveur"></i>Serveur</span></div>
             <div class="admin-graphe" id="tb-graphe"></div>
@@ -169,6 +171,6 @@
   <script src="script.js?v=17"></script>
   <script src="anim.js?v=15"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-  <script src="admin.js?v=3"></script>
+  <script src="admin.js?v=4"></script>
 </body>
 </html>

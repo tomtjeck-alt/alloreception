@@ -895,3 +895,9 @@ dialog.paiement.integre .checkout-secours { display: none; }
 .admin-details summary { cursor: pointer; color: var(--texte-doux); font-size: 0.92rem; }
 .admin-details[open] summary { margin-bottom: 10px; }
 .tableau-admin td.nowrap { white-space: nowrap; }
+
+/* Page d'administration : une page par titre (onglets) */
+.admin-nav a { cursor: pointer; }
+.admin-nav a[aria-current="page"] { background: var(--jaune); border-color: var(--jaune); color: #0B1128; font-weight: 600; }
+.admin-page.admin-bloc { margin-top: 0; }
+.admin-page[hidden] { display: none !important; }
