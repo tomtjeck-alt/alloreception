@@ -70,14 +70,56 @@
     });
   }
 
-  // Appelle une fonction du serveur et renvoie un message d'erreur clair
+  // Traduit en français les erreurs de Supabase (aucun mot anglais ne doit s'afficher au client)
+  var ERREURS = {
+    same_password: "Ce mot de passe est déjà le vôtre.",
+    weak_password: "Ce mot de passe est trop faible. Choisissez-en un plus long, avec des lettres et des chiffres.",
+    invalid_credentials: "Courriel ou mot de passe incorrect.",
+    email_not_confirmed: "Votre compte n'est pas encore activé. Cliquez sur le lien reçu par courriel.",
+    otp_expired: "Ce lien a déjà été utilisé ou a expiré.",
+    session_not_found: "Votre session a expiré. Reconnectez-vous.",
+    session_expired: "Votre session a expiré. Reconnectez-vous.",
+    refresh_token_not_found: "Votre session a expiré. Reconnectez-vous.",
+    reauthentication_needed: "Pour des raisons de sécurité, reconnectez-vous avant de changer votre mot de passe.",
+    over_request_rate_limit: "Trop d'essais. Attendez quelques minutes, puis réessayez.",
+    over_email_send_rate_limit: "Trop de courriels envoyés. Attendez quelques minutes, puis réessayez.",
+    user_not_found: "Aucun compte trouvé pour ce courriel.",
+    validation_failed: "Une information est invalide. Vérifiez le formulaire.",
+  };
+  var MESSAGES = [
+    [/should be different from the old password/i, "same_password"],
+    [/password should be|password is too weak|weak password/i, "weak_password"],
+    [/invalid login credentials/i, "invalid_credentials"],
+    [/email not confirmed/i, "email_not_confirmed"],
+    [/expired|invalid or has expired/i, "otp_expired"],
+    [/auth session missing|session.*not found/i, "session_not_found"],
+    [/rate limit|too many requests/i, "over_request_rate_limit"],
+  ];
+  function codeErreur(err) {
+    if (!err) return "";
+    if (err.code && ERREURS[err.code]) return err.code;
+    var t = String(err.message || err);
+    for (var i = 0; i < MESSAGES.length; i++) if (MESSAGES[i][0].test(t)) return MESSAGES[i][1];
+    return "";
+  }
+  function enFrancais(err) {
+    if (err && err.francais) return err.message;
+    var c = codeErreur(err);
+    if (c) return ERREURS[c];
+    if (/fetch|network|load failed/i.test(String(err && err.message))) return "Connexion Internet impossible. Vérifiez votre connexion, puis réessayez.";
+    return "Une erreur est survenue. Réessayez dans un instant, ou écrivez-nous : contact@alloreception.ca";
+  }
+
+  // Appelle une fonction du serveur et renvoie un message d'erreur clair (déjà en français)
   async function fonction(nom, corps) {
     // Loi 25 : traitement forcé au Canada (région ca-central-1 de Supabase)
     var r = await sb.functions.invoke(nom + "?forceFunctionRegion=ca-central-1", { body: corps || {} });
     if (r.error) {
       var detail = null;
       try { detail = await r.error.context.json(); } catch (e) {}
-      throw new Error((detail && detail.erreur) || "Une erreur est survenue. Réessayez dans un instant.");
+      var err = new Error((detail && detail.erreur) || "Une erreur est survenue. Réessayez dans un instant.");
+      err.francais = true;
+      throw err;
     }
     return r.data;
   }
@@ -152,8 +194,16 @@
     formN.addEventListener("submit", async function (ev) {
       ev.preventDefault();
       if (formN.motdepasse.value.length < 8) return message("Le mot de passe doit avoir au moins 8 caractères.", "erreur");
+      var b = formN.querySelector("button[type=submit]");
+      if (b && b.disabled) return;
+      occupe(b, true, "Enregistrement…");
       var r = await sb.auth.updateUser({ password: formN.motdepasse.value });
-      if (r.error) return message("Le lien a expiré. Recommencez « Mot de passe oublié ».", "erreur");
+      // « déjà votre mot de passe » = succès
+      if (r.error && codeErreur(r.error) !== "same_password") {
+        occupe(b, false);
+        var c = codeErreur(r.error);
+        return message(c === "session_not_found" || c === "otp_expired" ? "Le lien a expiré. Recommencez « Mot de passe oublié »." : "Votre mot de passe n'a PAS été enregistré : " + enFrancais(r.error), "erreur");
+      }
       location.replace(retour);
     });
   }
@@ -181,37 +231,86 @@
       ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes"]
         .forEach(function (c) { if (form[c]) form[c].value = e[c] || ""; });
       document.getElementById("forfait-actuel").textContent = e.forfait_nom + (e.statut === "essai" ? " · essai gratuit" : "");
+      // Brouillon gardé si la session a expiré pendant le remplissage (jamais le mot de passe)
+      var CHAMPS = ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes"];
+      try {
+        var brouillon = JSON.parse(sessionStorage.getItem("allo-brouillon-installation") || "null");
+        if (brouillon) {
+          CHAMPS.forEach(function (c) { if (form[c] && brouillon[c] != null) form[c].value = brouillon[c]; });
+          sessionStorage.removeItem("allo-brouillon-installation");
+          message("Vos informations ont été gardées. Vérifiez-les, puis cliquez sur le bouton.", "info");
+        }
+      } catch (x) {}
       form.hidden = false;
       if (e.installation_complete) document.getElementById("titre-installation").textContent = "Mes réglages";
 
+      var envoiEnCours = false;      // empêche tout double envoi (double clic, touche Entrée…)
+      var mdpEnregistre = null;      // mot de passe déjà enregistré pendant cette visite
       form.addEventListener("submit", async function (ev) {
         ev.preventDefault();
+        if (envoiEnCours) return;
         var b = form.querySelector("button[type=submit]");
+        var mdp = form.motdepasse.value;
+        if (mdp && mdp.length < 8) return message("Le mot de passe doit avoir au moins 8 caractères.", "erreur");
+        envoiEnCours = true;
+        occupe(b, true, "Enregistrement…");   // bouton désactivé jusqu'à la fin, quoi qu'il arrive
         message("");
-        if (form.motdepasse.value) {
-          if (form.motdepasse.value.length < 8) return message("Le mot de passe doit avoir au moins 8 caractères.", "erreur");
-          occupe(b, true, "Enregistrement du mot de passe…");
-          var p = await sb.auth.updateUser({ password: form.motdepasse.value });
-          occupe(b, false);
-          if (p.error) return message("Votre mot de passe n'a PAS été enregistré (" + p.error.message + "). Réessayez avec un autre mot de passe, ou écrivez-nous : contact@alloreception.ca", "erreur");
-          doitChoisirMdp = false;
-          form.motdepasse.value = "";
-          form.motdepasse.required = false;
-          message("Mot de passe enregistré ✔", "succes");
-        }
-        occupe(b, true, "Enregistrement…");
-        var maj = {};
-        ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes"]
-          .forEach(function (c) { maj[c] = form[c].value.trim(); });
-        var r = await sb.from("entreprises").update(maj).eq("id", e.id);
-        if (r.error) { occupe(b, false); return message("Enregistrement impossible : " + r.error.message, "erreur"); }
+        var etapes = [];
         try {
-          if (!e.numero_vapi) occupe(b, true, "Création de votre numéro…");
-          var res = await fonction("installer");
-          location.href = "espace-client.html?pret=" + encodeURIComponent(res.numero || "");
-        } catch (err) { occupe(b, false); message(err.message, "erreur"); }
+          // 0) La session est-elle toujours valide ? (getSession la renouvelle si besoin)
+          var s = (await sb.auth.getSession()).data.session;
+          if (!s) {
+            try {
+              var d = {}; CHAMPS.forEach(function (c) { d[c] = form[c].value; });
+              sessionStorage.setItem("allo-brouillon-installation", JSON.stringify(d));
+            } catch (x) {}
+            return message("Votre session a expiré : rien n'a été enregistré. Vos informations sont gardées. Reconnectez-vous sur la page Connexion (ou cliquez sur « Mot de passe oublié »), puis revenez ici.", "erreur");
+          }
+          // 1) Mot de passe (sauf s'il vient déjà d'être enregistré pendant cette visite)
+          if (mdp && mdp !== mdpEnregistre) {
+            b.textContent = "Enregistrement du mot de passe…";
+            var p = await sb.auth.updateUser({ password: mdp });
+            // « Ce mot de passe est déjà le vôtre » = le bon mot de passe est déjà enregistré : c'est un succès
+            if (p.error && codeErreur(p.error) !== "same_password") {
+              return message("Votre mot de passe n'a PAS été enregistré : " + enFrancais(p.error) + " Vos autres informations n'ont pas encore été envoyées.", "erreur");
+            }
+            mdpEnregistre = mdp;
+            doitChoisirMdp = false;
+            form.motdepasse.required = false;
+            form.motdepasse.value = "";   // vidé : il ne sera pas renvoyé au prochain clic
+            form.motdepasse.placeholder = "Mot de passe enregistré ✔ (laisser vide)";
+          }
+          if (mdpEnregistre) etapes.push("votre mot de passe");
+
+          // 2) Informations de l'entreprise
+          b.textContent = "Enregistrement de vos informations…";
+          var maj = {};
+          CHAMPS.forEach(function (c) { maj[c] = form[c].value.trim(); });
+          var r = await sb.from("entreprises").update(maj).eq("id", e.id).select("id");
+          // Aucune ligne modifiée = refus silencieux de la base (session perdue) : c'est une erreur
+          if (!r.error && (!r.data || !r.data.length)) r.error = { code: "session_not_found" };
+          if (r.error) {
+            return message((etapes.length ? "Votre mot de passe est enregistré ✔, mais vos informations n'ont pas pu l'être : " : "Vos informations n'ont pas pu être enregistrées : ") + enFrancais(r.error), "erreur");
+          }
+          etapes.push("les informations de votre entreprise");
+
+          // 3) Numéro de téléphone de la réceptionniste
+          if (!e.numero_vapi) b.textContent = "Création de votre numéro…";
+          try {
+            var res = await fonction("installer");
+            location.href = "espace-client.html?pret=" + encodeURIComponent(res.numero || "");
+          } catch (err) {
+            message("C'est enregistré ✔ (" + etapes.join(" et ") + "). Mais la création du numéro de téléphone de votre réceptionniste n'a pas fonctionné (" + enFrancais(err).replace(/\.$/, "")
+              + "). Inutile de retaper votre mot de passe : vous pouvez vous connecter avec. Réessayez plus tard en cliquant de nouveau sur le bouton, ou écrivez-nous : contact@alloreception.ca", "erreur");
+          }
+        } catch (err) {
+          message(enFrancais(err), "erreur");
+        } finally {
+          envoiEnCours = false;
+          occupe(b, false);
+        }
       });
-    })().catch(function (err) { message(err.message, "erreur"); });
+    })().catch(function (err) { message(enFrancais(err), "erreur"); });
   }
 
   // ---------------- Page Espace client ----------------
@@ -260,12 +359,12 @@
       nom("bouton-pack").addEventListener("click", async function () {
         occupe(this, true, "Ouverture…");
         try { location.href = (await fonction("acheter-minutes")).url; }
-        catch (err) { occupe(this, false); message(err.message, "erreur"); }
+        catch (err) { occupe(this, false); message(enFrancais(err), "erreur"); }
       });
       nom("bouton-superieur").addEventListener("click", async function () {
         occupe(this, true, "Ouverture…");
         try { location.href = (await fonction("portail-stripe", { action: "changer-forfait" })).url; }
-        catch (err) { occupe(this, false); message(err.message, "erreur"); }
+        catch (err) { occupe(this, false); message(enFrancais(err), "erreur"); }
       });
 
       var pret = new URLSearchParams(location.search).get("pret");
@@ -292,7 +391,7 @@
       nom("bouton-portail").addEventListener("click", async function () {
         occupe(this, true, "Ouverture…");
         try { location.href = (await fonction("portail-stripe")).url; }
-        catch (err) { occupe(this, false); message(err.message, "erreur"); }
+        catch (err) { occupe(this, false); message(enFrancais(err), "erreur"); }
       });
       nom("bouton-deconnexion").addEventListener("click", async function () {
         await sb.auth.signOut(); location.replace("connexion.html");
@@ -307,9 +406,9 @@
           await fonction("supprimer-compte", { confirmation: "SUPPRIMER" });
           await sb.auth.signOut();
           location.replace("index.html");
-        } catch (err) { occupe(b, false); message(err.message, "erreur"); }
+        } catch (err) { occupe(b, false); message(enFrancais(err), "erreur"); }
       });
       nom("tableau").hidden = false;
-    })().catch(function (err) { message(err.message, "erreur"); });
+    })().catch(function (err) { message(enFrancais(err), "erreur"); });
   }
 })();
