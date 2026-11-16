@@ -85,6 +85,7 @@
     over_email_send_rate_limit: "Trop de courriels envoyés. Attendez quelques minutes, puis réessayez.",
     user_not_found: "Aucun compte trouvé pour ce courriel.",
     validation_failed: "Une information est invalide. Vérifiez le formulaire.",
+    "23514": "Un des champs est trop long. Raccourcissez-le, puis réessayez.",
   };
   var MESSAGES = [
     [/should be different from the old password/i, "same_password"],
