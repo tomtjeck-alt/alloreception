@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=21">
   <link rel="stylesheet" href="anim.css?v=14">
 </head>
 <body>
@@ -40,12 +40,15 @@
         <p id="message" class="message" hidden></p>
         <div id="admin" hidden>
           <div class="entete-espace">
-            <div><p class="surtitre">Administration</p><h1>Mes clients</h1></div>
+            <div><p class="surtitre">Administration</p><h1>Tableau de bord</h1></div>
             <div class="actions-espace">
               <button id="bouton-actualiser" class="bouton bouton-contour-clair bouton-petit">Actualiser</button>
               <button id="bouton-deconnexion" class="bouton bouton-contour-clair bouton-petit">Se déconnecter</button>
             </div>
           </div>
+          <nav class="admin-nav" aria-label="Sections de la page">
+            <a href="#titre-etat">Système</a><a href="#titre-clients">Clients</a><a href="#titre-travaux">Travaux</a><a href="#titre-taches">À réaliser</a><a href="#titre-couts">Comptes à payer</a><a href="#titre-evolution">Évolution</a>
+          </nav>
           <section class="etat-systeme" aria-labelledby="titre-etat">
             <div class="etat-entete">
               <h2 id="titre-etat">État du système <span class="etat-direct">en direct</span></h2>
@@ -53,6 +56,7 @@
             </div>
             <ul class="etat-liste" id="etat-liste"></ul>
           </section>
+          <h2 class="admin-titre" id="titre-clients">Mes clients</h2>
           <div class="grille-stats grille-admin">
             <div class="stat"><p class="mono">Clients</p><p class="stat-val" id="a-total">0</p></div>
             <div class="stat"><p class="mono">Actifs</p><p class="stat-val" id="a-actifs">0</p></div>
@@ -66,6 +70,68 @@
             </table>
           </div>
           <p class="note-compte" id="a-maj"></p>
+
+          <p class="message message-erreur" id="tb-erreur" hidden></p>
+
+          <section class="admin-bloc" aria-labelledby="titre-travaux">
+            <h2 class="admin-titre" id="titre-travaux">Historique des travaux</h2>
+            <p class="admin-intro" id="tb-avancement">Chargement…</p>
+            <div class="admin-barre" id="tb-barre" role="img" aria-label="Part des travaux réalisés, en cours, à faire et non réalisés"></div>
+            <label class="admin-filtre" for="tb-domaine">Domaine
+              <select id="tb-domaine"><option value="">Tous</option></select>
+            </label>
+            <div class="admin-colonnes">
+              <div class="admin-colonne"><h3><span class="etat-pastille pastille-ok">Réalisés</span> <span class="admin-compte" id="tb-n-realise"></span></h3><ol class="admin-cartes" id="tb-col-realise"></ol></div>
+              <div class="admin-colonne"><h3><span class="etat-pastille pastille-attention">En cours de réalisation</span> <span class="admin-compte" id="tb-n-en-cours"></span></h3><ol class="admin-cartes" id="tb-col-en-cours"></ol></div>
+              <div class="admin-colonne"><h3><span class="etat-pastille pastille-inconnu">À faire</span> <span class="admin-compte" id="tb-n-a-faire"></span></h3><ol class="admin-cartes" id="tb-col-a-faire"></ol></div>
+              <div class="admin-colonne"><h3><span class="etat-pastille pastille-panne">Non réalisés</span> <span class="admin-compte" id="tb-n-non-realise"></span></h3><ol class="admin-cartes" id="tb-col-non-realise"></ol></div>
+            </div>
+          </section>
+
+          <section class="admin-bloc" aria-labelledby="titre-taches">
+            <h2 class="admin-titre" id="titre-taches">Mises à jour à réaliser</h2>
+            <div class="admin-filtres">
+              <label class="admin-filtre" for="tb-priorite">Priorité
+                <select id="tb-priorite"><option value="">Toutes</option><option>Urgent</option><option>Important</option><option>Plus tard</option></select>
+              </label>
+              <label class="admin-filtre" for="tb-qui">Qui
+                <select id="tb-qui"><option value="">Tout le monde</option><option>Vous</option><option>Claude</option></select>
+              </label>
+            </div>
+            <div class="tableau-conteneur tableau-admin">
+              <table class="comparatif tableau-texte">
+                <thead><tr><th scope="col">Priorité</th><th scope="col">Tâche</th><th scope="col">Pourquoi</th><th scope="col">Qui</th><th scope="col">Échéance</th><th scope="col">État</th></tr></thead>
+                <tbody id="tb-taches"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="admin-bloc" aria-labelledby="titre-couts">
+            <h2 class="admin-titre" id="titre-couts">Comptes à payer</h2>
+            <p class="admin-intro">Prix en dollars américains. « À vérifier » : le prix exact se lit dans le compte du fournisseur.</p>
+            <div class="tableau-conteneur tableau-admin">
+              <table class="comparatif tableau-texte">
+                <thead><tr><th scope="col">Fournisseur</th><th scope="col">Pour quoi</th><th scope="col">Facturé</th><th scope="col">Prix (US)</th><th scope="col">Statut</th><th scope="col">Note</th></tr></thead>
+                <tbody id="tb-couts"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="admin-bloc" aria-labelledby="titre-evolution">
+            <h2 class="admin-titre" id="titre-evolution">Évolution : changements publiés par jour</h2>
+            <div class="admin-legende"><span><i class="leg-site"></i>Site</span><span><i class="leg-serveur"></i>Serveur</span></div>
+            <div class="admin-graphe" id="tb-graphe"></div>
+            <details class="admin-details">
+              <summary>Voir chaque changement publié</summary>
+              <div class="tableau-conteneur tableau-admin">
+                <table class="comparatif tableau-texte">
+                  <thead><tr><th scope="col">Date</th><th scope="col">Heure</th><th scope="col">Partie</th><th scope="col">Changement</th></tr></thead>
+                  <tbody id="tb-historique"></tbody>
+                </table>
+              </div>
+            </details>
+          </section>
+          <p class="note-compte" id="tb-maj"></p>
         </div>
       </div>
     </section>
@@ -103,6 +169,6 @@
   <script src="script.js?v=17"></script>
   <script src="anim.js?v=15"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-  <script src="admin.js?v=2"></script>
+  <script src="admin.js?v=3"></script>
 </body>
 </html>
