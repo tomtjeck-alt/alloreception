@@ -836,3 +836,23 @@ dialog.paiement.integre .checkout-secours { display: none; }
 
 /* Bouton « Activer mon compte » (lien reçu par courriel) */
 .activation-lien { margin-top: 16px; }
+
+/* Page d'administration : état du système en direct */
+.etat-systeme { margin-bottom: 28px; display: flex; flex-direction: column; gap: 12px; }
+.etat-entete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.etat-entete h2 { margin: 0; font-size: 1.15rem; }
+.etat-entete .note-compte { margin: 0; }
+.etat-direct { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--vert); border: 1px solid rgba(52, 211, 153, 0.4); border-radius: 999px; padding: 2px 8px; margin-left: 8px; vertical-align: middle; }
+.etat-liste { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
+.etat-liste[aria-busy="true"] { opacity: 0.55; }
+.etat-ligne { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--carte); border: 1px solid var(--bordure); border-left-width: 4px; min-width: 0; }
+.etat-texte { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.etat-texte strong { color: var(--titre); font-size: 0.92rem; }
+.etat-texte span { color: var(--texte); font-size: 0.88rem; overflow-wrap: anywhere; }
+.etat-texte em { font-style: normal; color: var(--jaune); font-size: 0.84rem; }
+.etat-pastille { flex: none; font-size: 0.74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.etat-ok { border-left-color: var(--vert); } .etat-ok .etat-pastille { background: rgba(52, 211, 153, 0.15); color: var(--vert); }
+.etat-attention { border-left-color: var(--jaune); } .etat-attention .etat-pastille { background: rgba(250, 204, 21, 0.15); color: var(--jaune); }
+.etat-panne { border-left-color: #F87171; } .etat-panne .etat-pastille { background: rgba(248, 113, 113, 0.15); color: #FCA5A5; }
+.etat-inconnu { border-left-color: var(--texte-doux); } .etat-inconnu .etat-pastille { background: rgba(255, 255, 255, 0.08); color: var(--texte-doux); }
+@media (max-width: 420px) { .etat-liste { grid-template-columns: 1fr; } }

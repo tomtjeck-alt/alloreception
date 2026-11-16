@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=20">
   <link rel="stylesheet" href="anim.css?v=14">
 </head>
 <body>
@@ -46,6 +46,13 @@
               <button id="bouton-deconnexion" class="bouton bouton-contour-clair bouton-petit">Se déconnecter</button>
             </div>
           </div>
+          <section class="etat-systeme" aria-labelledby="titre-etat">
+            <div class="etat-entete">
+              <h2 id="titre-etat">État du système <span class="etat-direct">en direct</span></h2>
+              <p class="note-compte" id="etat-maj">Vérification en cours…</p>
+            </div>
+            <ul class="etat-liste" id="etat-liste"></ul>
+          </section>
           <div class="grille-stats grille-admin">
             <div class="stat"><p class="mono">Clients</p><p class="stat-val" id="a-total">0</p></div>
             <div class="stat"><p class="mono">Actifs</p><p class="stat-val" id="a-actifs">0</p></div>
@@ -96,6 +103,6 @@
   <script src="script.js?v=17"></script>
   <script src="anim.js?v=15"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-  <script src="admin.js?v=1"></script>
+  <script src="admin.js?v=2"></script>
 </body>
 </html>
