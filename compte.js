@@ -25,7 +25,50 @@
     message("L'espace client sera disponible très bientôt. Pour toute question : contact@alloreception.ca", "info");
     return;
   }
+  // Lu AVANT la création du client Supabase (qui efface l'adresse après l'avoir lue)
+  var hashDepart = location.hash || "";
   var sb = window.supabase.createClient(C.supabaseUrl, C.supabaseCleAnon);
+
+  // ---------- Liens reçus par courriel (invitation, connexion, nouveau mot de passe) ----------
+  // Le lien mène à notre page avec ?token_hash=…&type=… ; le jeton n'est utilisé qu'au CLIC
+  // sur le bouton : les robots qui inspectent les liens des courriels ne peuvent plus le « griller ».
+  var paramsDepart = new URLSearchParams(location.search);
+  var jetonLien = paramsDepart.get("token_hash");
+  var typeLien = paramsDepart.get("type");
+  if (!/^(invite|magiclink|recovery|email)$/.test(typeLien || "")) jetonLien = null;
+  // Ancien format (jeton déjà utilisé par Supabase, résultat dans l'adresse après #)
+  var hashParams = new URLSearchParams(hashDepart.replace(/^#/, ""));
+  var erreurLien = hashParams.get("error_code") || hashParams.get("error");
+  var typeHash = hashParams.get("type");
+  var doitChoisirMdp = typeHash === "invite" || typeHash === "recovery";
+
+  function messageLienInvalide() {
+    message("Ce lien a déjà été utilisé ou a expiré. Allez sur la page Connexion et cliquez sur « Mot de passe oublié » pour en recevoir un nouveau, ou écrivez-nous : contact@alloreception.ca", "erreur");
+  }
+
+  // Affiche le bouton (ex. « Activer mon compte ») et attend le clic. Renvoie true si la session est ouverte.
+  function activerLien(texteBouton) {
+    return new Promise(function (resoudre) {
+      var zone = document.createElement("div");
+      zone.className = "activation-lien";
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "bouton bouton-jaune"; b.textContent = texteBouton;
+      zone.appendChild(b);
+      zoneMsg.insertAdjacentElement("afterend", zone);
+      message("Cliquez sur le bouton ci-dessous pour continuer.", "info");
+      b.addEventListener("click", async function () {
+        occupe(b, true, "Un instant…");
+        await sb.auth.signOut({ scope: "local" });
+        var r = await sb.auth.verifyOtp({ token_hash: jetonLien, type: typeLien });
+        history.replaceState(null, "", location.pathname);
+        zone.remove();
+        if (r.error || !r.data.session) { messageLienInvalide(); return resoudre(false); }
+        message("");
+        doitChoisirMdp = typeLien === "invite" || typeLien === "recovery";
+        resoudre(true);
+      });
+    });
+  }
 
   // Appelle une fonction du serveur et renvoie un message d'erreur clair
   async function fonction(nom, corps) {
@@ -66,9 +109,20 @@
     sb.auth.onAuthStateChange(function (evt) {
       if (evt === "PASSWORD_RECOVERY") { formC.hidden = true; formN.hidden = false; }
     });
-    sb.auth.getSession().then(function (r) {
-      if (r.data.session && !/type=recovery/.test(location.hash)) location.replace(retour);
-    });
+    if (jetonLien) {
+      // Lien « mot de passe oublié » ou « lien de connexion » reçu par courriel
+      formC.hidden = true;
+      activerLien(typeLien === "recovery" ? "Choisir mon nouveau mot de passe" : "Me connecter").then(function (ok) {
+        if (!ok) { formC.hidden = false; return; }
+        if (typeLien === "recovery") { formN.hidden = false; } else { location.replace(retour); }
+      });
+    } else if (erreurLien) {
+      messageLienInvalide();
+    } else {
+      sb.auth.getSession().then(function (r) {
+        if (r.data.session && typeHash !== "recovery") location.replace(retour);
+      });
+    }
 
     formC.addEventListener("submit", async function (ev) {
       ev.preventDefault();
@@ -107,9 +161,22 @@
   // ---------------- Page Installation ----------------
   if (page === "installation") {
     (async function () {
+      if (jetonLien) {
+        if (!(await activerLien(typeLien === "magiclink" ? "Ouvrir mon compte" : "Activer mon compte"))) return;
+      } else if (erreurLien) {
+        // Lien déjà utilisé ou expiré : on le dit clairement au lieu de renvoyer en silence à la connexion
+        messageLienInvalide();
+        return;
+      }
       if (!(await sessionOuConnexion())) return;
       var e = await monEntreprise();
       var form = document.getElementById("form-installation");
+      // Nouveau client (invitation) ou nouveau mot de passe : le mot de passe est obligatoire
+      if (doitChoisirMdp) {
+        form.motdepasse.required = true;
+        form.motdepasse.placeholder = "8 caractères minimum";
+        form.motdepasse.closest("label").firstChild.textContent = "Choisissez votre mot de passe * (pour vous reconnecter plus tard)";
+      }
       if (!e) { message("Aucun abonnement n'est associé à ce compte. Écrivez-nous : contact@alloreception.ca", "erreur"); return; }
       ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes"]
         .forEach(function (c) { if (form[c]) form[c].value = e[c] || ""; });
@@ -123,8 +190,14 @@
         message("");
         if (form.motdepasse.value) {
           if (form.motdepasse.value.length < 8) return message("Le mot de passe doit avoir au moins 8 caractères.", "erreur");
+          occupe(b, true, "Enregistrement du mot de passe…");
           var p = await sb.auth.updateUser({ password: form.motdepasse.value });
-          if (p.error) return message("Impossible d'enregistrer le mot de passe : " + p.error.message, "erreur");
+          occupe(b, false);
+          if (p.error) return message("Votre mot de passe n'a PAS été enregistré (" + p.error.message + "). Réessayez avec un autre mot de passe, ou écrivez-nous : contact@alloreception.ca", "erreur");
+          doitChoisirMdp = false;
+          form.motdepasse.value = "";
+          form.motdepasse.required = false;
+          message("Mot de passe enregistré ✔", "succes");
         }
         occupe(b, true, "Enregistrement…");
         var maj = {};

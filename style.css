@@ -833,3 +833,6 @@ dialog.paiement.integre .checkout-secours { display: none; }
 .tableau-admin a { color: var(--bleu); }
 .vide-admin { text-align: center !important; color: var(--texte-doux) !important; padding: 28px !important; }
 @media (max-width: 760px) { .grille-admin { grid-template-columns: 1fr 1fr; } }
+
+/* Bouton « Activer mon compte » (lien reçu par courriel) */
+.activation-lien { margin-top: 16px; }
