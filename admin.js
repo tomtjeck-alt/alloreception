@@ -52,11 +52,35 @@
         "<td>" + esc(c.forfait) + "</td>" +
         '<td><span class="pastille-statut statut-' + esc(c.statut_code) + '">' + esc(c.statut) + "</span></td>" +
         "<td>" + esc(date) + "</td>" +
-        '<td class="mono">' + esc(c.numero ? tel(c.numero) : (c.installation_complete ? "—" : "à installer")) + "</td>" +
+        (c.numero ? '<td class="mono">' + esc(tel(c.numero)) + "</td>"
+          : c.en_attente ? '<td><span class="etat-pastille pastille-attention">En attente</span>' +
+              '<span class="attente-raison">' + esc(c.attente_raison || "") + "</span>" +
+              '<button type="button" class="bouton bouton-contour-clair bouton-petit bouton-numero" data-id="' + esc(c.id) + '">Créer le numéro</button></td>'
+          : '<td class="mono">' + esc(c.installation_complete ? "—" : "à installer") + "</td>") +
         "<td>" + esc(c.appels_ce_mois) + "</td>" +
         "<td>" + (c.stripe_url ? '<a href="' + esc(c.stripe_url) + '" target="_blank" rel="noopener">Ouvrir ↗</a>' : "—") + "</td>" +
         "</tr>";
     }).join("") : '<tr><td colspan="8" class="vide-admin">Aucun client pour l\'instant.</td></tr>';
+    // Bouton « Créer le numéro » d'un client en attente (un seul envoi à la fois)
+    corps.querySelectorAll(".bouton-numero").forEach(function (b) {
+      b.addEventListener("click", async function () {
+        if (b.disabled) return;
+        b.disabled = true; b.textContent = "Création…";
+        var resultat;
+        try {
+          var r = await sb.functions.invoke("admin-installer?forceFunctionRegion=ca-central-1", { body: { entreprise_id: b.getAttribute("data-id") } });
+          var d2 = r.data || {};
+          resultat = (r.error || !d2.ok)
+            ? ["Le numéro n'a pas pu être créé : " + (d2.raison || "erreur du serveur") + " Réglez la cause, puis réessayez.", "erreur"]
+            : ["Numéro créé : " + tel(d2.numero) + ". Le client a reçu le courriel « Votre réceptionniste est prête ».", "succes"];
+        } catch (e) {
+          resultat = ["Le numéro n'a pas pu être créé. Réessayez dans un instant.", "erreur"];
+        }
+        await charger().catch(function () {});
+        message(resultat[0], resultat[1]);
+        chargerEtat();
+      });
+    });
     document.getElementById("a-maj").textContent = "Mis à jour le " + new Date(d.genere_le).toLocaleString("fr-CA", { dateStyle: "medium", timeStyle: "short" });
     message("");
     document.getElementById("admin").hidden = false;

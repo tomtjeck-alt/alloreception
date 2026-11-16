@@ -298,6 +298,8 @@
           if (!e.numero_vapi) b.textContent = "Création de votre numéro…";
           try {
             var res = await fonction("installer");
+            // Numéro pas encore possible : l'installation est quand même terminée (« en préparation »)
+            if (res && res.en_attente) { location.href = "espace-client.html?attente=1"; return; }
             location.href = "espace-client.html?pret=" + encodeURIComponent(res.numero || "");
           } catch (err) {
             message("C'est enregistré ✔ (" + etapes.join(" et ") + "). Mais la création du numéro de téléphone de votre réceptionniste n'a pas fonctionné (" + enFrancais(err).replace(/\.$/, "")
@@ -330,7 +332,8 @@
       nom("e-forfait").textContent = e.forfait_nom;
       nom("e-statut").textContent = STATUTS[e.statut] || e.statut;
       nom("e-statut").className = "pastille-statut statut-" + e.statut;
-      nom("e-numero").textContent = tel(e.numero_vapi) || "—";
+      nom("e-numero").textContent = tel(e.numero_vapi) || (e.numero_en_attente ? "En préparation" : "—");
+      if (e.numero_en_attente && !e.numero_vapi) nom("en-preparation").hidden = false;
       nom("e-minutes").textContent = utilise.toLocaleString("fr-CA") + " / " + limite.toLocaleString("fr-CA") + " min";
       nom("e-minutes-detail").textContent = e.statut === "essai"
         ? "Minutes d'essai gratuit" + (e.essai_fin ? " · jusqu'au " + new Date(e.essai_fin).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) : "")

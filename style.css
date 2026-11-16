@@ -901,3 +901,7 @@ dialog.paiement.integre .checkout-secours { display: none; }
 .admin-nav a[aria-current="page"] { background: var(--jaune); border-color: var(--jaune); color: #0B1128; font-weight: 600; }
 .admin-page.admin-bloc { margin-top: 0; }
 .admin-page[hidden] { display: none !important; }
+
+/* Page d'administration : client en attente de numéro */
+.attente-raison { display: block; color: var(--texte-doux); font-size: 0.78rem; margin: 6px 0; max-width: 260px; white-space: normal; }
+.bouton-numero { margin-top: 2px; }
