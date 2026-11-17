@@ -46,7 +46,7 @@
       <div class="conteneur conteneur-etroit texte-long">
         <h2>Qui nous sommes</h2>
         <p>Allo Réception, Ottawa, Ontario.</p>
-        <p><strong>Responsable de la protection des renseignements personnels :</strong> Thomas Noel Tjeck Tjeck, <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>.</p>
+        <p><strong>Responsable de la protection des renseignements personnels :</strong> le propriétaire d'Allo Réception, <a href="mailto:contact@alloreception.ca">contact@alloreception.ca</a>.</p>
 
         <h2>Lois applicables</h2>
         <p>Nous respectons la LPRPDE du Canada et, pour nos clients du Québec, la Loi 25.</p>
@@ -54,7 +54,7 @@
         <h2>Renseignements recueillis</h2>
         <ul>
           <li><strong>Sur nos clients :</strong> nom de l'entreprise, nom du responsable, courriel, téléphone, adresse, consignes d'exploitation, données de facturation (traitées par Stripe).</li>
-          <li><strong>Sur les personnes qui appellent nos clients :</strong> numéro de téléphone, nom et renseignements fournis durant l'appel, enregistrement et transcription lorsque cette fonction est activée.</li>
+          <li><strong>Sur les personnes qui appellent nos clients :</strong> numéro de téléphone, nom et renseignements fournis durant l'appel, transcription écrite et résumé de l'appel. Les appels ne sont pas enregistrés en audio.</li>
           <li><strong>Sur les visiteurs du site :</strong> données techniques usuelles (adresse IP, navigateur, pages consultées).</li>
         </ul>
 
@@ -70,19 +70,24 @@
         <h2>Partage</h2>
         <p>Le Service utilise des fournisseurs qui traitent des données pour notre compte :</p>
         <ul>
-          <li>téléphonie et IA vocale : Vapi, Twilio ;</li>
-          <li>hébergement et base de données : Supabase ;</li>
-          <li>paiement : Stripe ;</li>
-          <li>courriels : Resend.</li>
+          <li>téléphonie : Twilio (États-Unis) ;</li>
+          <li>réceptionniste vocale : Vapi (États-Unis), qui fait appel à Anthropic pour la compréhension et les réponses (États-Unis), à Microsoft Azure pour la voix (États-Unis) et à Deepgram pour la transcription de la parole en texte (États-Unis) ;</li>
+          <li>base de données et serveur : Supabase, avec des données stockées au Canada (Montréal) ;</li>
+          <li>paiement : Stripe (États-Unis) ;</li>
+          <li>courriels : Resend (États-Unis) ;</li>
+          <li>formulaire de contact du site : Web3Forms (Inde) ;</li>
+          <li>prise de rendez-vous en ligne, lorsqu'elle est offerte : Cal.com (États-Unis) ;</li>
+          <li>statistiques de visites anonymes, lorsqu'elles sont activées : GoatCounter (Union européenne : Finlande et Allemagne) ;</li>
+          <li>hébergement du site : GitHub (États-Unis).</li>
         </ul>
-        <p>Certains sont situés aux États-Unis ; les données peuvent donc être traitées hors du Canada, avec des protections contractuelles. Une évaluation des facteurs relatifs à la vie privée (EFVP) est en cours.</p>
+        <p>Plusieurs de ces fournisseurs sont situés hors du Canada ; les données peuvent donc y être traitées, avec des protections contractuelles. Une évaluation des facteurs relatifs à la vie privée (EFVP) est en cours.</p>
 
-        <h2>Enregistrement des appels et consentement</h2>
-        <p>Lorsque l'enregistrement est activé, l'assistant annonce au début de l'appel qu'il s'agit d'un assistant virtuel et que l'appel peut être enregistré. La personne qui poursuit l'appel consent à ce traitement. Le Client est responsable d'informer sa propre clientèle selon les lois de son secteur.</p>
+        <h2>Appels et consentement</h2>
+        <p>Les appels ne sont pas enregistrés en audio. La conversation est transcrite par écrit, puis résumée, afin de transmettre le message au Client. Au début de l'appel, l'assistante se présente comme une assistante virtuelle. Le Client est responsable d'informer sa propre clientèle selon les lois de son secteur.</p>
 
         <h2>Conservation</h2>
         <ul>
-          <li>Les transcriptions et enregistrements sont conservés 90 jours, puis supprimés, sauf demande contraire du Client ou obligation légale.</li>
+          <li>Les appels (numéro de l'appelant, transcription et résumé) sont conservés 12 mois, puis supprimés automatiquement, sauf obligation légale.</li>
           <li>Les données de compte sont conservées pendant l'abonnement et jusqu'à 12 mois après la fin.</li>
           <li>Les demandes de devis et courriels sans suite sont conservés 1 an.</li>
         </ul>
