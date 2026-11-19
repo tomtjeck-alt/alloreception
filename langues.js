@@ -618,11 +618,6 @@
       sel.appendChild(o);
     });
 
-    var optPlus = document.createElement("option");
-    optPlus.value = "__plus__";
-    optPlus.textContent = "＋ Toutes les langues (100+)";
-    sel.appendChild(optPlus);
-
     sel.addEventListener("change", function () {
       if (sel.value) choisirLangue(sel.value);
     });

@@ -912,16 +912,17 @@ dialog.paiement.integre .checkout-secours { display: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 8px;
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--bordure-forte);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
+  margin-left: 6px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  opacity: 0.7;
   cursor: pointer;
 }
-.langues-barre:hover { background: rgba(255, 255, 255, 0.09); }
-.langue-globe { font-size: 1.05rem; line-height: 1; pointer-events: none; }
+.langues-barre:hover { opacity: 1; background: rgba(255, 255, 255, 0.06); }
+.langue-globe { font-size: 0.95rem; line-height: 1; pointer-events: none; }
 .langue-select {
   position: absolute;
   inset: 0;
