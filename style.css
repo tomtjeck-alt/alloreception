@@ -917,28 +917,16 @@ dialog.paiement.integre .checkout-secours { display: none; }
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.04);
 }
-.langue-btn {
-  background: transparent;
-  color: var(--texte-doux);
-  border: 0;
-  border-radius: 7px;
-  padding: 5px 8px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  cursor: pointer;
-  line-height: 1.1;
-}
-.langue-btn:hover { color: var(--titre); background: rgba(255, 255, 255, 0.08); }
-.langue-btn[aria-pressed="true"] { background: var(--jaune); color: var(--bleu-fonce); }
+.langue-globe { font-size: 0.92rem; line-height: 1; padding-left: 4px; }
 .langue-select {
   background: transparent;
-  color: var(--texte);
+  color: var(--titre);
   border: 0;
   border-radius: 7px;
-  padding: 4px 4px;
-  font-size: 0.78rem;
+  padding: 4px 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
   cursor: pointer;
-  max-width: 64px;
 }
 .langue-select option { background: var(--fond-2); color: var(--titre); }
 @media (max-width: 900px) {

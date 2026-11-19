@@ -544,12 +544,8 @@
   }
 
   function majBoutons(lang) {
-    var fr = document.getElementById("allo-btn-fr");
-    var en = document.getElementById("allo-btn-en");
     var sel = document.getElementById("allo-sel-lang");
-    if (fr) fr.setAttribute("aria-pressed", lang === "fr" ? "true" : "false");
-    if (en) en.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
-    if (sel) sel.value = (lang !== "fr" && lang !== "en") ? lang : "";
+    if (sel) sel.value = lang || "fr";
   }
 
   function choisirLangue(lang) {
@@ -598,29 +594,22 @@
     bloc.className = "langues-barre notranslate";
     bloc.setAttribute("translate", "no");
 
-    var btnFr = document.createElement("button");
-    btnFr.type = "button";
-    btnFr.id = "allo-btn-fr";
-    btnFr.className = "langue-btn";
-    btnFr.textContent = "FR";
-    btnFr.addEventListener("click", function () { choisirLangue("fr"); });
-
-    var btnEn = document.createElement("button");
-    btnEn.type = "button";
-    btnEn.id = "allo-btn-en";
-    btnEn.className = "langue-btn";
-    btnEn.textContent = "EN";
-    btnEn.addEventListener("click", function () { choisirLangue("en"); });
+    var icone = document.createElement("span");
+    icone.className = "langue-globe";
+    icone.setAttribute("aria-hidden", "true");
+    icone.textContent = "🌐";
 
     var sel = document.createElement("select");
     sel.id = "allo-sel-lang";
     sel.className = "langue-select";
-    sel.setAttribute("aria-label", "Toutes les langues");
+    sel.setAttribute("aria-label", "Choisir la langue");
 
-    var optDef = document.createElement("option");
-    optDef.value = "";
-    optDef.textContent = "🌐 +";
-    sel.appendChild(optDef);
+    [["fr", "Français"], ["en", "English"]].forEach(function (pair) {
+      var o = document.createElement("option");
+      o.value = pair[0];
+      o.textContent = pair[1];
+      sel.appendChild(o);
+    });
 
     LANGUES_AUTRES.forEach(function (pair) {
       var o = document.createElement("option");
@@ -631,15 +620,14 @@
 
     var optPlus = document.createElement("option");
     optPlus.value = "__plus__";
-    optPlus.textContent = "＋ Google Translate (100+)";
+    optPlus.textContent = "＋ Toutes les langues (100+)";
     sel.appendChild(optPlus);
 
     sel.addEventListener("change", function () {
       if (sel.value) choisirLangue(sel.value);
     });
 
-    bloc.appendChild(btnFr);
-    bloc.appendChild(btnEn);
+    bloc.appendChild(icone);
     bloc.appendChild(sel);
     menu.appendChild(bloc);
   }
