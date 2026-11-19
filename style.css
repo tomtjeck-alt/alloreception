@@ -905,3 +905,49 @@ dialog.paiement.integre .checkout-secours { display: none; }
 /* Page d'administration : client en attente de numéro */
 .attente-raison { display: block; color: var(--texte-doux); font-size: 0.78rem; margin: 6px 0; max-width: 260px; white-space: normal; }
 .bouton-numero { margin-top: 2px; }
+
+/* ===== Sélecteur de langue (FR / EN / toutes les langues) ===== */
+.langues-barre {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 3px;
+  border: 1px solid var(--bordure-forte);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.langue-btn {
+  background: transparent;
+  color: var(--texte-doux);
+  border: 0;
+  border-radius: 7px;
+  padding: 5px 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1.1;
+}
+.langue-btn:hover { color: var(--titre); background: rgba(255, 255, 255, 0.08); }
+.langue-btn[aria-pressed="true"] { background: var(--jaune); color: var(--bleu-fonce); }
+.langue-select {
+  background: transparent;
+  color: var(--texte);
+  border: 0;
+  border-radius: 7px;
+  padding: 4px 4px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  max-width: 64px;
+}
+.langue-select option { background: var(--fond-2); color: var(--titre); }
+@media (max-width: 900px) {
+  .langues-barre { margin: 10px 0 0; align-self: flex-start; }
+}
+
+/* Masquer la barre supérieure ajoutée par Google Traduction */
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+body > .skiptranslate:not(#google_translate_element) { display: none !important; }
+body { top: 0 !important; }

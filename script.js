@@ -194,3 +194,11 @@ if (bandeau) {
     lien.addEventListener("click", function (e) { e.preventDefault(); bandeau.hidden = false; });
   });
 }
+
+// ===== Sélecteur de langue (FR / EN / toutes les langues) =====
+if (!document.getElementById("allo-langues-script")) {
+  var sLang = document.createElement("script");
+  sLang.id = "allo-langues-script";
+  sLang.src = "langues.js?v=1";
+  document.body.appendChild(sLang);
+}
