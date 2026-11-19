@@ -908,25 +908,28 @@ dialog.paiement.integre .checkout-secours { display: none; }
 
 /* ===== Sélecteur de langue (FR / EN / toutes les langues) ===== */
 .langues-barre {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   margin-left: 8px;
-  padding: 3px;
+  width: 34px;
+  height: 34px;
   border: 1px solid var(--bordure-forte);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.04);
-}
-.langue-globe { font-size: 0.92rem; line-height: 1; padding-left: 4px; }
-.langue-select {
-  background: transparent;
-  color: var(--titre);
-  border: 0;
-  border-radius: 7px;
-  padding: 4px 6px;
-  font-size: 0.82rem;
-  font-weight: 600;
   cursor: pointer;
+}
+.langues-barre:hover { background: rgba(255, 255, 255, 0.09); }
+.langue-globe { font-size: 1.05rem; line-height: 1; pointer-events: none; }
+.langue-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
 }
 .langue-select option { background: var(--fond-2); color: var(--titre); }
 @media (max-width: 900px) {
