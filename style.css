@@ -937,9 +937,13 @@ dialog.paiement.integre .checkout-secours { display: none; }
   .langues-barre { margin: 10px 0 0; align-self: flex-start; }
 }
 
-/* Masquer la barre supérieure ajoutée par Google Traduction */
+/* Masquer la barre et les bulles ajoutées par Google Traduction */
 .goog-te-banner-frame.skiptranslate,
 iframe.goog-te-banner-frame,
 iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
-body > .skiptranslate:not(#google_translate_element) { display: none !important; }
-body { top: 0 !important; }
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-te-spinner-pos,
+body > .skiptranslate:not(#google_translate_element) { display: none !important; visibility: hidden !important; height: 0 !important; }
+html, body { top: 0 !important; margin-top: 0 !important; }
