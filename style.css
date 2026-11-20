@@ -608,7 +608,14 @@ details.detail-tableau[open] summary { margin-bottom: 14px; }
 }
 
 /* ===== Espace client : connexion, installation, tableau de bord ===== */
-.menu a.lien-compte { border: 1px solid var(--bordure-forte); }
+.menu a.lien-compte {
+  border: 1px solid var(--bordure-forte);
+  background: rgba(255, 255, 255, .08);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.menu a.lien-compte:hover { background: rgba(255, 255, 255, .16); }
 .section-compte { min-height: 70vh; }
 .conteneur-compte { max-width: 480px; }
 .conteneur-compte.large { max-width: 760px; }
