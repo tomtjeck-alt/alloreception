@@ -937,13 +937,22 @@ dialog.paiement.integre .checkout-secours { display: none; }
   .langues-barre { margin: 10px 0 0; align-self: flex-start; }
 }
 
-/* Masquer la barre et les bulles ajoutées par Google Traduction */
+/* Masquer la barre, les bulles et le décalage ajoutés par Google Traduction */
 .goog-te-banner-frame.skiptranslate,
 iframe.goog-te-banner-frame,
 iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
 .VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-yAWNEb-L7lbkb,
 #goog-gt-tt,
+div[id^="goog-gt-"],
 .goog-te-balloon-frame,
 .goog-te-spinner-pos,
-body > .skiptranslate:not(#google_translate_element) { display: none !important; visibility: hidden !important; height: 0 !important; }
-html, body { top: 0 !important; margin-top: 0 !important; }
+body > .skiptranslate:not(#google_translate_element) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+html, body, body[style] { top: 0 !important; margin-top: 0 !important; }
