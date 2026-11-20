@@ -24,5 +24,5 @@ window.ALLO_CONFIG = {
   // --- Mesure d'audience (GoatCounter, gratuit, sans pub) ---
   // Créez un compte sur https://www.goatcounter.com, ex. code « alloreception ».
   // Lancée SEULEMENT si le visiteur accepte les témoins.
-  goatcounterCode: "A_REMPLACER"
+  goatcounterCode: "alloreception"
 };
