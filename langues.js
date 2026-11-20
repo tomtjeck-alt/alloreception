@@ -379,6 +379,8 @@
     "Consignes pour la réceptionniste": "Instructions for your receptionist",
     "Ex. : on ne fait pas de carrosserie. Pour une urgence, dire de laisser son numéro.": "E.g. We don't do bodywork. For emergencies, ask them to leave their number.",
     "Courriel pour recevoir les résumés d'appels": "Email for call summaries",
+    "Permettre le transfert d'appel vers un humain": "Allow live call transfer to a person",
+    "Numéro de transfert (si activé)": "Transfer phone number (if enabled)",
     "Choisir un mot de passe (pour vous reconnecter plus tard)": "Choose a password (to sign in later)",
     "Laisser vide pour ne pas le changer": "Leave blank to keep current password",
     "Enregistrer et activer ma réceptionniste": "Save & activate my receptionist",

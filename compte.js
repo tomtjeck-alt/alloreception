@@ -229,15 +229,17 @@
         form.motdepasse.closest("label").firstChild.textContent = "Choisissez votre mot de passe * (pour vous reconnecter plus tard)";
       }
       if (!e) { message("Aucun abonnement n'est associé à ce compte. Écrivez-nous : contact@alloreception.ca", "erreur"); return; }
-      ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes"]
+      ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert"]
         .forEach(function (c) { if (form[c]) form[c].value = e[c] || ""; });
+      if (form.transfert_actif) form.transfert_actif.checked = !!e.transfert_actif;
       document.getElementById("forfait-actuel").textContent = e.forfait_nom + (e.statut === "essai" ? " · essai gratuit" : "");
       // Brouillon gardé si la session a expiré pendant le remplissage (jamais le mot de passe)
-      var CHAMPS = ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes"];
+      var CHAMPS = ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert"];
       try {
         var brouillon = JSON.parse(sessionStorage.getItem("allo-brouillon-installation") || "null");
         if (brouillon) {
           CHAMPS.forEach(function (c) { if (form[c] && brouillon[c] != null) form[c].value = brouillon[c]; });
+          if (form.transfert_actif && brouillon.transfert_actif != null) form.transfert_actif.checked = !!brouillon.transfert_actif;
           sessionStorage.removeItem("allo-brouillon-installation");
           message("Vos informations ont été gardées. Vérifiez-les, puis cliquez sur le bouton.", "info");
         }
@@ -263,6 +265,7 @@
           if (!s) {
             try {
               var d = {}; CHAMPS.forEach(function (c) { d[c] = form[c].value; });
+              if (form.transfert_actif) d.transfert_actif = form.transfert_actif.checked;
               sessionStorage.setItem("allo-brouillon-installation", JSON.stringify(d));
             } catch (x) {}
             return message("Votre session a expiré : rien n'a été enregistré. Vos informations sont gardées. Reconnectez-vous sur la page Connexion (ou cliquez sur « Mot de passe oublié »), puis revenez ici.", "erreur");
@@ -287,6 +290,7 @@
           b.textContent = "Enregistrement de vos informations…";
           var maj = {};
           CHAMPS.forEach(function (c) { maj[c] = form[c].value.trim(); });
+          if (form.transfert_actif) maj.transfert_actif = form.transfert_actif.checked;
           var r = await sb.from("entreprises").update(maj).eq("id", e.id).select("id");
           // Aucune ligne modifiée = refus silencieux de la base (session perdue) : c'est une erreur
           if (!r.error && (!r.data || !r.data.length)) r.error = { code: "session_not_found" };

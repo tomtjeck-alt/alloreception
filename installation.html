@@ -54,6 +54,10 @@
             <label>Heures d'ouverture *<textarea name="heures" rows="2" required maxlength="500" placeholder="Lundi au vendredi 8 h à 17 h, samedi 9 h à 13 h, fermé le dimanche"></textarea></label>
             <label>Services et prix<textarea name="services_prix" rows="4" maxlength="3000" placeholder="Changement d'huile : 79 $&#10;Pose de 4 pneus : 80 $&#10;Diagnostic : 95 $/h"></textarea></label>
             <label>Consignes pour la réceptionniste<textarea name="consignes" rows="3" maxlength="2000" placeholder="Ex. : on ne fait pas de carrosserie. Pour une urgence, dire de laisser son numéro."></textarea></label>
+            <div class="grille-2">
+              <label class="case-condition"><input type="checkbox" name="transfert_actif"> Permettre le transfert d'appel vers un humain</label>
+              <label>Numéro de transfert (si activé)<input name="telephone_transfert" type="tel" maxlength="20" placeholder="819 555-1234"></label>
+            </div>
             <label>Courriel pour recevoir les résumés d'appels<input name="courriel_resumes" type="email" maxlength="200"></label>
             <label>Choisir un mot de passe (pour vous reconnecter plus tard)<input name="motdepasse" type="password" autocomplete="new-password" minlength="8" placeholder="Laisser vide pour ne pas le changer"></label>
             <button type="submit" class="bouton bouton-jaune">Enregistrer et activer ma réceptionniste</button>
