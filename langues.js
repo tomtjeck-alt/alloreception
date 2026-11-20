@@ -388,6 +388,8 @@
     "Non connecté": "Not connected",
     "Bientôt disponible": "Coming soon",
     "Inscriptions en ligne ouvertes sous peu": "Online sign-ups opening soon",
+    "Coût par minute incluse dans le forfait": "Cost per included minute in the plan",
+    "Annuel — toutes les minutes épuisées :": "Annual — all minutes used:",
     "Choisir un mot de passe (pour vous reconnecter plus tard)": "Choose a password (to sign in later)",
     "Laisser vide pour ne pas le changer": "Leave blank to keep current password",
     "Enregistrer et activer ma réceptionniste": "Save & activate my receptionist",
