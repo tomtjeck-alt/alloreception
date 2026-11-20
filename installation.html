@@ -58,6 +58,24 @@
               <label class="case-condition"><input type="checkbox" name="transfert_actif"> Permettre le transfert d'appel vers un humain</label>
               <label>Numéro de transfert (si activé)<input name="telephone_transfert" type="tel" maxlength="20" placeholder="819 555-1234"></label>
             </div>
+            <div id="bloc-agenda" class="grille-2" hidden>
+              <div>
+                <label>Google Agenda (prise de rendez-vous)
+                  <span id="etat-agenda" style="display:block;margin:6px 0;font-weight:400;opacity:.85">Non connecté</span>
+                </label>
+                <button type="button" id="btn-agenda" class="bouton bouton-contour">Connecter mon Google Agenda</button>
+              </div>
+              <label>Durée d'un rendez-vous
+                <select name="agenda_duree_minutes">
+                  <option value="15">15 minutes</option>
+                  <option value="30" selected>30 minutes</option>
+                  <option value="45">45 minutes</option>
+                  <option value="60">60 minutes</option>
+                  <option value="90">90 minutes</option>
+                  <option value="120">120 minutes</option>
+                </select>
+              </label>
+            </div>
             <label>Courriel pour recevoir les résumés d'appels<input name="courriel_resumes" type="email" maxlength="200"></label>
             <label>Choisir un mot de passe (pour vous reconnecter plus tard)<input name="motdepasse" type="password" autocomplete="new-password" minlength="8" placeholder="Laisser vide pour ne pas le changer"></label>
             <button type="submit" class="bouton bouton-jaune">Enregistrer et activer ma réceptionniste</button>

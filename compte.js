@@ -232,6 +232,38 @@
       ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert"]
         .forEach(function (c) { if (form[c]) form[c].value = e[c] || ""; });
       if (form.transfert_actif) form.transfert_actif.checked = !!e.transfert_actif;
+      var blocAgenda = document.getElementById("bloc-agenda");
+      var etatAgenda = document.getElementById("etat-agenda");
+      var btnAgenda = document.getElementById("btn-agenda");
+      function rafraichirAgenda() {
+        if (!blocAgenda) return;
+        blocAgenda.hidden = !e.rendez_vous;
+        if (!e.rendez_vous) return;
+        if (form.agenda_duree_minutes) form.agenda_duree_minutes.value = String(e.agenda_duree_minutes || 30);
+        if (etatAgenda) etatAgenda.textContent = e.agenda_connecte ? "Connecté (" + (e.agenda_courriel || "Google Agenda") + ")" : "Non connecté";
+        if (btnAgenda) btnAgenda.textContent = e.agenda_connecte ? "Déconnecter" : "Connecter mon Google Agenda";
+      }
+      rafraichirAgenda();
+      var retourAgenda = new URLSearchParams(location.search).get("agenda");
+      if (retourAgenda === "ok") message("Google Agenda connecté avec succès !", "succes");
+      else if (retourAgenda === "annule") message("Connexion à Google Agenda annulée.", "info");
+      else if (retourAgenda === "erreur") message("Impossible de connecter Google Agenda. Réessayez.", "erreur");
+      if (btnAgenda) {
+        btnAgenda.addEventListener("click", async function () {
+          occupe(btnAgenda, true, e.agenda_connecte ? "Déconnexion…" : "Redirection…");
+          try {
+            var rep = await appelServeur("google-agenda", { action: e.agenda_connecte ? "deconnecter" : "connecter" });
+            if (rep && rep.url) { location.href = rep.url; return; }
+            e.agenda_connecte = false; e.agenda_courriel = "";
+            rafraichirAgenda();
+            message("Google Agenda déconnecté.", "info");
+          } catch (err) {
+            message(err.message || "Erreur Google Agenda.", "erreur");
+          } finally {
+            occupe(btnAgenda, false);
+          }
+        });
+      }
       document.getElementById("forfait-actuel").textContent = e.forfait_nom + (e.statut === "essai" ? " · essai gratuit" : "");
       // Brouillon gardé si la session a expiré pendant le remplissage (jamais le mot de passe)
       var CHAMPS = ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert"];
@@ -291,6 +323,7 @@
           var maj = {};
           CHAMPS.forEach(function (c) { maj[c] = form[c].value.trim(); });
           if (form.transfert_actif) maj.transfert_actif = form.transfert_actif.checked;
+          if (e.rendez_vous && form.agenda_duree_minutes) maj.agenda_duree_minutes = Number(form.agenda_duree_minutes.value) || 30;
           var r = await sb.from("entreprises").update(maj).eq("id", e.id).select("id");
           // Aucune ligne modifiée = refus silencieux de la base (session perdue) : c'est une erreur
           if (!r.error && (!r.data || !r.data.length)) r.error = { code: "session_not_found" };
