@@ -318,7 +318,7 @@
         btnAgenda.addEventListener("click", async function () {
           occupe(btnAgenda, true, e.agenda_connecte ? "Déconnexion…" : "Redirection…");
           try {
-            var rep = await appelServeur("google-agenda", { action: e.agenda_connecte ? "deconnecter" : "connecter" });
+            var rep = await fonction("google-agenda", { action: e.agenda_connecte ? "deconnecter" : "connecter" });
             if (rep && rep.url) { location.href = rep.url; return; }
             e.agenda_connecte = false; e.agenda_courriel = "";
             rafraichirAgenda();
