@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /connexion.html
+Disallow: /espace-client.html
+Disallow: /installation.html
+Disallow: /merci.html
+
+Sitemap: https://alloreception.ca/sitemap.xml
