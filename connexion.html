@@ -59,6 +59,13 @@
             <label>Code de vérification à 6 chiffres<input type="text" name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label>
             <button type="submit" class="bouton bouton-jaune">Vérifier</button>
           </form>
+          <form id="form-2fa-config" class="formulaire" hidden>
+            <p>La double authentification (2FA) est obligatoire. Scannez ce code QR avec votre application d'authentification (Google Authenticator, Apple Mots de passe, 1Password…), puis entrez le code à 6 chiffres :</p>
+            <img id="c-qr-2fa" alt="Code QR 2FA" style="width:180px;height:180px;background:#fff;padding:8px;border-radius:8px">
+            <p class="mono" style="font-size:.85rem">Code manuel : <span id="c-secret-2fa"></span></p>
+            <label>Code à 6 chiffres<input type="text" name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label>
+            <button type="submit" class="bouton bouton-jaune">Activer et continuer</button>
+          </form>
           <p class="note-compte">Pas encore client ? <a href="forfaits.html">Voir les forfaits</a></p>
         </div>
       </div>

@@ -26,6 +26,8 @@
   async function charger() {
     var s = (await sb.auth.getSession()).data.session;
     if (!s) return versConnexion();
+    var aal = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (!aal.data || aal.data.currentLevel !== "aal2") return versConnexion();
     // Loi 25 : traitement forcé au Canada
     var r = await sb.functions.invoke("admin-clients?forceFunctionRegion=ca-central-1", { body: {} });
     if (r.error) {

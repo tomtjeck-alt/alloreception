@@ -133,6 +133,13 @@
   async function sessionOuConnexion() {
     var s = (await sb.auth.getSession()).data.session;
     if (!s) { location.replace("connexion.html?retour=" + encodeURIComponent(location.pathname.split("/").pop())); return null; }
+    if (page === "espace" || (page === "installation" && !jetonLien)) {
+      var aal = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (!aal.data || aal.data.currentLevel !== "aal2") {
+        location.replace("connexion.html?retour=" + encodeURIComponent(location.pathname.split("/").pop()));
+        return null;
+      }
+    }
     return s;
   }
   async function monEntreprise() {
@@ -149,12 +156,35 @@
     var formC = document.getElementById("form-connexion");
     var formN = document.getElementById("form-nouveau");
     var form2fa = document.getElementById("form-2fa");
+    var form2faCfg = document.getElementById("form-2fa-config");
+    var enrolementConnexionId = null;
     async function continuerApresMotDePasse() {
       var aal = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
-      if (aal.data && aal.data.nextLevel === "aal2" && aal.data.currentLevel !== "aal2") {
+      if (aal.data && aal.data.currentLevel === "aal2") {
+        location.replace(retour);
+        return;
+      }
+      if (aal.data && aal.data.nextLevel === "aal2") {
         formC.hidden = true;
         if (form2fa) form2fa.hidden = false;
         message("Entrez le code à 6 chiffres de votre application d'authentification.", "info");
+        return;
+      }
+      // 2FA obligatoire : première configuration
+      if (form2faCfg) {
+        formC.hidden = true;
+        var f = await sb.auth.mfa.listFactors();
+        var nonVerifies = (f.data && f.data.all ? f.data.all : []).filter(function (x) { return x.status === "unverified"; });
+        for (var i = 0; i < nonVerifies.length; i++) {
+          await sb.auth.mfa.unenroll({ factorId: nonVerifies[i].id });
+        }
+        var r = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "Allo Réception" });
+        if (r.error) return message(enFrancais(r.error), "erreur");
+        enrolementConnexionId = r.data.id;
+        document.getElementById("c-qr-2fa").src = r.data.totp.qr_code;
+        document.getElementById("c-secret-2fa").textContent = r.data.totp.secret;
+        form2faCfg.hidden = false;
+        message("Configurez la double authentification (2FA) obligatoire pour continuer.", "info");
         return;
       }
       location.replace(retour);
@@ -198,6 +228,17 @@
         var v = await sb.auth.mfa.challengeAndVerify({ factorId: totp.id, code: form2fa.code.value.trim() });
         occupe(b, false);
         if (v.error) return message("Code invalide ou expiré. Réessayez.", "erreur");
+        location.replace(retour);
+      });
+    }
+    if (form2faCfg) {
+      form2faCfg.addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        var b = form2faCfg.querySelector("button[type=submit]");
+        occupe(b, true, "Activation…"); message("");
+        var v = await sb.auth.mfa.challengeAndVerify({ factorId: enrolementConnexionId, code: form2faCfg.code.value.trim() });
+        occupe(b, false);
+        if (v.error) return message("Code invalide. Vérifiez l'heure de votre téléphone et réessayez.", "erreur");
         location.replace(retour);
       });
     }
@@ -470,9 +511,9 @@
         if (!etat) return;
         var f = await sb.auth.mfa.listFactors();
         facteur2fa = (f.data && f.data.totp && f.data.totp.find(function (x) { return x.status === "verified"; })) || null;
-        etat.textContent = facteur2fa ? "Double authentification activée ✔" : "Désactivée (recommandé pour protéger votre compte).";
+        etat.textContent = facteur2fa ? "Double authentification activée ✔ (obligatoire)" : "Désactivée (obligatoire à la prochaine connexion).";
         btnA.hidden = !!facteur2fa;
-        btnD.hidden = !facteur2fa;
+        btnD.hidden = true;
         if (facteur2fa && fAjout) fAjout.hidden = true;
       }
       if (nom("zone-2fa")) {

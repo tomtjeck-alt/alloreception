@@ -396,6 +396,7 @@
     "Code de vérification à 6 chiffres": "6-digit verification code",
     "Vérifier": "Verify",
     "Confirmer et activer": "Confirm and enable",
+    "Activer et continuer": "Enable and continue",
     "Choisir un mot de passe (pour vous reconnecter plus tard)": "Choose a password (to sign in later)",
     "Laisser vide pour ne pas le changer": "Leave blank to keep current password",
     "Enregistrer et activer ma réceptionniste": "Save & activate my receptionist",
