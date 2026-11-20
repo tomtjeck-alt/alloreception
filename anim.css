@@ -3,8 +3,8 @@
 /* Apparition au défilement (seulement si le JavaScript fonctionne) */
 .js-anim .revele {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform: translateY(28px) scale(0.96);
+  transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--delai, 0ms);
 }
 .js-anim .revele.visible { opacity: 1; transform: none; }
@@ -300,3 +300,41 @@
   animation: respire 2.4s ease-in-out infinite;
 }
 .agent-voix .onde { height: 40px; margin-top: -4px; }
+
+/* ===== Motion Design 3D (Option 1 : bleu nuit + jaune) ===== */
+.carte-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+}
+.carte-3d:hover {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), 0 0 28px rgba(250, 204, 21, 0.14);
+}
+.forfait-vedette.carte-3d:hover {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.03) translateY(-4px);
+}
+
+/* Trait lumineux animé sur la carte du hero et le forfait vedette */
+.agent.agent-lueur, .forfait-vedette { position: relative; overflow: hidden; }
+.agent.agent-lueur::before, .forfait-vedette::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 60%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--jaune), #60A5FA, transparent);
+  animation: rayon-bord 3.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes rayon-bord {
+  0% { left: -60%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carte-3d:hover { transform: none; }
+  .agent.agent-lueur::before, .forfait-vedette::before { animation: none; display: none; }
+}

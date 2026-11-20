@@ -79,14 +79,23 @@
     }, 1000);
   }
 
-  // 3c. Lueur qui suit la souris sur les cartes (style Dasha / Ainora)
+  // 3c. Lueur et léger relief 3D qui suivent la souris sur les cartes
   if (!calme && window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll(".carte, .fonctions li, .etapes li, .forfait, .apercu, .contact-carte, .panneau-comparaison, .demo-fenetre").forEach(function (el) {
-      el.classList.add("projecteur");
+    document.querySelectorAll(".carte, .fonctions li, .etapes li, .forfait, .apercu, .contact-carte, .panneau-comparaison, .demo-fenetre, .agent").forEach(function (el) {
+      el.classList.add("projecteur", "carte-3d");
       el.addEventListener("pointermove", function (e) {
         var r = el.getBoundingClientRect();
-        el.style.setProperty("--mx", (e.clientX - r.left) + "px");
-        el.style.setProperty("--my", (e.clientY - r.top) + "px");
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        el.style.setProperty("--mx", x + "px");
+        el.style.setProperty("--my", y + "px");
+        var rx = ((0.5 - y / r.height) * 5).toFixed(2) + "deg";
+        var ry = ((x / r.width - 0.5) * 6).toFixed(2) + "deg";
+        el.style.setProperty("--rx", rx);
+        el.style.setProperty("--ry", ry);
+      });
+      el.addEventListener("pointerleave", function () {
+        el.style.setProperty("--rx", "0deg");
+        el.style.setProperty("--ry", "0deg");
       });
     });
   }
