@@ -60,9 +60,35 @@
               '<button type="button" class="bouton bouton-contour-clair bouton-petit bouton-numero" data-id="' + esc(c.id) + '">Créer le numéro</button></td>'
           : '<td class="mono">' + esc(c.installation_complete ? "—" : "à installer") + "</td>") +
         "<td>" + esc(c.appels_ce_mois) + "</td>" +
-        "<td>" + (c.stripe_url ? '<a href="' + esc(c.stripe_url) + '" target="_blank" rel="noopener">Ouvrir ↗</a>' : "—") + "</td>" +
+        "<td>" + (c.stripe_url ? '<button type="button" class="bouton bouton-contour-clair bouton-petit bouton-stripe" data-idx="' + esc(liste.indexOf(c)) + '">Ouvrir</button>' : "—") + "</td>" +
         "</tr>";
     }).join("") : '<tr><td colspan="8" class="vide-admin">Aucun client pour l\'instant.</td></tr>';
+    var dlgStripe = document.getElementById("dialog-stripe");
+    if (dlgStripe) {
+      var btnFermer = document.getElementById("fermer-stripe");
+      if (btnFermer && !btnFermer.dataset.ok) {
+        btnFermer.dataset.ok = "1";
+        btnFermer.addEventListener("click", function () { dlgStripe.close(); });
+      }
+      corps.querySelectorAll(".bouton-stripe").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var c = liste[Number(b.getAttribute("data-idx"))];
+          if (!c) return;
+          document.getElementById("stripe-titre").textContent = c.nom || "Client";
+          var cid = (c.stripe_url || "").split("/customers/")[1] || "—";
+          document.getElementById("stripe-details").innerHTML =
+            "<div><strong>Courriel :</strong> " + esc(c.courriel) + "</div>" +
+            "<div><strong>Forfait :</strong> " + esc(c.forfait) + "</div>" +
+            "<div><strong>Statut :</strong> " + esc(c.statut) + "</div>" +
+            "<div><strong>Numéro :</strong> " + esc(tel(c.numero)) + "</div>" +
+            "<div><strong>Appels ce mois :</strong> " + esc(c.appels_ce_mois) + "</div>" +
+            '<div><strong>ID client Stripe :</strong> <span class="mono">' + esc(cid) + "</span></div>";
+          document.getElementById("stripe-lien-zone").innerHTML =
+            c.stripe_url ? 'Note : Stripe bloque l\'affichage intégré ; <a href="' + esc(c.stripe_url) + '" target="_blank" rel="noopener">ouvrir quand même dans Stripe ↗</a>' : "";
+          dlgStripe.showModal();
+        });
+      });
+    }
     // Bouton « Créer le numéro » d'un client en attente (un seul envoi à la fois)
     corps.querySelectorAll(".bouton-numero").forEach(function (b) {
       b.addEventListener("click", async function () {

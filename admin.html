@@ -72,6 +72,13 @@
             </table>
           </div>
           <p class="note-compte" id="a-maj"></p>
+          <dialog class="paiement" id="dialog-stripe" aria-labelledby="stripe-titre" style="max-width:520px;padding:28px">
+            <button type="button" class="paiement-fermer" id="fermer-stripe" aria-label="Fermer">✕</button>
+            <p class="surtitre">Détails client Stripe</p>
+            <h3 id="stripe-titre" style="margin-top:4px">—</h3>
+            <div id="stripe-details" style="margin:16px 0;line-height:1.7"></div>
+            <p class="note-compte" id="stripe-lien-zone"></p>
+          </dialog>
           </section>
 
           <section class="admin-page" data-page="visiteurs" aria-labelledby="titre-visiteurs">
