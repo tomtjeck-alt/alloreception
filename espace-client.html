@@ -78,6 +78,20 @@
           <h2 class="titre-appels">Derniers appels</h2>
           <div id="liste-appels" class="liste-appels"></div>
 
+          <div class="zone-2fa" id="zone-2fa" style="margin:24px 0;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:12px">
+            <h3>Sécurité du compte (double authentification 2FA)</h3>
+            <p id="etat-2fa">Vérification…</p>
+            <button type="button" id="bouton-2fa-activer" class="bouton bouton-contour-clair bouton-petit" hidden>Activer la double authentification (2FA)</button>
+            <button type="button" id="bouton-2fa-desactiver" class="bouton bouton-contour-clair bouton-petit" hidden>Désactiver la double authentification</button>
+            <form id="form-2fa-ajout" class="formulaire" hidden style="margin-top:14px">
+              <p>Scannez ce code QR avec votre application d'authentification (Google Authenticator, Apple Mots de passe, 1Password…), puis entrez le code à 6 chiffres :</p>
+              <img id="qr-2fa" alt="Code QR 2FA" style="width:180px;height:180px;background:#fff;padding:8px;border-radius:8px">
+              <p class="mono" style="font-size:.85rem">Code manuel : <span id="secret-2fa"></span></p>
+              <label>Code à 6 chiffres<input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label>
+              <button type="submit" class="bouton bouton-jaune bouton-petit">Confirmer et activer</button>
+            </form>
+          </div>
+
           <div class="zone-danger">
             <button id="bouton-suppression" class="lien lien-danger">Supprimer mon compte</button>
             <form id="zone-suppression" class="formulaire" hidden>

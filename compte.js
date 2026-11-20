@@ -148,6 +148,17 @@
     if (!/^[a-z-]+\.html$/.test(retour)) retour = "espace-client.html";
     var formC = document.getElementById("form-connexion");
     var formN = document.getElementById("form-nouveau");
+    var form2fa = document.getElementById("form-2fa");
+    async function continuerApresMotDePasse() {
+      var aal = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (aal.data && aal.data.nextLevel === "aal2" && aal.data.currentLevel !== "aal2") {
+        formC.hidden = true;
+        if (form2fa) form2fa.hidden = false;
+        message("Entrez le code à 6 chiffres de votre application d'authentification.", "info");
+        return;
+      }
+      location.replace(retour);
+    }
 
     sb.auth.onAuthStateChange(function (evt) {
       if (evt === "PASSWORD_RECOVERY") { formC.hidden = true; formN.hidden = false; }
@@ -163,7 +174,7 @@
       messageLienInvalide();
     } else {
       sb.auth.getSession().then(function (r) {
-        if (r.data.session && typeHash !== "recovery") location.replace(retour);
+        if (r.data.session && typeHash !== "recovery") continuerApresMotDePasse();
       });
     }
 
@@ -174,8 +185,22 @@
       var r = await sb.auth.signInWithPassword({ email: formC.courriel.value.trim(), password: formC.motdepasse.value });
       occupe(b, false);
       if (r.error) return message("Courriel ou mot de passe incorrect.", "erreur");
-      location.replace(retour);
+      await continuerApresMotDePasse();
     });
+    if (form2fa) {
+      form2fa.addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        var b = form2fa.querySelector("button[type=submit]");
+        occupe(b, true, "Vérification…"); message("");
+        var f = await sb.auth.mfa.listFactors();
+        var totp = f.data && f.data.totp && f.data.totp.find(function (x) { return x.status === "verified"; });
+        if (!totp) { occupe(b, false); return message("Facteur 2FA introuvable.", "erreur"); }
+        var v = await sb.auth.mfa.challengeAndVerify({ factorId: totp.id, code: form2fa.code.value.trim() });
+        occupe(b, false);
+        if (v.error) return message("Code invalide ou expiré. Réessayez.", "erreur");
+        location.replace(retour);
+      });
+    }
     document.getElementById("lien-magique").addEventListener("click", async function () {
       var courriel = formC.courriel.value.trim();
       if (!courriel) return message("Entrez d'abord votre courriel.", "erreur");
@@ -438,6 +463,52 @@
         await sb.auth.signOut(); location.replace("connexion.html");
       });
       nom("bouton-suppression").addEventListener("click", function () { nom("zone-suppression").hidden = false; this.hidden = true; });
+      // Double authentification (2FA)
+      var facteur2fa = null, enrolementId = null;
+      async function rafraichir2fa() {
+        var etat = nom("etat-2fa"), btnA = nom("bouton-2fa-activer"), btnD = nom("bouton-2fa-desactiver"), fAjout = nom("form-2fa-ajout");
+        if (!etat) return;
+        var f = await sb.auth.mfa.listFactors();
+        facteur2fa = (f.data && f.data.totp && f.data.totp.find(function (x) { return x.status === "verified"; })) || null;
+        etat.textContent = facteur2fa ? "Double authentification activée ✔" : "Désactivée (recommandé pour protéger votre compte).";
+        btnA.hidden = !!facteur2fa;
+        btnD.hidden = !facteur2fa;
+        if (facteur2fa && fAjout) fAjout.hidden = true;
+      }
+      if (nom("zone-2fa")) {
+        rafraichir2fa();
+        nom("bouton-2fa-activer").addEventListener("click", async function () {
+          occupe(this, true, "Préparation…");
+          var r = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "Allo Réception" });
+          occupe(this, false);
+          if (r.error) return message(enFrancais(r.error), "erreur");
+          enrolementId = r.data.id;
+          nom("qr-2fa").src = r.data.totp.qr_code;
+          nom("secret-2fa").textContent = r.data.totp.secret;
+          nom("form-2fa-ajout").hidden = false;
+          this.hidden = true;
+        });
+        nom("form-2fa-ajout").addEventListener("submit", async function (ev) {
+          ev.preventDefault();
+          var b = this.querySelector("button[type=submit]");
+          occupe(b, true, "Activation…");
+          var v = await sb.auth.mfa.challengeAndVerify({ factorId: enrolementId, code: this.code.value.trim() });
+          occupe(b, false);
+          if (v.error) return message("Code invalide. Vérifiez l'heure de votre téléphone et réessayez.", "erreur");
+          this.reset();
+          await rafraichir2fa();
+          message("Double authentification activée avec succès !", "succes");
+        });
+        nom("bouton-2fa-desactiver").addEventListener("click", async function () {
+          if (!facteur2fa) return;
+          occupe(this, true, "Désactivation…");
+          var r = await sb.auth.mfa.unenroll({ factorId: facteur2fa.id });
+          occupe(this, false);
+          if (r.error) return message(enFrancais(r.error), "erreur");
+          await rafraichir2fa();
+          message("Double authentification désactivée.", "info");
+        });
+      }
       nom("zone-suppression").addEventListener("submit", async function (ev) {
         ev.preventDefault();
         if (this.confirmation.value.trim() !== "SUPPRIMER") return message("Tapez SUPPRIMER en majuscules pour confirmer.", "erreur");

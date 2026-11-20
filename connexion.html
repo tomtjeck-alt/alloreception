@@ -55,6 +55,10 @@
             <label>Nouveau mot de passe (8 caractères minimum)<input type="password" name="motdepasse" autocomplete="new-password" minlength="8" required></label>
             <button type="submit" class="bouton bouton-jaune">Enregistrer</button>
           </form>
+          <form id="form-2fa" class="formulaire" hidden>
+            <label>Code de vérification à 6 chiffres<input type="text" name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label>
+            <button type="submit" class="bouton bouton-jaune">Vérifier</button>
+          </form>
           <p class="note-compte">Pas encore client ? <a href="forfaits.html">Voir les forfaits</a></p>
         </div>
       </div>
