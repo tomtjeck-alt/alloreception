@@ -386,6 +386,8 @@
     "Connecter mon Google Agenda": "Connect my Google Calendar",
     "Déconnecter": "Disconnect",
     "Non connecté": "Not connected",
+    "Bientôt disponible": "Coming soon",
+    "Inscriptions en ligne ouvertes sous peu": "Online sign-ups opening soon",
     "Choisir un mot de passe (pour vous reconnecter plus tard)": "Choose a password (to sign in later)",
     "Laisser vide pour ne pas le changer": "Leave blank to keep current password",
     "Enregistrer et activer ma réceptionniste": "Save & activate my receptionist",
