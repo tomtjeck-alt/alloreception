@@ -48,7 +48,7 @@
             </div>
           </div>
           <nav class="admin-nav" aria-label="Pages du tableau de bord">
-            <a href="#systeme" data-vers="systeme">Système</a><a href="#clients" data-vers="clients">Clients</a><a href="#travaux" data-vers="travaux">Travaux</a><a href="#a-realiser" data-vers="a-realiser">À réaliser</a><a href="#comptes" data-vers="comptes">Comptes à payer</a><a href="#evolution" data-vers="evolution">Évolution</a>
+            <a href="#systeme" data-vers="systeme">Système</a><a href="#clients" data-vers="clients">Clients</a><a href="#visiteurs" data-vers="visiteurs">Visiteurs</a><a href="#travaux" data-vers="travaux">Travaux</a><a href="#a-realiser" data-vers="a-realiser">À réaliser</a><a href="#comptes" data-vers="comptes">Comptes à payer</a><a href="#evolution" data-vers="evolution">Évolution</a>
           </nav>
           <section class="etat-systeme admin-page" data-page="systeme" aria-labelledby="titre-etat">
             <div class="etat-entete">
@@ -72,6 +72,21 @@
             </table>
           </div>
           <p class="note-compte" id="a-maj"></p>
+          </section>
+
+          <section class="admin-page" data-page="visiteurs" aria-labelledby="titre-visiteurs">
+            <h2 class="admin-titre" id="titre-visiteurs">Visiteurs du site</h2>
+            <div class="grille-stats grille-admin">
+              <div class="stat"><p class="mono">Visites totales</p><p class="stat-val" id="v-total">—</p></div>
+            </div>
+            <p class="message message-info" id="v-info" hidden></p>
+            <div class="tableau-conteneur tableau-admin">
+              <table class="comparatif tableau-texte">
+                <thead><tr><th scope="col">Page</th><th scope="col">Visites</th></tr></thead>
+                <tbody id="liste-visiteurs"></tbody>
+              </table>
+            </div>
+            <p class="note-compte">Compteur GoatCounter (visiteurs ayant accepté les témoins) · <a href="https://alloreception.goatcounter.com/" target="_blank" rel="noopener">Ouvrir les graphiques détaillés</a></p>
           </section>
 
           <p class="message message-erreur" id="tb-erreur" hidden></p>

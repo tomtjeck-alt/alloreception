@@ -237,8 +237,48 @@
   document.getElementById("tb-priorite").addEventListener("change", afficherTaches);
   document.getElementById("tb-qui").addEventListener("change", afficherTaches);
 
+  // ----- Visiteurs du site (GoatCounter) -----
+  async function chargerVisiteurs() {
+    var totalEl = document.getElementById("v-total");
+    var corps = document.getElementById("liste-visiteurs");
+    var info = document.getElementById("v-info");
+    if (!totalEl || !corps || !C.goatcounterCode || C.goatcounterCode === "A_REMPLACER") return;
+    info.hidden = true;
+    var base = "https://" + encodeURIComponent(C.goatcounterCode) + ".goatcounter.com/counter/";
+    var pages = [
+      { chemin: "/", nom: "Accueil (/)" },
+      { chemin: "/index.html", nom: "Accueil (/index.html)" },
+      { chemin: "/solution.html", nom: "Solution" },
+      { chemin: "/forfaits.html", nom: "Forfaits" },
+      { chemin: "/videos.html", nom: "Vidéos" },
+      { chemin: "/faq.html", nom: "FAQ" },
+      { chemin: "/contact.html", nom: "Contact" }
+    ];
+    async function lireCompteur(c) {
+      var r = await fetch(base + encodeURIComponent(c) + ".json");
+      if (!r.ok) throw new Error(String(r.status));
+      var d = await r.json();
+      return d && d.count ? String(d.count) : "0";
+    }
+    try {
+      totalEl.textContent = await lireCompteur("TOTAL");
+      var lignes = await Promise.all(pages.map(async function (p) {
+        try { return { nom: p.nom, count: await lireCompteur(p.chemin) }; }
+        catch (e) { return { nom: p.nom, count: "0" }; }
+      }));
+      corps.innerHTML = lignes.map(function (l) {
+        return "<tr><td>" + esc(l.nom) + "</td><td><strong>" + esc(l.count) + "</strong></td></tr>";
+      }).join("");
+    } catch (e) {
+      totalEl.textContent = "—";
+      corps.innerHTML = "";
+      info.textContent = "Activez « Allow adding visitor counts on your website » dans GoatCounter → Settings → Main pour afficher les chiffres ici.";
+      info.hidden = false;
+    }
+  }
+
   // ----- Une page par titre : le menu montre une seule section à la fois (rien n'est supprimé) -----
-  var PAGES = ["systeme", "clients", "travaux", "a-realiser", "comptes", "evolution"];
+  var PAGES = ["systeme", "clients", "visiteurs", "travaux", "a-realiser", "comptes", "evolution"];
   function montrerPage(nom, garderPosition) {
     if (PAGES.indexOf(nom) === -1) nom = "systeme";
     document.querySelectorAll(".admin-page").forEach(function (el) { el.hidden = el.getAttribute("data-page") !== nom; });
@@ -257,11 +297,11 @@
   window.addEventListener("hashchange", function () { montrerPage(location.hash.slice(1)); });
   montrerPage(location.hash.slice(1), true);
 
-  document.getElementById("bouton-actualiser").addEventListener("click", function () { charger().catch(function () {}); chargerEtat(); chargerTableau(); });
+  document.getElementById("bouton-actualiser").addEventListener("click", function () { charger().catch(function () {}); chargerEtat(); chargerTableau(); chargerVisiteurs(); });
   document.getElementById("bouton-deconnexion").addEventListener("click", async function () {
     await sb.auth.signOut(); location.replace("connexion.html");
   });
   message("Chargement…", "info");
-  charger().then(function () { if (!document.getElementById("admin").hidden) { chargerEtat(); chargerTableau(); } })
+  charger().then(function () { if (!document.getElementById("admin").hidden) { chargerEtat(); chargerTableau(); chargerVisiteurs(); } })
     .catch(function () { message("Impossible de charger les clients.", "erreur"); });
 })();
