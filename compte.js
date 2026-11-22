@@ -306,6 +306,7 @@
         blocAgenda.hidden = !e.rendez_vous;
         if (!e.rendez_vous) return;
         if (form.agenda_duree_minutes) form.agenda_duree_minutes.value = String(e.agenda_duree_minutes || 30);
+        if (form.sms_confirmation_actif) form.sms_confirmation_actif.checked = !!e.sms_confirmation_actif;
         if (etatAgenda) etatAgenda.textContent = e.agenda_connecte ? "Connecté (" + (e.agenda_courriel || "Google Agenda") + ")" : "Non connecté";
         if (btnAgenda) btnAgenda.textContent = e.agenda_connecte ? "Déconnecter" : "Connecter mon Google Agenda";
       }
@@ -390,6 +391,7 @@
           CHAMPS.forEach(function (c) { maj[c] = form[c].value.trim(); });
           if (form.transfert_actif) maj.transfert_actif = form.transfert_actif.checked;
           if (e.rendez_vous && form.agenda_duree_minutes) maj.agenda_duree_minutes = Number(form.agenda_duree_minutes.value) || 30;
+          if (e.rendez_vous && form.sms_confirmation_actif) maj.sms_confirmation_actif = form.sms_confirmation_actif.checked;
           var r = await sb.from("entreprises").update(maj).eq("id", e.id).select("id");
           // Aucune ligne modifiée = refus silencieux de la base (session perdue) : c'est une erreur
           if (!r.error && (!r.data || !r.data.length)) r.error = { code: "session_not_found" };
