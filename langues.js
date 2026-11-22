@@ -399,6 +399,7 @@
     "Activer et continuer": "Enable and continue",
     "Envoyer un SMS de confirmation à l'appelant après un rendez-vous (avec son accord)": "Send a confirmation SMS to the caller after booking an appointment (with consent)",
     "Prise de rendez-vous (Google Agenda) et SMS de confirmation": "Appointment booking (Google Calendar) & SMS confirmation",
+    "Prise de rendez-vous (Google Agenda), confirmation et rappel SMS la veille": "Appointment booking (Google Calendar), SMS confirmation & day-before reminder",
     "Choisir un mot de passe (pour vous reconnecter plus tard)": "Choose a password (to sign in later)",
     "Laisser vide pour ne pas le changer": "Leave blank to keep current password",
     "Enregistrer et activer ma réceptionniste": "Save & activate my receptionist",
