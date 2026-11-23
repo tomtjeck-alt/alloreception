@@ -371,7 +371,25 @@
       if (info) info.textContent = action === "rechercher"
         ? ((r.data.ajoutes || 0) + " nouvelle(s) entreprise(s) ajoutée(s) · " + PROSPECTS.length + " au total.")
         : (PROSPECTS.length + " prospect(s) enregistré(s).");
+      if (!action && !PROSPECTS.length && !chargerProspects._autoLance) {
+        chargerProspects._autoLance = true;
+        chargerProspects("rechercher", { ville: "Ottawa", secteur: "tous" });
+      }
     } catch (_) { if (info) info.textContent = "Prospection indisponible pour l'instant."; }
+  }
+  var VILLES_AUTO = ["Ottawa", "Gatineau", "Montréal", "Québec", "Laval", "Toronto"];
+  var idxAuto = 0;
+  var chkAuto = document.getElementById("pr-auto");
+  if (chkAuto) {
+    var sauveAuto = localStorage.getItem("allo_pr_auto");
+    if (sauveAuto !== null) chkAuto.checked = sauveAuto === "1";
+    chkAuto.addEventListener("change", function () { localStorage.setItem("allo_pr_auto", chkAuto.checked ? "1" : "0"); });
+    setInterval(function () {
+      if (!chkAuto.checked || document.getElementById("admin").hidden) return;
+      var ville = VILLES_AUTO[idxAuto % VILLES_AUTO.length];
+      idxAuto += 1;
+      chargerProspects("rechercher", { ville: ville, secteur: "tous" });
+    }, 300000);
   }
   var btnRech = document.getElementById("pr-rechercher");
   if (btnRech) btnRech.addEventListener("click", function () {
