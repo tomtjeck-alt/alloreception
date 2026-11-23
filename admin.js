@@ -306,7 +306,7 @@
   }
 
   // ----- Une page par titre : le menu montre une seule section à la fois (rien n'est supprimé) -----
-  var PAGES = ["systeme", "clients", "visiteurs", "travaux", "a-realiser", "comptes", "evolution"];
+  var PAGES = ["systeme", "clients", "prospects", "visiteurs", "travaux", "a-realiser", "comptes", "evolution"];
   function montrerPage(nom, garderPosition) {
     if (PAGES.indexOf(nom) === -1) nom = "systeme";
     document.querySelectorAll(".admin-page").forEach(function (el) { el.hidden = el.getAttribute("data-page") !== nom; });
