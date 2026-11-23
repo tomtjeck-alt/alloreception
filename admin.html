@@ -48,7 +48,7 @@
             </div>
           </div>
           <nav class="admin-nav" aria-label="Pages du tableau de bord">
-            <a href="#systeme" data-vers="systeme">Système</a><a href="#clients" data-vers="clients">Clients</a><a href="#visiteurs" data-vers="visiteurs">Visiteurs</a><a href="#travaux" data-vers="travaux">Travaux</a><a href="#a-realiser" data-vers="a-realiser">À réaliser</a><a href="#comptes" data-vers="comptes">Comptes à payer</a><a href="#evolution" data-vers="evolution">Évolution</a>
+            <a href="#systeme" data-vers="systeme">Système</a><a href="#clients" data-vers="clients">Clients</a><a href="#prospects" data-vers="prospects">Prospects</a><a href="#visiteurs" data-vers="visiteurs">Visiteurs</a><a href="#travaux" data-vers="travaux">Travaux</a><a href="#a-realiser" data-vers="a-realiser">À réaliser</a><a href="#comptes" data-vers="comptes">Comptes à payer</a><a href="#evolution" data-vers="evolution">Évolution</a>
           </nav>
           <section class="etat-systeme admin-page" data-page="systeme" aria-labelledby="titre-etat">
             <div class="etat-entete">
@@ -127,6 +127,53 @@
               <table class="comparatif tableau-texte">
                 <thead><tr><th scope="col">Priorité</th><th scope="col">Tâche</th><th scope="col">Pourquoi</th><th scope="col">Qui</th><th scope="col">Échéance</th><th scope="col">État</th></tr></thead>
                 <tbody id="tb-taches"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="admin-bloc admin-page" data-page="prospects" aria-labelledby="titre-prospects">
+            <h2 class="admin-titre" id="titre-prospects">Prospects (entreprises locales · OpenStreetMap)</h2>
+            <p class="admin-intro">Recherche gratuite partout dans le monde via OpenStreetMap. Vous gardez le contrôle : cliquez sur « Envoyer courriel » ou « Copier message ».</p>
+            <div class="admin-filtres">
+              <label>Ville ou pays
+                <input id="pr-ville" list="pr-villes" value="Ottawa" placeholder="Ex. Ottawa, Montréal, Paris, Miami">
+                <datalist id="pr-villes">
+                  <option value="Ottawa">
+                  <option value="Gatineau">
+                  <option value="Montréal">
+                  <option value="Québec">
+                  <option value="Toronto">
+                  <option value="New York">
+                  <option value="Miami">
+                  <option value="Paris">
+                  <option value="Lyon">
+                </datalist>
+              </label>
+              <label>Secteur
+                <select id="pr-secteur">
+                  <option value="garage">Garage / Mécanique</option>
+                  <option value="dentiste">Clinique dentaire</option>
+                  <option value="clinique">Clinique / Santé</option>
+                  <option value="esthetique">Esthétique / Salon</option>
+                  <option value="plombier">Plombier / Services</option>
+                </select>
+              </label>
+              <button type="button" id="pr-rechercher" class="bouton bouton-jaune bouton-petit">Rechercher des entreprises</button>
+              <label>Statut
+                <select id="pr-statut">
+                  <option value="">Tous</option>
+                  <option value="nouveau">Nouveau</option>
+                  <option value="contacte">Contacté</option>
+                  <option value="repondu">Répondu</option>
+                  <option value="ignore">Ignoré</option>
+                </select>
+              </label>
+            </div>
+            <p class="note-compte" id="pr-info"></p>
+            <div class="tableau-conteneur tableau-admin">
+              <table class="comparatif tableau-texte">
+                <thead><tr><th scope="col">Entreprise</th><th scope="col">Secteur · Ville</th><th scope="col">Contact</th><th scope="col">Statut</th><th scope="col">Message prêt</th></tr></thead>
+                <tbody id="tb-prospects"></tbody>
               </table>
             </div>
           </section>

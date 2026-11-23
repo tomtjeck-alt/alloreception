@@ -325,11 +325,107 @@
   window.addEventListener("hashchange", function () { montrerPage(location.hash.slice(1)); });
   montrerPage(location.hash.slice(1), true);
 
-  document.getElementById("bouton-actualiser").addEventListener("click", function () { charger().catch(function () {}); chargerEtat(); chargerTableau(); chargerVisiteurs(); });
+  var PROSPECTS = [];
+  function messageProspect(p) {
+    return "Bonjour l'équipe de " + p.nom + ",\n\n"
+      + "Vous manquez parfois des appels quand vous êtes occupés avec un client ? "
+      + "Allo Réception répond à vos appels et SMS 24/7, prend les rendez-vous directement dans Google Agenda et envoie les confirmations par texto.\n\n"
+      + "Testez notre réceptionniste en direct au +1 782 223-3839 ou essayez 14 jours gratuitement sur https://alloreception.ca.\n\n"
+      + "Allo Réception · Ottawa-Gatineau · contact@alloreception.ca (répondez « non » pour ne plus être contacté).";
+  }
+  function afficherProspects() {
+    var corps = document.getElementById("tb-prospects");
+    if (!corps) return;
+    var filtre = (document.getElementById("pr-statut") || {}).value || "";
+    var rows = PROSPECTS.filter(function (p) { return !filtre || p.statut === filtre; });
+    if (!rows.length) { corps.innerHTML = ligneVide(5, "Aucun prospect. Lancez une recherche ci-dessus."); return; }
+    corps.innerHTML = rows.map(function (p) {
+      var contact = [
+        p.telephone ? esc(p.telephone) : "",
+        p.courriel ? '<a href="mailto:' + esc(p.courriel) + '">' + esc(p.courriel) + "</a>" : "",
+        p.site_web && /^https?:\/\//i.test(p.site_web) ? '<a href="' + esc(p.site_web) + '" target="_blank" rel="noopener">Site</a>' : ""
+      ].filter(Boolean).join("<br>") || "—";
+      var sel = '<select data-pr-id="' + esc(p.id) + '">'
+        + [["nouveau", "Nouveau"], ["contacte", "Contacté"], ["repondu", "Répondu"], ["ignore", "Ignoré"]].map(function (o) {
+          return '<option value="' + o[0] + '"' + (p.statut === o[0] ? " selected" : "") + ">" + o[1] + "</option>";
+        }).join("") + "</select>";
+      var btnEnvoi = p.courriel
+        ? '<button type="button" class="bouton bouton-jaune bouton-petit" data-envoyer="' + esc(p.id) + '">Envoyer courriel</button> '
+        : "";
+      return "<tr><td><strong>" + esc(p.nom) + "</strong></td><td>" + esc(p.secteur) + "<br><span class=\"note-compte\">" + esc(p.ville) + "</span></td><td>" + contact + "</td><td>" + sel + "</td><td>" + btnEnvoi + "<button type=\"button\" class=\"bouton bouton-contour-clair bouton-petit\" data-copier=\"" + esc(p.id) + "\">Copier message</button></td></tr>";
+    }).join("");
+  }
+  async function chargerProspects(action, extra) {
+    var info = document.getElementById("pr-info");
+    if (info && action === "rechercher") info.textContent = "Recherche en cours sur OpenStreetMap…";
+    try {
+      var r = await sb.functions.invoke("prospection?forceFunctionRegion=ca-central-1", { body: Object.assign({ action: action || "lister" }, extra || {}) });
+      if (r.error) { if (info) info.textContent = "Erreur lors du chargement des prospects."; return; }
+      PROSPECTS = (r.data && r.data.prospects) || [];
+      afficherProspects();
+      if (info) info.textContent = action === "rechercher"
+        ? ((r.data.ajoutes || 0) + " nouvelle(s) entreprise(s) ajoutée(s) · " + PROSPECTS.length + " au total.")
+        : (PROSPECTS.length + " prospect(s) enregistré(s).");
+    } catch (_) { if (info) info.textContent = "Prospection indisponible pour l'instant."; }
+  }
+  var btnRech = document.getElementById("pr-rechercher");
+  if (btnRech) btnRech.addEventListener("click", function () {
+    chargerProspects("rechercher", {
+      ville: (document.getElementById("pr-ville") || {}).value,
+      secteur: (document.getElementById("pr-secteur") || {}).value,
+    });
+  });
+  var selStatut = document.getElementById("pr-statut");
+  if (selStatut) selStatut.addEventListener("change", afficherProspects);
+  var tbPr = document.getElementById("tb-prospects");
+  if (tbPr) {
+    tbPr.addEventListener("change", async function (ev) {
+      var el = ev.target;
+      var id = el && el.getAttribute && el.getAttribute("data-pr-id");
+      if (!id) return;
+      await sb.functions.invoke("prospection?forceFunctionRegion=ca-central-1", { body: { action: "statut", id: id, statut: el.value } });
+      var p = PROSPECTS.find(function (x) { return x.id === id; });
+      if (p) p.statut = el.value;
+    });
+    tbPr.addEventListener("click", async function (ev) {
+      var btnEnv = ev.target.closest && ev.target.closest("[data-envoyer]");
+      if (btnEnv) {
+        var pEnv = PROSPECTS.find(function (x) { return x.id === btnEnv.getAttribute("data-envoyer"); });
+        if (!pEnv) return;
+        btnEnv.disabled = true;
+        btnEnv.textContent = "Envoi…";
+        var res = await sb.functions.invoke("prospection?forceFunctionRegion=ca-central-1", {
+          body: {
+            action: "envoyer",
+            id: pEnv.id,
+            sujet: "Ne manquez plus aucun appel chez " + pEnv.nom,
+            texte: messageProspect(pEnv),
+          },
+        });
+        if (res.error || !res.data || !res.data.ok) {
+          btnEnv.disabled = false;
+          btnEnv.textContent = "Erreur";
+          return;
+        }
+        pEnv.statut = "contacte";
+        afficherProspects();
+        return;
+      }
+      var btn = ev.target.closest && ev.target.closest("[data-copier]");
+      if (!btn) return;
+      var p = PROSPECTS.find(function (x) { return x.id === btn.getAttribute("data-copier"); });
+      if (!p || !navigator.clipboard) return;
+      navigator.clipboard.writeText(messageProspect(p));
+      btn.textContent = "Copié !";
+      setTimeout(function () { btn.textContent = "Copier message"; }, 1500);
+    });
+  }
+
+  document.getElementById("bouton-actualiser").addEventListener("click", function () { charger().catch(function () {}); chargerEtat(); chargerTableau(); chargerVisiteurs(); chargerProspects(); });
   document.getElementById("bouton-deconnexion").addEventListener("click", async function () {
     await sb.auth.signOut(); location.replace("connexion.html");
   });
   message("Chargement…", "info");
-  charger().then(function () { if (!document.getElementById("admin").hidden) { chargerEtat(); chargerTableau(); chargerVisiteurs(); } })
+  charger().then(function () { if (!document.getElementById("admin").hidden) { chargerEtat(); chargerTableau(); chargerVisiteurs(); chargerProspects(); } })
     .catch(function () { message("Impossible de charger les clients.", "erreur"); });
 })();
