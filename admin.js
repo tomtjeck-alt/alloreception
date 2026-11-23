@@ -350,7 +350,7 @@
           return '<option value="' + o[0] + '"' + (p.statut === o[0] ? " selected" : "") + ">" + o[1] + "</option>";
         }).join("") + "</select>";
       var btnEnvoi = p.courriel
-        ? '<button type="button" class="bouton bouton-jaune bouton-petit" data-envoyer="' + esc(p.id) + '">Envoyer courriel</button> '
+        ? '<button type="button" class="bouton ' + (p.statut === "contacte" ? "bouton-contour-clair" : "bouton-jaune") + ' bouton-petit" data-envoyer="' + esc(p.id) + '">' + (p.statut === "contacte" ? "Envoyé ✓ (Renvoyer)" : "Envoyer courriel") + "</button> "
         : "";
       return "<tr><td><strong>" + esc(p.nom) + "</strong></td><td>" + esc(p.secteur) + "<br><span class=\"note-compte\">" + esc(p.ville) + "</span></td><td>" + contact + "</td><td>" + sel + "</td><td>" + btnEnvoi + "<button type=\"button\" class=\"bouton bouton-contour-clair bouton-petit\" data-copier=\"" + esc(p.id) + "\">Copier message</button></td></tr>";
     }).join("");
@@ -437,6 +437,8 @@
         }
         pEnv.statut = "contacte";
         afficherProspects();
+        var infoEnv = document.getElementById("pr-info");
+        if (infoEnv) infoEnv.textContent = "✓ Courriel envoyé à " + (res.data.courriel || pEnv.courriel) + " (" + pEnv.nom + ") depuis contact@alloreception.ca.";
         return;
       }
       var btn = ev.target.closest && ev.target.closest("[data-copier]");
