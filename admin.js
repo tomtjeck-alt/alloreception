@@ -360,7 +360,12 @@
     if (info && action === "rechercher") info.textContent = "Recherche en cours sur OpenStreetMap…";
     try {
       var r = await sb.functions.invoke("prospection?forceFunctionRegion=ca-central-1", { body: Object.assign({ action: action || "lister" }, extra || {}) });
-      if (r.error) { if (info) info.textContent = "Erreur lors du chargement des prospects."; return; }
+      if (r.error) {
+        var msg = "Erreur lors du chargement des prospects.";
+        try { var ej = await r.error.context.json(); if (ej && ej.erreur) msg = ej.erreur; } catch (_) {}
+        if (info) info.textContent = msg;
+        return;
+      }
       PROSPECTS = (r.data && r.data.prospects) || [];
       afficherProspects();
       if (info) info.textContent = action === "rechercher"
