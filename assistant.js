@@ -169,10 +169,20 @@
       boutons([
         { texte: "✨ Remplir le formulaire automatiquement", principal: true, action: function () {
           if (remplirFormulaire(installationData)) {
-            ajouter("C'est fait ! J'ai pré-rempli votre fiche d'installation avec ces informations. Vérifiez-les puis cliquez sur « Enregistrer et activer ma réceptionniste ».", "ia");
+            ajouter("C'est fait ! J'ai pré-rempli votre fiche d'installation avec ces informations. Si vous voulez changer quelque chose, corrigez-le ici ou cliquez sur « Recommencer ma fiche ».", "ia");
           }
         } },
-        { texte: "Affiner encore", action: function () { champ.focus(); } }
+        { texte: "Corriger un détail", action: function () { champ.focus(); } },
+        { texte: "🔄 Recommencer ma fiche", action: function () {
+          historiqueIA = [];
+          var form = document.getElementById("form-installation");
+          if (form) {
+            ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes"].forEach(function (k) {
+              if (form[k]) form[k].value = "";
+            });
+          }
+          envoyerIA("Je veux recommencer ma fiche d'installation à zéro : pose-moi les questions étape par étape.");
+        } }
       ]);
     } else if (!estInstallation) {
       boutons([
