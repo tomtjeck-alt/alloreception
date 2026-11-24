@@ -1,15 +1,13 @@
-// ===== Assistant virtuel : questions pour cerner le besoin du client =====
-// Fonctionne entièrement dans le navigateur : aucune réponse n'est enregistrée ni envoyée,
-// sauf si le visiteur choisit de nous écrire par courriel.
+// ===== Assistante Allo Réception : discussion IA sur tout le site + guide d'installation sur mesure =====
 (function () {
   var QUESTIONS = [
-    { id: "type", q: "Bonjour ! 👋 Je suis l'assistante d'Allo Réception. En 6 questions, je vous recommande le bon forfait. Quel type d'entreprise avez-vous ?",
+    { id: "type", q: "Quel type d'entreprise ou de partenariat avez-vous ?",
       court: "Type d'entreprise",
       choix: ["Garage / mécanique", "Clinique / santé", "Salon / esthétique", "Autre PME"] },
     { id: "appels", q: "Environ combien d'appels manquez-vous par semaine ?",
       court: "Appels manqués par semaine",
       choix: ["Moins de 5", "5 à 15", "Plus de 15", "Je ne sais pas"] },
-    { id: "rdv", q: "Voulez-vous que la réceptionniste note les demandes de rendez-vous et vous les envoie par courriel ?",
+    { id: "rdv", q: "Voulez-vous que la réceptionniste note ou réserve les rendez-vous ?",
       court: "Demandes de rendez-vous",
       choix: ["Oui", "Non, juste répondre"] },
     { id: "langue", q: "Avez-vous des clients anglophones ?",
@@ -28,18 +26,18 @@
     premium: { nom: "Premium", prix: 699, min: "1 000" }
   };
 
+  var page = (document.body && document.body.dataset && document.body.dataset.page) || "";
+  var estInstallation = page === "installation";
+
   function recommander(r) {
     var cle = "essentiel", raisons = [];
     if (r.rdv === "Oui") { cle = "pro"; raisons.push("les demandes de rendez-vous"); }
     if (r.langue === "Oui") { cle = "pro"; raisons.push("le service bilingue"); }
     if (r.appels === "Plus de 15") { if (cle === "essentiel") cle = "pro"; raisons.push("votre volume d'appels"); }
-    // Plus de 25 appels par jour ≈ plus de 1 000 minutes par mois : le Premium revient moins cher
     if (r.extra === "Plus de 25") { cle = "premium"; raisons.push("votre grand volume d'appels (1 000 minutes par mois, au meilleur prix)"); }
-    // Plusieurs succursales : pas de prix automatique, offre sur mesure
     return { cle: cle, raisons: raisons, succursales: r.numeros !== "Un seul" };
   }
 
-  // Construction de la bulle et du panneau
   var racine = document.createElement("div");
   racine.className = "assistant";
   racine.innerHTML =
@@ -51,6 +49,10 @@
       '</div>' +
       '<div class="assistant-messages" aria-live="polite"></div>' +
       '<div class="assistant-choix"></div>' +
+      '<form class="assistant-saisie">' +
+        '<input type="text" placeholder="' + (estInstallation ? "Décrivez votre entreprise ou posez une question…" : "Posez votre question…") + '" maxlength="1000" autocomplete="off" aria-label="Votre message">' +
+        '<button type="submit">Envoyer</button>' +
+      '</form>' +
     '</div>' +
     '<button type="button" class="assistant-bulle" aria-controls="assistant-panneau" aria-expanded="false" aria-label="Ouvrir l’assistante">' +
       '<span class="assistant-bulle-icone" aria-hidden="true">💬</span><span class="assistant-pastille" aria-hidden="true">1</span>' +
@@ -61,7 +63,11 @@
   var bulle = racine.querySelector(".assistant-bulle");
   var messages = racine.querySelector(".assistant-messages");
   var zoneChoix = racine.querySelector(".assistant-choix");
+  var formSaisie = racine.querySelector(".assistant-saisie");
+  var champ = formSaisie.querySelector("input");
+  var btnEnvoi = formSaisie.querySelector("button");
   var reponses = {}, etape = 0, demarre = false;
+  var historiqueIA = [];
 
   function ajouter(texte, qui, html) {
     var m = document.createElement("div");
@@ -70,15 +76,16 @@
     messages.appendChild(m);
     messages.scrollTop = messages.scrollHeight;
   }
-  // Affiche « … » quelques instants, comme si l'assistante écrivait
+
   function ecrire(texte, ensuite, html) {
     var t = document.createElement("div");
     t.className = "assistant-msg assistant-msg-ia assistant-ecrit";
     t.innerHTML = "<span></span><span></span><span></span>";
     messages.appendChild(t);
     messages.scrollTop = messages.scrollHeight;
-    setTimeout(function () { t.remove(); ajouter(texte, "ia", html); if (ensuite) ensuite(); }, 650);
+    setTimeout(function () { t.remove(); ajouter(texte, "ia", html); if (ensuite) ensuite(); }, 350);
   }
+
   function boutons(liste) {
     zoneChoix.innerHTML = "";
     liste.forEach(function (b) {
@@ -89,6 +96,92 @@
       zoneChoix.appendChild(el);
     });
   }
+
+  function remplirFormulaire(donnees) {
+    var form = document.getElementById("form-installation");
+    if (!form || !donnees || typeof donnees !== "object") return false;
+    var champs = ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes"];
+    var remplis = 0;
+    champs.forEach(function (k) {
+      if (typeof donnees[k] === "string" && donnees[k].trim() && form[k]) {
+        form[k].value = donnees[k].trim();
+        remplis++;
+      }
+    });
+    return remplis > 0;
+  }
+
+  function reponseLocaleSecours(texte) {
+    var t = texte.toLowerCase();
+    if (/prix|tarif|forfait|co[uû]t|essai|combien/.test(t)) {
+      return "Nos forfaits démarrent à 199 $/mois (Essentiel, 200 min), 399 $/mois (Pro, 500 min, bilingue + Google Agenda + SMS) et 699 $/mois (Premium, 1 000 min), avec 14 jours d'essai gratuit (0 $ aujourd'hui).";
+    }
+    if (/d[eé]mo|tester|appeler|num[eé]ro/.test(t)) {
+      return "Vous pouvez appeler notre réceptionniste de démonstration 24/7 au +1 782 223-3839.";
+    }
+    return "Pour toute demande précise ou offre partenaire sur mesure, écrivez-nous à contact@alloreception.ca ou cliquez sur « Choisir mon forfait » ci-dessous.";
+  }
+
+  async function envoyerIA(texte) {
+    ajouter(texte, "client");
+    historiqueIA.push({ role: "user", texte: texte });
+    zoneChoix.innerHTML = "";
+    champ.disabled = true;
+    btnEnvoi.disabled = true;
+
+    var t = document.createElement("div");
+    t.className = "assistant-msg assistant-msg-ia assistant-ecrit";
+    t.innerHTML = "<span></span><span></span><span></span>";
+    messages.appendChild(t);
+    messages.scrollTop = messages.scrollHeight;
+
+    var reponseTexte = "";
+    var installationData = null;
+    try {
+      var cfg = window.ALLO_CONFIG;
+      if (!cfg || !cfg.supabaseUrl) throw new Error("config");
+      var rep = await fetch(cfg.supabaseUrl + "/functions/v1/assistant-site", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ page: page, messages: historiqueIA }),
+      });
+      var d = await rep.json();
+      if (!rep.ok || !d.reponse) throw new Error(d.erreur || "erreur");
+      reponseTexte = String(d.reponse);
+      var m = reponseTexte.match(/\[INSTALLATION\]([\s\S]*?)\[\/INSTALLATION\]/);
+      if (m) {
+        reponseTexte = reponseTexte.replace(m[0], "").trim();
+        try { installationData = JSON.parse(m[1].trim()); } catch (_) {}
+      }
+    } catch (_) {
+      reponseTexte = reponseLocaleSecours(texte);
+    } finally {
+      t.remove();
+      champ.disabled = false;
+      btnEnvoi.disabled = false;
+      champ.focus();
+    }
+
+    historiqueIA.push({ role: "assistant", texte: reponseTexte });
+    ajouter(reponseTexte, "ia");
+
+    if (installationData && estInstallation) {
+      boutons([
+        { texte: "✨ Remplir le formulaire automatiquement", principal: true, action: function () {
+          if (remplirFormulaire(installationData)) {
+            ajouter("C'est fait ! J'ai pré-rempli votre fiche d'installation avec ces informations. Vérifiez-les puis cliquez sur « Enregistrer et activer ma réceptionniste ».", "ia");
+          }
+        } },
+        { texte: "Affiner encore", action: function () { champ.focus(); } }
+      ]);
+    } else if (!estInstallation) {
+      boutons([
+        { texte: "Choisir mon forfait (6 questions)", action: function () { etape = 0; reponses = {}; poser(); } },
+        { texte: "Voir les forfaits", href: "forfaits.html" }
+      ]);
+    }
+  }
+
   function poser() {
     var Q = QUESTIONS[etape];
     zoneChoix.innerHTML = "";
@@ -103,13 +196,14 @@
       }));
     });
   }
+
   function conclure() {
     zoneChoix.innerHTML = "";
     var r = recommander(reponses), f = FORFAITS[r.cle];
     var total = f.prix;
     var liste = r.raisons.length > 1 ? r.raisons.slice(0, -1).join(", ") + " et " + r.raisons[r.raisons.length - 1] : r.raisons[0];
     var pourquoi = r.raisons.length ? ", pour " + liste : "";
-    var texte = "Merci ! ✅ Je vous recommande le forfait <strong>" + f.nom + "</strong>" + pourquoi + ".<br><br>" +
+    var texte = "Merci ! Je vous recommande le forfait <strong>" + f.nom + "</strong>" + pourquoi + ".<br><br>" +
       "• " + f.min + " minutes d'appel incluses par mois<br>" +
       "• <strong>" + total + " $/mois</strong>, ou 2 mois gratuits en payant à l'année<br>" +
       (r.succursales ? "• Plusieurs succursales ? <a href=\"contact.html\">Écrivez-nous</a> : on prépare une offre sur mesure.<br>" : "") +
@@ -118,27 +212,56 @@
       QUESTIONS.map(function (q) { return "- " + q.court + " : " + reponses[q.id]; }).join("\n") +
       "\n\nForfait recommandé : " + f.nom + " (" + total + " $/mois)" +
       (r.succursales ? "\nPlusieurs succursales : j'aimerais une offre sur mesure." : "") +
-      "\n\nNom de mon entreprise :\nMon numéro de téléphone :\n";
+      "\n\nMerci de me recontacter.";
+    try { sessionStorage.setItem("allo_resume", resume); } catch (_) {}
     ecrire(texte, function () {
       boutons([
-        { texte: "Commencer l'essai gratuit", principal: true, href: "contact.html?forfait=" + r.cle },
-        { texte: "Envoyer mes réponses par courriel", href: "mailto:contact@alloreception.ca?subject=" +
-            encodeURIComponent("Essai Allo Réception — forfait " + f.nom) + "&body=" + encodeURIComponent(resume) },
-        { texte: "Comparer les forfaits", href: "forfaits.html" },
-        { texte: "↺ Recommencer", action: recommencer }
+        { texte: "Essayer 14 jours gratuit →", href: "forfaits.html", principal: true },
+        { texte: "Demander un devis / partenaire", href: "contact.html" },
+        { texte: "Recommencer", action: function () { etape = 0; reponses = {}; poser(); } }
       ]);
     }, true);
   }
-  function recommencer() { messages.innerHTML = ""; reponses = {}; etape = 0; poser(); }
 
-  function ouvrir(v) {
-    panneau.hidden = !v;
-    bulle.setAttribute("aria-expanded", v);
-    racine.classList.toggle("assistant-ouvert", v);
-    var p = bulle.querySelector(".assistant-pastille"); if (p) p.remove();
-    if (v && !demarre) { demarre = true; poser(); }
+  function accueil() {
+    if (estInstallation) {
+      ecrire("Bonjour ! Je vous aide à configurer votre réceptionniste virtuelle sur mesure. Décrivez-moi votre entreprise (secteur, heures d'ouverture, services, consignes) ou cliquez ci-dessous pour que je vous guide question par question.", function () {
+        boutons([
+          { texte: "Me guider pas à pas", principal: true, action: function () {
+            envoyerIA("Aide-moi à configurer ma réceptionniste virtuelle étape par étape.");
+          } }
+        ]);
+      });
+    } else {
+      ecrire("Bonjour ! Je suis l'assistante d'Allo Réception. Posez-moi n'importe quelle question sur le site, nos forfaits ou un partenariat, ou lancez le questionnaire rapide.", function () {
+        boutons([
+          { texte: "Choisir mon forfait (6 questions)", principal: true, action: function () { etape = 0; reponses = {}; poser(); } },
+          { texte: "Devis partenaire / multi-sites", action: function () {
+            envoyerIA("Nous sommes un partenaire / avons plusieurs besoins sur mesure. Comment fonctionne votre offre ?");
+          } },
+          { texte: "Voir les forfaits", href: "forfaits.html" }
+        ]);
+      });
+    }
   }
-  bulle.addEventListener("click", function () { ouvrir(panneau.hidden); });
-  racine.querySelector(".assistant-fermer").addEventListener("click", function () { ouvrir(false); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panneau.hidden) ouvrir(false); });
+
+  formSaisie.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var txt = champ.value.trim();
+    if (!txt || champ.disabled) return;
+    champ.value = "";
+    envoyerIA(txt);
+  });
+
+  function basculer(ouvrir) {
+    panneau.hidden = !ouvrir;
+    racine.classList.toggle("assistant-ouvert", ouvrir);
+    bulle.setAttribute("aria-expanded", String(ouvrir));
+    var pastille = racine.querySelector(".assistant-pastille");
+    if (ouvrir && pastille) pastille.remove();
+    if (ouvrir && !demarre) { demarre = true; accueil(); }
+  }
+  bulle.addEventListener("click", function () { basculer(panneau.hidden); });
+  racine.querySelector(".assistant-fermer").addEventListener("click", function () { basculer(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panneau.hidden) basculer(false); });
 })();

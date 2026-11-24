@@ -80,6 +80,22 @@
 .assistant-option:hover { border-color: var(--jaune); color: var(--jaune); }
 .assistant-option-principale { background: var(--jaune); border-color: var(--jaune); color: var(--bleu-fonce); }
 .assistant-option-principale:hover { background: #FFD83A; color: var(--bleu-fonce); }
+.assistant-saisie {
+  display: flex; gap: 8px; padding: 10px 12px;
+  border-top: 1px solid var(--bordure); background: var(--carte-2);
+}
+.assistant-saisie input {
+  flex: 1; min-width: 0; font: inherit; font-size: 0.9rem;
+  padding: 9px 12px; border-radius: 999px;
+  border: 1px solid var(--bordure-forte); background: var(--fond-2); color: var(--texte);
+}
+.assistant-saisie input:focus { outline: none; border-color: var(--jaune); }
+.assistant-saisie button {
+  font: inherit; font-size: 0.88rem; font-weight: 700;
+  padding: 9px 14px; border-radius: 999px; border: none;
+  background: var(--jaune); color: var(--bleu-fonce); cursor: pointer;
+}
+.assistant-saisie button:disabled { opacity: 0.5; cursor: wait; }
 @keyframes assistant-apparait { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes assistant-points { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
 @media (max-width: 640px) {
