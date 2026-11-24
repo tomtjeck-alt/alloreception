@@ -461,6 +461,15 @@
         if (epuise || pct >= 80) nom("alerte-minutes").classList.add("alerte-forte");
         nom("bouton-pack").hidden = false;
         if (e.forfait !== "premium") nom("bouton-superieur").hidden = false;
+      } else if (e.statut === "actif" && e.minutes_a_l_usage && utilise >= limite + 240 && e.minutes_pack < 1) {
+        var plafondAtteint = utilise >= limite + 300;
+        nom("alerte-texte").textContent = plafondAtteint
+          ? "Vous avez atteint le plafond de sécurité de 300 minutes supplémentaires ce mois-ci. La réception des appels est mise en pause : ajoutez un pack prépayé de 100 minutes (35 $) ou passez au forfait supérieur pour reprendre immédiatement."
+          : "Vous approchez du plafond de sécurité de 300 minutes supplémentaires ce mois-ci. Ajoutez un pack de 100 minutes (35 $) ou passez au forfait supérieur pour éviter toute pause.";
+        nom("alerte-minutes").hidden = false;
+        nom("alerte-minutes").classList.add("alerte-forte");
+        nom("bouton-pack").hidden = false;
+        if (e.forfait !== "premium") nom("bouton-superieur").hidden = false;
       }
       if (new URLSearchParams(location.search).get("pack") === "merci") {
         message("Merci ! Vos minutes seront ajoutées dans quelques secondes. Actualisez la page pour les voir.", "succes");
