@@ -65,6 +65,13 @@
             <div class="stat"><p class="mono">Numéro de la réceptionniste</p><p class="stat-val" id="e-numero"></p></div>
             <div class="stat stat-large"><p class="mono">Minutes utilisées</p><p class="stat-val" id="e-minutes"></p>
               <div class="jauge"><i id="e-jauge"></i></div><p class="stat-detail" id="e-minutes-detail"></p></div>
+            <div class="stat stat-large"><p class="mono">Valeur récupérée (estimation ce mois-ci)</p><p class="stat-val" id="e-roi">0 $</p>
+              <p class="stat-detail" id="e-roi-detail">0 appel(s) · 0 rendez-vous</p></div>
+          </div>
+
+          <div id="bloc-suggestions" class="alerte-minutes" hidden>
+            <p class="mono" style="margin:0 0 8px">Mémoire IA · Suggestions d'amélioration</p>
+            <div id="liste-suggestions"></div>
           </div>
 
           <div id="alerte-minutes" class="alerte-minutes" hidden>
@@ -140,6 +147,6 @@
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
   <script>document.body.dataset.page = "espace";</script>
-  <script src="compte.js?v=21"></script>
+  <script src="compte.js?v=22"></script>
 </body>
 </html>

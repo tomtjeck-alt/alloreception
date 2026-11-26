@@ -491,9 +491,18 @@
         nom("numero-pret").textContent = tel(pret);
       }
 
-      var appels = await sb.from("appels").select("debut, appelant, duree_secondes, resume")
+      var appels = await sb.from("appels").select("id, debut, appelant, duree_secondes, resume, statut_suivi")
         .order("debut", { ascending: false }).limit(50);
       var liste = nom("liste-appels");
+      var ETIQ_SUIVI = { nouveau: "Nouveau", rdv: "RDV pris", a_rappeler: "À rappeler", traite: "Traité" };
+      var debutMoisIso = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString();
+      var appelsMois = (appels.data || []).filter(function (a) { return a.debut && a.debut >= debutMoisIso; });
+      var rdvMois = appelsMois.filter(function (a) { return a.statut_suivi === "rdv"; }).length;
+      var valClient = Number(e.valeur_client_estimee || 150);
+      var gainEstime = (rdvMois > 0 ? rdvMois : Math.ceil(appelsMois.length * 0.4)) * valClient;
+      if (nom("e-roi")) nom("e-roi").textContent = gainEstime.toLocaleString("fr-CA") + " $";
+      if (nom("e-roi-detail")) nom("e-roi-detail").textContent = appelsMois.length + " appel(s) ce mois-ci · " + rdvMois + " rendez-vous";
+
       if (!appels.data || !appels.data.length) {
         liste.innerHTML = '<p class="vide">Aucun appel pour l\'instant. Ils apparaîtront ici dès que votre réceptionniste répondra.</p>';
       } else {
@@ -501,9 +510,56 @@
           var d = a.debut ? new Date(a.debut) : null;
           var quand = d ? d.toLocaleDateString("fr-CA", { day: "numeric", month: "short" }) + " · " + d.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" }) : "";
           var duree = Math.floor(a.duree_secondes / 60) + " min " + String(a.duree_secondes % 60).padStart(2, "0") + " s";
+          var st = a.statut_suivi || "nouveau";
+          var opts = Object.keys(ETIQ_SUIVI).map(function (k) {
+            return '<option value="' + k + '"' + (k === st ? " selected" : "") + ">" + ETIQ_SUIVI[k] + "</option>";
+          }).join("");
           return '<details class="appel"><summary><span class="mono">' + esc(quand) + "</span><strong>" + esc(tel(a.appelant) || "Numéro masqué") +
-            '</strong><span class="duree">' + esc(duree) + "</span></summary><p>" + esc(a.resume || "Résumé non disponible.") + "</p></details>";
+            '</strong><span class="duree">' + esc(duree) + ' · ' + esc(ETIQ_SUIVI[st] || st) + "</span></summary><p>" + esc(a.resume || "Résumé non disponible.") + '</p>' +
+            '<label style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:.85rem">Suivi : <select class="crm-suivi" data-id="' + esc(a.id) + '">' + opts + "</select></label></details>";
         }).join("");
+        liste.querySelectorAll(".crm-suivi").forEach(function (sel) {
+          sel.addEventListener("change", async function () {
+            var id = this.dataset.id, val = this.value;
+            var r = await sb.from("appels").update({ statut_suivi: val }).eq("id", id);
+            if (r.error) message(enFrancais(r.error), "erreur");
+            else message("Suivi enregistré (" + (ETIQ_SUIVI[val] || val) + ").", "succes");
+          });
+        });
+      }
+
+      // Mémoire IA : suggestions d'amélioration issues des appels
+      var suggs = await sb.from("suggestions_ia").select("id, question, suggestion")
+        .eq("statut", "en_attente").order("cree_le", { ascending: false }).limit(5);
+      var blocSug = nom("bloc-suggestions"), listeSug = nom("liste-suggestions");
+      if (blocSug && listeSug && suggs.data && suggs.data.length) {
+        blocSug.hidden = false;
+        listeSug.innerHTML = suggs.data.map(function (sg) {
+          return '<div style="padding:8px 0;border-top:1px solid rgba(255,255,255,.1)">' +
+            '<p style="margin:0 0 6px"><strong>Question fréquente / correction :</strong> ' + esc(sg.question) + '<br><em>Consigne proposée :</em> ' + esc(sg.suggestion) + '</p>' +
+            '<button type="button" class="bouton bouton-jaune bouton-petit sug-ok" data-id="' + esc(sg.id) + '" data-txt="' + esc(sg.suggestion) + '">✨ Ajouter aux consignes</button> ' +
+            '<button type="button" class="bouton bouton-contour-clair bouton-petit sug-no" data-id="' + esc(sg.id) + '">Ignorer</button></div>';
+        }).join("");
+        listeSug.querySelectorAll(".sug-ok").forEach(function (b) {
+          b.addEventListener("click", async function () {
+            var id = this.dataset.id, txt = this.dataset.txt;
+            var nouvelles = ((e.consignes || "").trim() ? (e.consignes.trim() + "\n") : "") + "- " + txt;
+            var r1 = await sb.from("entreprises").update({ consignes: nouvelles }).eq("id", e.id);
+            if (r1.error) return message(enFrancais(r1.error), "erreur");
+            e.consignes = nouvelles;
+            await sb.from("suggestions_ia").update({ statut: "appliquee" }).eq("id", id);
+            this.parentElement.remove();
+            if (!listeSug.children.length) blocSug.hidden = true;
+            message("Consigne ajoutée à votre réceptionniste !", "succes");
+          });
+        });
+        listeSug.querySelectorAll(".sug-no").forEach(function (b) {
+          b.addEventListener("click", async function () {
+            await sb.from("suggestions_ia").update({ statut: "ignoree" }).eq("id", this.dataset.id);
+            this.parentElement.remove();
+            if (!listeSug.children.length) blocSug.hidden = true;
+          });
+        });
       }
 
       nom("bouton-portail").addEventListener("click", async function () {
