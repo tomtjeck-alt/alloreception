@@ -1,0 +1,37 @@
+name: Verification du site web
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verifier la syntaxe JavaScript
+        run: |
+          for f in *.js; do
+            node --check "$f"
+          done
+      - name: Verifier les liens internes HTML
+        run: |
+          python3 - <<'EOF'
+          import pathlib, re, sys
+          err = 0
+          for html in sorted(pathlib.Path(".").glob("*.html")):
+              txt = html.read_text(encoding="utf-8")
+              for m in re.finditer(r'(?:src|href)="([^"#?]+)', txt):
+                  cible = m.group(1)
+                  if cible.startswith(("http://", "https://", "mailto:", "tel:", "data:")):
+                      continue
+                  if not pathlib.Path(cible).exists():
+                      print(f"ERREUR {html}: cible introuvable -> {cible}")
+                      err += 1
+          sys.exit(1 if err else 0)
+          EOF

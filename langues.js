@@ -84,6 +84,7 @@
     "le soir": "in the evening",
     "Elle répond à vos clients 24 h sur 24, note leurs demandes de rendez-vous et vous envoie un résumé par courriel.": "She answers your customers 24/7, takes down appointment requests, and emails you a summary after every call.",
     "Essai gratuit de 14 jours": "14-day free trial",
+    "Tester l'IA : +1 782 223-3839": "Test AI live: +1 782 223-3839",
     "Voir une démo ▶": "Watch a demo ▶",
     "14 jours ou 40 minutes gratuits · Sans contrat · Installation faite pour vous": "14 days or 40 minutes free · No contract · Done-for-you setup",
     "Exemple d'appel répondu par Allo Réception": "Sample call answered by Allo Réception",
