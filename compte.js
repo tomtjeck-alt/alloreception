@@ -295,7 +295,7 @@
         form.motdepasse.closest("label").firstChild.textContent = "Choisissez votre mot de passe * (pour vous reconnecter plus tard)";
       }
       if (!e) { message("Aucun abonnement n'est associé à ce compte. Écrivez-nous : contact@alloreception.ca", "erreur"); return; }
-      ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert"]
+      ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert", "webhook_url"]
         .forEach(function (c) { if (form[c]) form[c].value = e[c] || ""; });
       var MODELES = {
         garage: {
@@ -419,6 +419,7 @@
           b.textContent = "Enregistrement de vos informations…";
           var maj = {};
           CHAMPS.forEach(function (c) { maj[c] = form[c].value.trim(); });
+          if (form.webhook_url) maj.webhook_url = form.webhook_url.value.trim() || null;
           if (form.transfert_actif) maj.transfert_actif = form.transfert_actif.checked;
           if (e.rendez_vous && form.agenda_duree_minutes) maj.agenda_duree_minutes = Number(form.agenda_duree_minutes.value) || 30;
           if (e.rendez_vous && form.sms_confirmation_actif) maj.sms_confirmation_actif = form.sms_confirmation_actif.checked;
@@ -521,7 +522,7 @@
         nom("numero-pret").textContent = tel(pret);
       }
 
-      var appels = await sb.from("appels").select("id, debut, appelant, duree_secondes, resume, statut_suivi")
+      var appels = await sb.from("appels").select("id, debut, appelant, duree_secondes, resume, statut_suivi, categorie")
         .order("debut", { ascending: false }).limit(50);
       var liste = nom("liste-appels");
       var ETIQ_SUIVI = { nouveau: "Nouveau", rdv: "RDV pris", a_rappeler: "À rappeler", traite: "Traité" };
@@ -545,9 +546,23 @@
             return '<option value="' + k + '"' + (k === st ? " selected" : "") + ">" + ETIQ_SUIVI[k] + "</option>";
           }).join("");
           return '<details class="appel"><summary><span class="mono">' + esc(quand) + "</span><strong>" + esc(tel(a.appelant) || "Numéro masqué") +
-            '</strong><span class="duree">' + esc(duree) + ' · ' + esc(ETIQ_SUIVI[st] || st) + "</span></summary><p>" + esc(a.resume || "Résumé non disponible.") + '</p>' +
+            '</strong><span class="duree">' + esc(a.categorie || "Appel") + ' · ' + esc(duree) + ' · ' + esc(ETIQ_SUIVI[st] || st) + "</span></summary><p>" + esc(a.resume || "Résumé non disponible.") + '</p>' +
             '<label style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:.85rem">Suivi : <select class="crm-suivi" data-id="' + esc(a.id) + '">' + opts + "</select></label></details>";
         }).join("");
+        var btnCsv = nom("bouton-export-csv");
+        if (btnCsv) {
+          btnCsv.hidden = false;
+          btnCsv.addEventListener("click", function () {
+            var q = function (v) { return '"' + String(v || "").replace(/"/g, '""') + '"'; };
+            var lignes = ["Date,Appelant,Categorie,Duree_sec,Suivi,Resume"].concat(appels.data.map(function (a) {
+              return [q(a.debut), q(tel(a.appelant) || "Masque"), q(a.categorie || "Appel"), a.duree_secondes, q(ETIQ_SUIVI[a.statut_suivi] || a.statut_suivi), q(a.resume)].join(",");
+            }));
+            var blob = new Blob(["\uFEFF" + lignes.join("\n")], { type: "text/csv;charset=utf-8;" });
+            var u = URL.createObjectURL(blob), lien = document.createElement("a");
+            lien.href = u; lien.download = "appels-alloreception.csv"; lien.click();
+            setTimeout(function () { URL.revokeObjectURL(u); }, 1000);
+          });
+        }
         liste.querySelectorAll(".crm-suivi").forEach(function (sel) {
           sel.addEventListener("change", async function () {
             var id = this.dataset.id, val = this.value;

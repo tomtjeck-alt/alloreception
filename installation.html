@@ -89,6 +89,7 @@
               </label>
             </div>
             <label>Courriel pour recevoir les résumés d'appels<input name="courriel_resumes" type="email" maxlength="200"></label>
+            <label>Webhook Zapier / Make / CRM (facultatif, URL https://)<input name="webhook_url" type="url" maxlength="400" placeholder="https://hooks.zapier.com/hooks/catch/..." pattern="https://.*"></label>
             <label>Choisir un mot de passe (pour vous reconnecter plus tard)<input name="motdepasse" type="password" autocomplete="new-password" minlength="8" placeholder="Laisser vide pour ne pas le changer"></label>
             <button type="submit" class="bouton bouton-jaune">Enregistrer et activer ma réceptionniste</button>
           </form>
@@ -132,6 +133,6 @@
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
   <script>document.body.dataset.page = "installation";</script>
-  <script src="compte.js?v=23"></script>
+  <script src="compte.js?v=24"></script>
 </body>
 </html>

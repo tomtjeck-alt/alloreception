@@ -82,7 +82,10 @@
             </div>
           </div>
 
-          <h2 class="titre-appels">Derniers appels</h2>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <h2 class="titre-appels" style="margin:0">Derniers appels</h2>
+            <button type="button" id="bouton-export-csv" class="bouton bouton-contour-clair bouton-petit" hidden>Exporter CSV</button>
+          </div>
           <div id="liste-appels" class="liste-appels"></div>
 
           <div class="zone-2fa" id="zone-2fa" style="margin:24px 0;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:12px">
@@ -147,6 +150,6 @@
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
   <script>document.body.dataset.page = "espace";</script>
-  <script src="compte.js?v=23"></script>
+  <script src="compte.js?v=24"></script>
 </body>
 </html>
