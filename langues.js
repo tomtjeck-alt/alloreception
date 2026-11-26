@@ -382,6 +382,7 @@
     "Permettre le transfert d'appel vers un humain": "Allow live call transfer to a person",
     "Numéro de transfert (si activé)": "Transfer phone number (if enabled)",
     "Google Agenda (prise de rendez-vous)": "Google Calendar (appointment booking)",
+    "Connexion vérifiée par Google (OAuth approuvé).": "Verified by Google (OAuth approved).",
     "Durée d'un rendez-vous": "Appointment duration",
     "Connecter mon Google Agenda": "Connect my Google Calendar",
     "Déconnecter": "Disconnect",
