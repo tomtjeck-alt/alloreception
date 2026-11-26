@@ -28,6 +28,6 @@ window.ALLO_CONFIG = {
 
   // --- Reciblage publicitaire (facultatif, lancé SEULEMENT si le visiteur accepte les témoins) ---
   // Ex. Meta Pixel : "123456789012345" · Google Ads : "AW-123456789"
-  metaPixelId: "A_REMPLACER",
+  metaPixelId: "1602079138340716",
   googleAdsId: "A_REMPLACER"
 };
