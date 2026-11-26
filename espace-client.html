@@ -88,6 +88,15 @@
           </div>
           <div id="liste-appels" class="liste-appels"></div>
 
+          <div id="bloc-qr" hidden style="margin:24px 0;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:12px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+            <img id="img-qr" alt="Code QR d'appel Allo Réception" style="width:130px;height:130px;background:#fff;padding:8px;border-radius:10px">
+            <div style="flex:1;min-width:220px">
+              <h3 style="margin:0 0 6px">Code QR imprimable (comptoir / porte)</h3>
+              <p style="margin:0 0 12px;opacity:.85;font-size:.92rem">Affichez ce code QR à l'entrée ou sur vos véhicules : vos clients le scannent pour appeler votre réceptionniste IA en un geste.</p>
+              <button type="button" id="bouton-imprimer-qr" class="bouton bouton-jaune bouton-petit">🖨️ Imprimer l'affiche</button>
+            </div>
+          </div>
+
           <div class="zone-2fa" id="zone-2fa" style="margin:24px 0;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:12px">
             <h3>Sécurité du compte (double authentification 2FA)</h3>
             <p id="etat-2fa">Vérification…</p>
@@ -150,6 +159,6 @@
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
   <script>document.body.dataset.page = "espace";</script>
-  <script src="compte.js?v=25"></script>
+  <script src="compte.js?v=26"></script>
 </body>
 </html>

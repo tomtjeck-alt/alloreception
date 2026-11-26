@@ -505,6 +505,22 @@
       nom("e-statut").className = "pastille-statut statut-" + e.statut;
       nom("e-numero").textContent = tel(e.numero_vapi) || (e.numero_en_attente ? "En préparation" : "—");
       if (e.numero_en_attente && !e.numero_vapi) nom("en-preparation").hidden = false;
+      var blocQr = nom("bloc-qr"), imgQr = nom("img-qr"), btnQr = nom("bouton-imprimer-qr");
+      if (e.numero_vapi && blocQr && imgQr && btnQr) {
+        var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent("tel:" + e.numero_vapi);
+        imgQr.src = qrUrl;
+        blocQr.hidden = false;
+        btnQr.addEventListener("click", function () {
+          var w = window.open("", "_blank", "width=520,height=640");
+          if (!w) return;
+          w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Affiche ' + esc(e.nom) + '</title>' +
+            '<style>body{font-family:system-ui,sans-serif;text-align:center;padding:40px;color:#0F1733}img{width:240px;height:240px;margin:20px 0}.num{font-size:1.5rem;font-weight:800}</style></head>' +
+            '<body><h1>' + esc(e.nom) + '</h1><p>Scannez pour joindre notre réceptionniste 24/7 (appels et rendez-vous)</p>' +
+            '<img src="' + qrUrl + '" alt="Code QR"><p class="num">' + esc(tel(e.numero_vapi)) + '</p>' +
+            '<script>window.onload=function(){window.print();}</script></body></html>');
+          w.document.close();
+        });
+      }
       nom("e-minutes").textContent = utilise.toLocaleString("fr-CA") + " / " + limite.toLocaleString("fr-CA") + " min";
       nom("e-minutes-detail").textContent = e.statut === "essai"
         ? "Minutes d'essai gratuit" + (e.essai_fin ? " · jusqu'au " + new Date(e.essai_fin).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) : "")
