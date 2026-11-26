@@ -572,7 +572,7 @@
         nom("numero-pret").textContent = tel(pret);
       }
 
-      var appels = await sb.from("appels").select("id, debut, appelant, duree_secondes, resume, statut_suivi, categorie")
+      var appels = await sb.from("appels").select("id, debut, appelant, duree_secondes, resume, transcription, statut_suivi, categorie")
         .order("debut", { ascending: false }).limit(50);
       var liste = nom("liste-appels");
       var ETIQ_SUIVI = { nouveau: "Nouveau", rdv: "RDV pris", a_rappeler: "À rappeler", traite: "Traité" };
@@ -597,6 +597,7 @@
           }).join("");
           return '<details class="appel"><summary><span class="mono">' + esc(quand) + "</span><strong>" + esc(tel(a.appelant) || "Numéro masqué") +
             '</strong><span class="duree">' + esc(a.categorie || "Appel") + ' · ' + esc(duree) + ' · ' + esc(ETIQ_SUIVI[st] || st) + "</span></summary><p>" + esc(a.resume || "Résumé non disponible.") + '</p>' +
+            (a.transcription ? '<details style="margin:6px 0;font-size:.86rem;opacity:.9"><summary style="cursor:pointer">Voir la transcription</summary><pre style="white-space:pre-wrap;font-family:inherit;margin:6px 0 0">' + esc(a.transcription) + '</pre></details>' : "") +
             '<label style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:.85rem">Suivi : <select class="crm-suivi" data-id="' + esc(a.id) + '">' + opts + "</select></label></details>";
         }).join("");
         var btnCsv = nom("bouton-export-csv");
