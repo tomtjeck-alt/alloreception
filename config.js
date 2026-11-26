@@ -24,5 +24,10 @@ window.ALLO_CONFIG = {
   // --- Mesure d'audience (GoatCounter, gratuit, sans pub) ---
   // Créez un compte sur https://www.goatcounter.com, ex. code « alloreception ».
   // Lancée SEULEMENT si le visiteur accepte les témoins.
-  goatcounterCode: "alloreception"
+  goatcounterCode: "alloreception",
+
+  // --- Reciblage publicitaire (facultatif, lancé SEULEMENT si le visiteur accepte les témoins) ---
+  // Ex. Meta Pixel : "123456789012345" · Google Ads : "AW-123456789"
+  metaPixelId: "A_REMPLACER",
+  googleAdsId: "A_REMPLACER"
 };

@@ -113,7 +113,8 @@ if (formDevis) {
       "Entreprise : " + d.get("entreprise") + "\n" +
       "Courriel : " + d.get("courriel") + "\n" +
       "Téléphone : " + (d.get("telephone") || "—") + "\n" +
-      "Forfait : " + nomForfait + "\n\n" +
+      "Forfait : " + nomForfait + "\n" +
+      "Offres par courriel : " + (d.get("consentement_infolettre") ? "Oui" : "Non") + "\n\n" +
       (d.get("message") || "");
 
     var cle = regle("web3formsCle");
@@ -140,6 +141,7 @@ if (formDevis) {
         courriel: d.get("courriel"),
         telephone: d.get("telephone") || "—",
         forfait: nomForfait,
+        infolettre: d.get("consentement_infolettre") ? "Oui (consentement explicite)" : "Non",
         message: d.get("message") || "—"
       })
     })
@@ -166,16 +168,40 @@ if (formDevis) {
 var CLE_TEMOINS = "allo-temoins";
 function lireChoix() { try { return localStorage.getItem(CLE_TEMOINS); } catch (e) { return null; } }
 function garderChoix(c) { try { localStorage.setItem(CLE_TEMOINS, c); } catch (e) {} }
-// GoatCounter : statistiques de visites anonymes, sans témoin publicitaire.
+// GoatCounter + pixels publicitaires : lancés SEULEMENT si le visiteur a accepté les témoins.
 function chargerMesureAudience() {
   var code = regle("goatcounterCode");
-  if (!code || document.getElementById("goatcounter")) return;
-  var s = document.createElement("script");
-  s.id = "goatcounter";
-  s.async = true;
-  s.src = "https://gc.zgo.at/count.js";
-  s.dataset.goatcounter = "https://" + code + ".goatcounter.com/count";
-  document.head.appendChild(s);
+  if (code && !document.getElementById("goatcounter")) {
+    var s = document.createElement("script");
+    s.id = "goatcounter";
+    s.async = true;
+    s.src = "https://gc.zgo.at/count.js";
+    s.dataset.goatcounter = "https://" + code + ".goatcounter.com/count";
+    document.head.appendChild(s);
+  }
+  var pixel = regle("metaPixelId");
+  if (pixel && !document.getElementById("allo-meta-pixel")) {
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
+      t = b.createElement(e); t.id = "allo-meta-pixel"; t.async = !0; t.src = v;
+      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init", pixel);
+    window.fbq("track", "PageView");
+  }
+  var gads = regle("googleAdsId");
+  if (gads && !document.getElementById("allo-gads")) {
+    var sg = document.createElement("script");
+    sg.id = "allo-gads";
+    sg.async = true;
+    sg.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(gads);
+    document.head.appendChild(sg);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", gads);
+  }
 }
 
 var bandeau = document.getElementById("temoins");
