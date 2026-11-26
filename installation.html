@@ -46,9 +46,14 @@
           <form id="form-installation" class="formulaire" hidden>
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px">
               <span style="font-size:.85rem;opacity:.85">Modèle rapide :</span>
-              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="garage">🔧 Garage mécanique</button>
-              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="clinique">🦷 Clinique / santé</button>
-              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="service">🛠️ Plombier / Électricien</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="garage">🔧 Garage</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="clinique">🦷 Clinique</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="service">🛠️ Services à domicile</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="restaurant">🍽️ Restaurant</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="assurance">🛡️ Assurance</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="immobilier">🏠 Immobilier</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="finance">💼 Conseil financier</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="logiciel">💻 Éditeur logiciel</button>
             </div>
             <div class="grille-2">
               <label>Nom de l'entreprise *<input name="nom" required maxlength="80" placeholder="Garage Tremblay"></label>
@@ -90,6 +95,7 @@
             </div>
             <label>Courriel pour recevoir les résumés d'appels<input name="courriel_resumes" type="email" maxlength="200"></label>
             <label>Webhook Zapier / Make / CRM (facultatif, URL https://)<input name="webhook_url" type="url" maxlength="400" placeholder="https://hooks.zapier.com/hooks/catch/..." pattern="https://.*"></label>
+            <label id="bloc-enregistrement" class="case-condition" hidden><input type="checkbox" name="enregistrement_actif"> Enregistrer l'audio des appels (option Premium — une annonce prévient automatiquement l'appelant)</label>
             <label>Choisir un mot de passe (pour vous reconnecter plus tard)<input name="motdepasse" type="password" autocomplete="new-password" minlength="8" placeholder="Laisser vide pour ne pas le changer"></label>
             <button type="submit" class="bouton bouton-jaune">Enregistrer et activer ma réceptionniste</button>
           </form>
@@ -133,6 +139,6 @@
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
   <script>document.body.dataset.page = "installation";</script>
-  <script src="compte.js?v=24"></script>
+  <script src="compte.js?v=25"></script>
 </body>
 </html>

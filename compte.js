@@ -315,6 +315,36 @@
           heures: "Lundi au vendredi 7 h 30 à 17 h, appels d'urgence notés 24/7",
           services_prix: "Déplacement et évaluation : 95 $\nTaux horaire standard : 115 $/h\nSoumission gratuite pour travaux majeurs",
           consignes: "Demander toujours l'adresse complète et la nature du problème (fuite, panne, installation). Pour une fuite d'eau majeure ou odeur de gaz, rappeler les consignes de sécurité."
+        },
+        restaurant: {
+          secteur: "Restaurant et restauration",
+          heures: "Mardi au dimanche 11 h 30 à 22 h, fermé le lundi",
+          services_prix: "Réservation de table : gratuite\nMenu du midi, souper, groupes et événements privés sur demande",
+          consignes: "Pour une réservation, toujours demander la date, l'heure, le nombre de personnes et toute allergie alimentaire. Pour les commandes à emporter, préciser le délai habituel."
+        },
+        assurance: {
+          secteur: "Agence et courtage d'assurances",
+          heures: "Lundi au vendredi 8 h 30 à 17 h",
+          services_prix: "Soumission auto, habitation et entreprise : gratuite\nRenouvellement ou modification de police : pris en charge par un courtier",
+          consignes: "Qualifier la demande (auto, habitation, commercial ou réclamation), noter le nom complet et le meilleur moment pour rappeler. Ne jamais confirmer de couverture ni de prime exacte."
+        },
+        immobilier: {
+          secteur: "Courtage immobilier",
+          heures: "Lundi au dimanche 8 h à 20 h",
+          services_prix: "Évaluation gratuite de propriété\nAchat, vente et prise de rendez-vous de visite",
+          consignes: "Demander si l'appelant souhaite acheter, vendre ou visiter une propriété précise (noter l'adresse ou le quartier, le budget approximatif et ses coordonnées)."
+        },
+        finance: {
+          secteur: "Conseil financier et gestion de patrimoine",
+          heures: "Lundi au vendredi 9 h à 17 h",
+          services_prix: "Première rencontre découverte (30 min) : offerte\nPlanification financière, REER, CELI, assurance vie",
+          consignes: "Ton sobre, rassurant et confidentiel. Ne jamais donner de conseil financier ou fiscal au téléphone : proposer un rendez-vous avec un conseiller."
+        },
+        logiciel: {
+          secteur: "Éditeur logiciel et services SaaS",
+          heures: "Lundi au vendredi 8 h 30 à 17 h 30 (support et ventes)",
+          services_prix: "Démonstration produit (15-30 min) : gratuite\nSupport technique ou facturation : ticket transmis à l'équipe",
+          consignes: "Identifier s'il s'agit d'une demande de démo commerciale (nom de l'entreprise, taille d'équipe, besoin) ou d'un ticket de support technique (courriel du compte et description)."
         }
       };
       document.querySelectorAll(".modele-secteur").forEach(function (b) {
@@ -328,6 +358,9 @@
         });
       });
       if (form.transfert_actif) form.transfert_actif.checked = !!e.transfert_actif;
+      var blocEnr = document.getElementById("bloc-enregistrement");
+      if (blocEnr) blocEnr.hidden = e.forfait !== "premium";
+      if (form.enregistrement_actif) form.enregistrement_actif.checked = !!e.enregistrement_actif;
       var blocAgenda = document.getElementById("bloc-agenda");
       var etatAgenda = document.getElementById("etat-agenda");
       var btnAgenda = document.getElementById("btn-agenda");
@@ -421,6 +454,7 @@
           CHAMPS.forEach(function (c) { maj[c] = form[c].value.trim(); });
           if (form.webhook_url) maj.webhook_url = form.webhook_url.value.trim() || null;
           if (form.transfert_actif) maj.transfert_actif = form.transfert_actif.checked;
+          if (e.forfait === "premium" && form.enregistrement_actif) maj.enregistrement_actif = form.enregistrement_actif.checked;
           if (e.rendez_vous && form.agenda_duree_minutes) maj.agenda_duree_minutes = Number(form.agenda_duree_minutes.value) || 30;
           if (e.rendez_vous && form.sms_confirmation_actif) maj.sms_confirmation_actif = form.sms_confirmation_actif.checked;
           var r = await sb.from("entreprises").update(maj).eq("id", e.id).select("id");
