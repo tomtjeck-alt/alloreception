@@ -1,3 +1,22 @@
+// ===== Capture des paramètres UTM (attribution publicitaire) =====
+(function () {
+  try {
+    var p = new URLSearchParams(window.location.search);
+    var cles = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+    var deja = JSON.parse(sessionStorage.getItem("allo_utm") || "{}") || {};
+    var maj = false;
+    cles.forEach(function (k) {
+      var v = (p.get(k) || "").trim().slice(0, 160);
+      if (v) { deja[k] = v; maj = true; }
+    });
+    if (!deja.page_depart) {
+      deja.page_depart = (window.location.pathname || "/").slice(0, 300);
+      maj = true;
+    }
+    if (maj) sessionStorage.setItem("allo_utm", JSON.stringify(deja));
+  } catch (_) {}
+})();
+
 // ===== Menu sur téléphone =====
 var boutonMenu = document.querySelector(".menu-bouton");
 var menu = document.getElementById("menu");
@@ -128,6 +147,37 @@ if (formDevis) {
     var bouton = formDevis.querySelector("button[type=submit]");
     bouton.disabled = true;
     bouton.textContent = "Envoi en cours…";
+
+    var utm = {};
+    try { utm = JSON.parse(sessionStorage.getItem("allo_utm") || "{}") || {}; } catch (_) {}
+    var cfgSb = window.ALLO_CONFIG || {};
+    if (cfgSb.supabaseUrl && cfgSb.supabaseCleAnon) {
+      fetch(cfgSb.supabaseUrl + "/rest/v1/demandes_contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": cfgSb.supabaseCleAnon,
+          "Authorization": "Bearer " + cfgSb.supabaseCleAnon,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          nom: String(d.get("nom") || "").trim().slice(0, 160),
+          entreprise: String(d.get("entreprise") || "").trim().slice(0, 160),
+          courriel: String(d.get("courriel") || "").trim().slice(0, 200),
+          telephone: String(d.get("telephone") || "").trim().slice(0, 40),
+          forfait: String(nomForfait || "").slice(0, 80),
+          infolettre: Boolean(d.get("consentement_infolettre")),
+          message: String(d.get("message") || "").trim().slice(0, 3000),
+          utm_source: String(utm.utm_source || "").slice(0, 120),
+          utm_medium: String(utm.utm_medium || "").slice(0, 120),
+          utm_campaign: String(utm.utm_campaign || "").slice(0, 160),
+          utm_content: String(utm.utm_content || "").slice(0, 160),
+          utm_term: String(utm.utm_term || "").slice(0, 160),
+          page_depart: String(utm.page_depart || "").slice(0, 300)
+        })
+      }).catch(function () {});
+    }
+
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
