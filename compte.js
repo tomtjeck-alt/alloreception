@@ -297,6 +297,36 @@
       if (!e) { message("Aucun abonnement n'est associé à ce compte. Écrivez-nous : contact@alloreception.ca", "erreur"); return; }
       ["nom", "secteur", "adresse", "telephone_entreprise", "heures", "services_prix", "consignes", "courriel_resumes", "telephone_transfert"]
         .forEach(function (c) { if (form[c]) form[c].value = e[c] || ""; });
+      var MODELES = {
+        garage: {
+          secteur: "Garage, mécanique générale et pneus",
+          heures: "Lundi au vendredi 8 h à 17 h, samedi 9 h à 13 h, fermé le dimanche",
+          services_prix: "Changement d'huile synthétique : 79 $\nPose et équilibrage de 4 pneus : 80 $\nInspection et freins : sur devis\nDiagnostic électronique : 95 $/h",
+          consignes: "Ton chaleureux et professionnel. Nous ne faisons pas de carrosserie ni de peinture. Pour une crevaison ou remorquage urgent, noter le numéro et préciser qu'on rappelle rapidement."
+        },
+        clinique: {
+          secteur: "Clinique dentaire et soins de santé",
+          heures: "Lundi au jeudi 8 h à 18 h, vendredi 8 h à 15 h, fermé la fin de semaine",
+          services_prix: "Examen complet et radiographies : sur rendez-vous\nNettoyage et détartrage : 140 $ à 180 $\nUrgence dentaire (douleur aiguë) : priorité le jour même",
+          consignes: "Ton doux, rassurant et confidentiel. Ne jamais donner de diagnostic médical. En cas d'urgence vitale, demander de raccrocher et d'appeler le 9-1-1."
+        },
+        service: {
+          secteur: "Plomberie, électricité et entretien résidentiel",
+          heures: "Lundi au vendredi 7 h 30 à 17 h, appels d'urgence notés 24/7",
+          services_prix: "Déplacement et évaluation : 95 $\nTaux horaire standard : 115 $/h\nSoumission gratuite pour travaux majeurs",
+          consignes: "Demander toujours l'adresse complète et la nature du problème (fuite, panne, installation). Pour une fuite d'eau majeure ou odeur de gaz, rappeler les consignes de sécurité."
+        }
+      };
+      document.querySelectorAll(".modele-secteur").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var m = MODELES[b.dataset.modele];
+          if (!m) return;
+          ["secteur", "heures", "services_prix", "consignes"].forEach(function (k) {
+            if (form[k]) form[k].value = m[k];
+          });
+          message("Modèle appliqué ! Ajustez les détails selon votre entreprise puis enregistrez.", "info");
+        });
+      });
       if (form.transfert_actif) form.transfert_actif.checked = !!e.transfert_actif;
       var blocAgenda = document.getElementById("bloc-agenda");
       var etatAgenda = document.getElementById("etat-agenda");

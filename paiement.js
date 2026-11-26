@@ -115,6 +115,13 @@
       etat.forfait = b.dataset.forfait;
       etat.periode = window.periodeChoisie || "annuel";
       etat.bouton = b;
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "InitiateCheckout", {
+          value: FORFAITS[etat.forfait][etat.periode],
+          currency: "CAD",
+          content_name: etat.forfait
+        });
+      }
       dialog.showModal();
       afficher();
     });

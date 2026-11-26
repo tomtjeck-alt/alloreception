@@ -44,6 +44,12 @@
           <p class="intro-compte">Ces informations servent à votre réceptionniste pour répondre à vos clients. Vous pourrez les modifier à tout moment.</p>
           <p id="message" class="message" hidden></p>
           <form id="form-installation" class="formulaire" hidden>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px">
+              <span style="font-size:.85rem;opacity:.85">Modèle rapide :</span>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="garage">🔧 Garage mécanique</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="clinique">🦷 Clinique / santé</button>
+              <button type="button" class="bouton bouton-contour-clair bouton-petit modele-secteur" data-modele="service">🛠️ Plombier / Électricien</button>
+            </div>
             <div class="grille-2">
               <label>Nom de l'entreprise *<input name="nom" required maxlength="80" placeholder="Garage Tremblay"></label>
               <label>Secteur<input name="secteur" maxlength="80" placeholder="Garage, mécanique générale"></label>
@@ -120,12 +126,12 @@
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="script.js?v=19"></script>
+  <script src="script.js?v=20"></script>
   <script src="assistant.js?v=19"></script>
   <script src="anim.js?v=15"></script>
   <script src="ia-visuel.js?v=14"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
   <script>document.body.dataset.page = "installation";</script>
-  <script src="compte.js?v=22"></script>
+  <script src="compte.js?v=23"></script>
 </body>
 </html>

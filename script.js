@@ -148,6 +148,7 @@ if (formDevis) {
       .then(function (r) { return r.json(); })
       .then(function (rep) {
         if (!rep.success) throw new Error(rep.message);
+        if (typeof window.fbq === "function") window.fbq("track", "Lead", { content_name: nomForfait });
         formDevis.hidden = true;
         afficherDevis("Merci ! Votre demande est bien envoyée. On vous répond en moins de 24 h (jours ouvrables).", "succes");
       })

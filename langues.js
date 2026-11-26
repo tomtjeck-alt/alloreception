@@ -83,6 +83,8 @@
     "le soir|la fin de semaine|quand vous êtes sous une voiture|en français et en anglais (Pro et Premium)|les jours fériés": "in the evening|on weekends|while you're under a car|in French and English (Pro & Premium)|on holidays",
     "le soir": "in the evening",
     "Elle répond à vos clients 24 h sur 24, note leurs demandes de rendez-vous et vous envoie un résumé par courriel.": "She answers your customers 24/7, takes down appointment requests, and emails you a summary after every call.",
+    "Gardez votre numéro actuel · Appels simultanés illimités · Données hébergées au Canada, chiffrées · 14 jours ou 40 minutes gratuits": "Keep your current number · Unlimited simultaneous calls · Data hosted & encrypted in Canada · 14 days or 40 minutes free",
+    "Gardez votre numéro actuel · Appels simultanés illimités · Données hébergées au Canada, chiffrées · Prix en dollars canadiens, taxes en sus.": "Keep your current number · Unlimited simultaneous calls · Data hosted & encrypted in Canada · Prices in Canadian dollars, taxes extra.",
     "Essai gratuit de 14 jours": "14-day free trial",
     "Tester l'IA : +1 782 223-3839": "Test AI live: +1 782 223-3839",
     "Voir une démo ▶": "Watch a demo ▶",
