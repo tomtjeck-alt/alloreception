@@ -1,19 +1,29 @@
-// ===== Capture des paramètres UTM (attribution publicitaire) =====
+// ===== Capture des paramètres UTM et du fbclid (attribution publicitaire) =====
+// Gardés seulement dans cet onglet (sessionStorage) ; rien n'est envoyé tant que le visiteur
+// n'a pas rempli le formulaire. Le fbclid n'est joint à la demande que s'il a accepté les témoins.
 (function () {
   try {
     var p = new URLSearchParams(window.location.search);
     var cles = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
     var deja = JSON.parse(sessionStorage.getItem("allo_utm") || "{}") || {};
-    var maj = false;
+    var nouveaux = {};
     cles.forEach(function (k) {
-      var v = (p.get(k) || "").trim().slice(0, 160);
-      if (v) { deja[k] = v; maj = true; }
+      var v = (p.get(k) || "").replace(/[\u0000-\u001f\u007f]/g, "").trim().slice(0, 160);
+      if (v) nouveaux[k] = v;
     });
-    if (!deja.page_depart) {
+    if (Object.keys(nouveaux).length) {
+      // Nouvelle campagne : on remplace tout, pour ne pas mélanger deux provenances.
+      nouveaux.page_depart = (window.location.pathname || "/").slice(0, 300);
+      deja = nouveaux;
+    } else if (!deja.page_depart) {
       deja.page_depart = (window.location.pathname || "/").slice(0, 300);
-      maj = true;
     }
-    if (maj) sessionStorage.setItem("allo_utm", JSON.stringify(deja));
+    sessionStorage.setItem("allo_utm", JSON.stringify(deja));
+
+    var fbclid = (p.get("fbclid") || "").trim();
+    if (/^[A-Za-z0-9_-]{1,500}$/.test(fbclid)) {
+      sessionStorage.setItem("allo_fbclid", JSON.stringify({ v: fbclid, le: new Date().toISOString() }));
+    }
   } catch (_) {}
 })();
 
@@ -117,8 +127,104 @@ if (formDevis) {
     msgDevis.hidden = false;
   }
 
+  // Identifiant unique de la demande, choisi dans le navigateur : si la même demande est
+  // renvoyée (double clic, nouvel essai après une panne), la base ne l'enregistre qu'une fois.
+  function nouvelIdDemande() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    var o = new Uint8Array(16);
+    crypto.getRandomValues(o);
+    o[6] = (o[6] & 0x0f) | 0x40; o[8] = (o[8] & 0x3f) | 0x80;
+    var h = Array.prototype.map.call(o, function (x) { return (x + 256).toString(16).slice(1); }).join("");
+    return h.slice(0, 8) + "-" + h.slice(8, 12) + "-" + h.slice(12, 16) + "-" + h.slice(16, 20) + "-" + h.slice(20);
+  }
+
+  // Enregistre la demande dans la base (Supabase). Résultat : "ok", "limite", "echec" ou "absent".
+  // Les erreurs ne sont jamais avalées : elles sont renvoyées et notées (sans données personnelles).
+  function enregistrerDemande(d, nomForfait, id) {
+    var cfg = window.ALLO_CONFIG || {};
+    if (!cfg.supabaseUrl || !cfg.supabaseCleAnon || cfg.supabaseCleAnon === "A_REMPLACER") {
+      return Promise.resolve({ etat: "absent" });
+    }
+    var utm = {};
+    try { utm = JSON.parse(sessionStorage.getItem("allo_utm") || "{}") || {}; } catch (_) {}
+    // fbclid : joint SEULEMENT si le visiteur a accepté les témoins.
+    var clic = {};
+    if (lireChoix() === "accepte") {
+      try { clic = JSON.parse(sessionStorage.getItem("allo_fbclid") || "{}") || {}; } catch (_) {}
+    }
+    var fbclid = /^[A-Za-z0-9_-]{1,500}$/.test(String(clic.v || "")) ? String(clic.v) : "";
+    var texte = function (k, max) { return String(d.get(k) || "").trim().slice(0, max); };
+    return fetch(cfg.supabaseUrl + "/rest/v1/demandes_contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": cfg.supabaseCleAnon,
+        "Authorization": "Bearer " + cfg.supabaseCleAnon,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify({
+        id: id,
+        nom: texte("nom", 160),
+        entreprise: texte("entreprise", 160),
+        courriel: texte("courriel", 200),
+        telephone: texte("telephone", 40),
+        forfait: String(nomForfait || "").slice(0, 80),
+        infolettre: Boolean(d.get("consentement_infolettre")),
+        message: texte("message", 3000),
+        utm_source: String(utm.utm_source || "").slice(0, 120),
+        utm_medium: String(utm.utm_medium || "").slice(0, 120),
+        utm_campaign: String(utm.utm_campaign || "").slice(0, 160),
+        utm_content: String(utm.utm_content || "").slice(0, 160),
+        utm_term: String(utm.utm_term || "").slice(0, 160),
+        page_depart: String(utm.page_depart || "").slice(0, 300),
+        fbclid: fbclid,
+        fbclid_le: fbclid && clic.le ? String(clic.le).slice(0, 40) : null
+      })
+    }).then(function (r) {
+      // 201 = enregistrée ; 409 = déjà enregistrée (même identifiant, renvoi de la même demande)
+      if (r.status === 201 || r.status === 409) return { etat: "ok" };
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        var limite = j && j.message === "trop_de_demandes";
+        console.warn("[Allo] Demande non enregistrée dans la base (code " + r.status + (limite ? ", limite atteinte" : "") + ").");
+        return { etat: limite ? "limite" : "echec", code: r.status };
+      });
+    }, function () {
+      console.warn("[Allo] Demande non enregistrée dans la base (réseau).");
+      return { etat: "echec", code: "reseau" };
+    });
+  }
+
+  // Avis par courriel au propriétaire (Web3Forms). Résultat : true si le courriel est parti.
+  function envoyerCourrielDevis(cle, d, sujet, nomForfait, base) {
+    return fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        access_key: cle,
+        subject: sujet,
+        from_name: "Site Allo Réception",
+        replyto: d.get("courriel"),
+        nom: d.get("nom"),
+        entreprise: d.get("entreprise"),
+        courriel: d.get("courriel"),
+        telephone: d.get("telephone") || "—",
+        forfait: nomForfait,
+        infolettre: d.get("consentement_infolettre") ? "Oui (consentement explicite)" : "Non",
+        message: d.get("message") || "—",
+        enregistrement_base: base.etat === "ok" ? "Oui" : "NON — demande absente de la base (code " + (base.code || base.etat) + ")"
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (rep) {
+        if (!rep || !rep.success) { console.warn("[Allo] Courriel de la demande refusé par Web3Forms."); return false; }
+        return true;
+      }, function () { console.warn("[Allo] Courriel de la demande impossible (réseau)."); return false; });
+  }
+
+  var envoiEnCours = false;
   formDevis.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (envoiEnCours) return; // double clic : un seul envoi
     if (!formDevis.checkValidity()) {
       formDevis.reportValidity();
       return;
@@ -136,76 +242,47 @@ if (formDevis) {
       "Offres par courriel : " + (d.get("consentement_infolettre") ? "Oui" : "Non") + "\n\n" +
       (d.get("message") || "");
 
-    var cle = regle("web3formsCle");
-    if (!cle) {
-      location.href = "mailto:contact@alloreception.ca?subject=" +
-        encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps);
-      afficherDevis("Votre logiciel de courriel devrait s'ouvrir avec votre demande. S'il ne s'ouvre pas, écrivez-nous directement à contact@alloreception.ca.", "info");
-      return;
-    }
-
+    envoiEnCours = true;
     var bouton = formDevis.querySelector("button[type=submit]");
     bouton.disabled = true;
     bouton.textContent = "Envoi en cours…";
+    if (!formDevis.dataset.idDemande) formDevis.dataset.idDemande = nouvelIdDemande();
+    var cle = regle("web3formsCle");
 
-    var utm = {};
-    try { utm = JSON.parse(sessionStorage.getItem("allo_utm") || "{}") || {}; } catch (_) {}
-    var cfgSb = window.ALLO_CONFIG || {};
-    if (cfgSb.supabaseUrl && cfgSb.supabaseCleAnon) {
-      fetch(cfgSb.supabaseUrl + "/rest/v1/demandes_contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": cfgSb.supabaseCleAnon,
-          "Authorization": "Bearer " + cfgSb.supabaseCleAnon,
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({
-          nom: String(d.get("nom") || "").trim().slice(0, 160),
-          entreprise: String(d.get("entreprise") || "").trim().slice(0, 160),
-          courriel: String(d.get("courriel") || "").trim().slice(0, 200),
-          telephone: String(d.get("telephone") || "").trim().slice(0, 40),
-          forfait: String(nomForfait || "").slice(0, 80),
-          infolettre: Boolean(d.get("consentement_infolettre")),
-          message: String(d.get("message") || "").trim().slice(0, 3000),
-          utm_source: String(utm.utm_source || "").slice(0, 120),
-          utm_medium: String(utm.utm_medium || "").slice(0, 120),
-          utm_campaign: String(utm.utm_campaign || "").slice(0, 160),
-          utm_content: String(utm.utm_content || "").slice(0, 160),
-          utm_term: String(utm.utm_term || "").slice(0, 160),
-          page_depart: String(utm.page_depart || "").slice(0, 300)
-        })
-      }).catch(function () {});
-    }
-
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({
-        access_key: cle,
-        subject: sujet,
-        from_name: "Site Allo Réception",
-        replyto: d.get("courriel"),
-        nom: d.get("nom"),
-        entreprise: d.get("entreprise"),
-        courriel: d.get("courriel"),
-        telephone: d.get("telephone") || "—",
-        forfait: nomForfait,
-        infolettre: d.get("consentement_infolettre") ? "Oui (consentement explicite)" : "Non",
-        message: d.get("message") || "—"
+    enregistrerDemande(d, nomForfait, formDevis.dataset.idDemande)
+      .then(function (base) {
+        if (base.etat === "limite") return { base: base, courriel: "non" };
+        if (!cle) return { base: base, courriel: "absent" };
+        return envoyerCourrielDevis(cle, d, sujet, nomForfait, base)
+          .then(function (parti) { return { base: base, courriel: parti ? "ok" : "echec" }; });
       })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (rep) {
-        if (!rep.success) throw new Error(rep.message);
-        if (typeof window.fbq === "function") window.fbq("track", "Lead", { content_name: nomForfait });
-        formDevis.hidden = true;
-        afficherDevis("Merci ! Votre demande est bien envoyée. On vous répond en moins de 24 h (jours ouvrables).", "succes");
+      .then(function (res) {
+        if (res.base.etat === "limite") {
+          afficherDevis("Vous avez déjà envoyé plusieurs demandes. Merci de patienter quelques minutes, ou écrivez-nous à contact@alloreception.ca.", "erreur");
+          return;
+        }
+        // Succès seulement si la demande a VRAIMENT été reçue : enregistrée dans la base ou partie par courriel.
+        if (res.base.etat === "ok" || res.courriel === "ok") {
+          if (typeof window.fbq === "function") window.fbq("track", "Lead", { content_name: nomForfait });
+          delete formDevis.dataset.idDemande;
+          formDevis.hidden = true;
+          afficherDevis("Merci ! Votre demande est bien envoyée. On vous répond en moins de 24 h (jours ouvrables).", "succes");
+          return;
+        }
+        if (res.courriel === "absent") {
+          // Ni base ni courriel automatique : on ouvre le logiciel de courriel du visiteur.
+          location.href = "mailto:contact@alloreception.ca?subject=" +
+            encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps);
+          afficherDevis("Votre logiciel de courriel devrait s'ouvrir avec votre demande. S'il ne s'ouvre pas, écrivez-nous directement à contact@alloreception.ca.", "info");
+          return;
+        }
+        afficherDevis("Oups, votre demande n'a pas pu être envoyée. Réessayez dans un instant, ou écrivez-nous directement à contact@alloreception.ca.", "erreur");
       })
       .catch(function () {
-        afficherDevis("Oups, l'envoi n'a pas marché. Écrivez-nous directement à contact@alloreception.ca.", "erreur");
+        afficherDevis("Oups, votre demande n'a pas pu être envoyée. Réessayez dans un instant, ou écrivez-nous directement à contact@alloreception.ca.", "erreur");
       })
       .finally(function () {
+        envoiEnCours = false;
         bouton.disabled = false;
         bouton.textContent = "Envoyer ma demande";
       });
