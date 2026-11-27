@@ -1653,6 +1653,288 @@ details {
 @media (max-width: 820px) {
   .illustrations-grille { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   Responsive complet : Ordinateur · Tablette · Téléphone
+   ========================================================= */
+html,
+body {
+  overflow-x: clip;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+.conteneur {
+  padding-inline: clamp(16px, 3vw, 28px);
+}
+.hero h1 {
+  font-size: clamp(2.15rem, 5vw, 3.85rem);
+}
+.hero-court h1 {
+  font-size: clamp(1.85rem, 4vw, 2.95rem);
+}
+h2 {
+  font-size: clamp(1.55rem, 3.2vw, 2.45rem);
+}
+.cta-final h2 {
+  font-size: clamp(1.65rem, 3.6vw, 2.6rem);
+}
+.calc-resultat .calc-gros {
+  font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+}
+.bouton,
+.formulaire input,
+.formulaire textarea,
+.formulaire select,
+summary {
+  min-height: 44px;
+}
+.formulaire input,
+.formulaire textarea,
+.formulaire select {
+  font-size: 16px;
+}
+.tableau-conteneur {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Tablette & petits écrans portables (<= 1024px) */
+@media (max-width: 1024px) {
+  .menu-bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    background: var(--fond-2);
+    border-bottom: 1px solid var(--bordure-forte);
+    padding: 14px 20px 22px;
+    max-height: calc(100dvh - 70px);
+    overflow-y: auto;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
+  }
+  .menu.ouvert {
+    display: flex;
+  }
+  .menu a {
+    padding: 12px 14px;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+  }
+  .menu a.bouton {
+    margin: 8px 0 0;
+    justify-content: center;
+  }
+  .langues-barre {
+    margin: 8px 0 0;
+    align-self: flex-start;
+    width: 40px;
+    height: 40px;
+  }
+  .hero {
+    padding: 68px 0 76px;
+  }
+  .hero-grille {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .agent {
+    width: 100%;
+    max-width: 580px;
+    margin-inline: auto;
+  }
+  .grille-forfaits {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .forfait-vedette {
+    transform: none;
+  }
+  .pied-grille {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .graphe-echelle {
+    display: none;
+  }
+  .barre-ligne {
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+  }
+  .barre-ligne .barre {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* Tablette portrait (<= 860px) */
+@media (max-width: 860px) {
+  .illustrations-grille,
+  .humain-grille,
+  .etapes,
+  .contact-grille,
+  .calculateur {
+    grid-template-columns: 1fr;
+  }
+  .calc-resultat {
+    border-left: none;
+    border-top: 1px solid var(--bordure);
+  }
+  .cartes,
+  .fonctions {
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  }
+}
+
+/* Téléphone (<= 640px) */
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+  .entete-contenu {
+    min-height: 64px;
+  }
+  .menu {
+    top: 64px;
+    max-height: calc(100dvh - 64px);
+  }
+  .hero {
+    padding: 48px 0 56px;
+  }
+  .hero-court {
+    padding: 52px 0 46px;
+  }
+  .section {
+    padding: 52px 0;
+  }
+  .section-bureau {
+    min-height: 460px;
+    padding: 190px 0 32px;
+  }
+  .boutons,
+  .boutons-centre {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .boutons .bouton,
+  .boutons-centre .bouton {
+    width: 100%;
+  }
+  .cartes,
+  .fonctions,
+  .pied-grille,
+  .grille-2,
+  .grille-stats {
+    grid-template-columns: 1fr;
+  }
+  .carte,
+  .fonctions li,
+  .etapes li,
+  .forfait,
+  .carte-compte,
+  .contact-carte,
+  .panneau-comparaison,
+  .calc-champs,
+  .calc-resultat,
+  .mot-fondateur {
+    padding: 22px 18px;
+  }
+  .illustration-scene {
+    padding: 14px;
+  }
+  .illustration-texte {
+    padding: 18px;
+  }
+  .agent-entete,
+  .agent-profil,
+  .transcription {
+    padding-inline: 16px;
+  }
+  .agent-stats {
+    grid-template-columns: 1fr;
+  }
+  .agent-stats div {
+    border-left: none;
+    border-top: 1px solid var(--bordure);
+    padding: 12px 16px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .agent-stats div:first-child {
+    border-top: none;
+  }
+  .graphe-entete {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bascule {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .bascule button {
+    padding: 10px 10px;
+    font-size: 0.9rem;
+  }
+  .defilant-illustrations .defilant-vignette {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+  .defilant-illustrations .defilant-vignette svg {
+    width: 22px;
+    height: 22px;
+  }
+  .pied {
+    padding: 48px 0 calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+  .temoins {
+    left: 12px;
+    right: 12px;
+    bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+    max-width: none;
+    padding: 16px 18px;
+  }
+  .temoins-boutons {
+    flex-direction: column-reverse;
+  }
+}
+
+/* Très petits téléphones (<= 380px) */
+@media (max-width: 380px) {
+  .logo {
+    font-size: 1.06rem;
+    gap: 8px;
+  }
+  .logo .logo-icone {
+    width: 30px;
+    height: 30px;
+  }
+  .transcription p {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .transcription .mono {
+    grid-row: auto;
+  }
+}
 .agent {
   background: var(--carte);
   border: 1px solid var(--bordure-forte);

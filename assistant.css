@@ -104,8 +104,25 @@
 @keyframes assistant-apparait { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes assistant-points { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
 @media (max-width: 640px) {
-  .assistant { right: 12px; bottom: 12px; }
-  .assistant-panneau { height: calc(100vh - 100px); }
+  .assistant {
+    right: 12px;
+    left: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .assistant-panneau {
+    width: 100%;
+    max-width: 100%;
+    height: calc(100dvh - 104px);
+    max-height: calc(100dvh - 104px);
+    border-radius: 18px;
+  }
+  .assistant-bulle {
+    width: 54px;
+    height: 54px;
+  }
+  .assistant-saisie input {
+    font-size: 16px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .assistant-msg, .assistant-ecrit span { animation: none; }
