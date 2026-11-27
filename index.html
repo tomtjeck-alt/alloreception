@@ -46,7 +46,7 @@
   <meta name="theme-color" content="#070B1A">
   <link rel="stylesheet" href="style.css?v=28">
   <link rel="stylesheet" href="assistant.css?v=17">
-  <link rel="stylesheet" href="anim.css?v=17">
+  <link rel="stylesheet" href="anim.css?v=18">
 </head>
 <body>
 
@@ -170,14 +170,16 @@
                 <text x="54" y="106" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9.5">Mains prises · Soir · Samedi</text>
                 <rect x="54" y="120" width="114" height="20" rx="10" fill="rgba(248,113,113,0.15)"/>
                 <text x="111" y="133" text-anchor="middle" fill="#FCA5A5" font-family="Inter,sans-serif" font-size="9" font-weight="600">Client parti ailleurs</text>
-                <path d="M198 95 H222" stroke="#FACC15" stroke-width="2"/>
+                <path class="svg-flux" d="M198 95 H222" stroke="#FACC15" stroke-width="2"/>
                 <polygon points="222,90 232,95 222,100" fill="#FACC15"/>
-                <rect x="238" y="38" width="146" height="114" rx="12" fill="#152043" stroke="rgba(52,211,153,0.45)"/>
-                <text x="254" y="62" fill="#34D399" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">AVEC ALLO RÉCEPTION</text>
-                <text x="254" y="88" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="11" font-weight="700">Réponse en &lt; 2 s</text>
-                <text x="254" y="106" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="9.5">FR + EN · 24 h/24 · 7 j/7</text>
-                <rect x="254" y="120" width="114" height="20" rx="10" fill="rgba(52,211,153,0.16)"/>
-                <text x="311" y="133" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="9" font-weight="700">RDV confirmé</text>
+                <g class="svg-flotte">
+                  <rect x="238" y="38" width="146" height="114" rx="12" fill="#152043" stroke="rgba(52,211,153,0.45)"/>
+                  <text x="254" y="62" fill="#34D399" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">AVEC ALLO RÉCEPTION</text>
+                  <text x="254" y="88" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="11" font-weight="700">Réponse en &lt; 2 s</text>
+                  <text x="254" y="106" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="9.5">FR + EN · 24 h/24 · 7 j/7</text>
+                  <rect class="svg-badge-vif" x="254" y="120" width="114" height="20" rx="10" fill="rgba(52,211,153,0.16)"/>
+                  <text x="311" y="133" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="9" font-weight="700">RDV confirmé</text>
+                </g>
               </svg>
             </div>
             <div class="illustration-texte">
@@ -191,19 +193,23 @@
                 <rect x="16" y="16" width="388" height="158" rx="14" fill="#0F1733" stroke="rgba(255,255,255,0.1)"/>
                 <rect x="38" y="36" width="104" height="118" rx="12" fill="#152043" stroke="rgba(110,139,255,0.35)"/>
                 <text x="90" y="66" text-anchor="middle" fill="#6E8BFF" font-family="Inter,sans-serif" font-size="9" font-weight="700">1. APPEL</text>
-                <circle cx="90" cy="96" r="18" fill="rgba(110,139,255,0.16)"/>
+                <circle class="svg-anneau" cx="90" cy="96" r="18" fill="rgba(110,139,255,0.16)"/>
                 <text x="90" y="100" text-anchor="middle" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="10" font-weight="700">FR / EN</text>
                 <text x="90" y="136" text-anchor="middle" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9">Sans attente</text>
-                <rect x="158" y="36" width="104" height="118" rx="12" fill="#152043" stroke="rgba(250,204,21,0.45)"/>
-                <text x="210" y="66" text-anchor="middle" fill="#FACC15" font-family="Inter,sans-serif" font-size="9" font-weight="700">2. AGENDA</text>
-                <rect x="178" y="80" width="64" height="36" rx="8" fill="rgba(250,204,21,0.18)"/>
-                <text x="210" y="102" text-anchor="middle" fill="#FACC15" font-family="Inter,sans-serif" font-size="10" font-weight="700">Jeu 9 h 30</text>
-                <text x="210" y="136" text-anchor="middle" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="9">Google Agenda</text>
-                <rect x="278" y="36" width="104" height="118" rx="12" fill="#152043" stroke="rgba(52,211,153,0.4)"/>
-                <text x="330" y="66" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="9" font-weight="700">3. SUIVI</text>
-                <rect x="298" y="80" width="64" height="36" rx="8" fill="rgba(52,211,153,0.16)"/>
-                <text x="330" y="102" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="10" font-weight="700">SMS + Mail</text>
-                <text x="330" y="136" text-anchor="middle" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9">Résumé clair</text>
+                <g class="svg-flotte">
+                  <rect x="158" y="36" width="104" height="118" rx="12" fill="#152043" stroke="rgba(250,204,21,0.45)"/>
+                  <text x="210" y="66" text-anchor="middle" fill="#FACC15" font-family="Inter,sans-serif" font-size="9" font-weight="700">2. AGENDA</text>
+                  <rect x="178" y="80" width="64" height="36" rx="8" fill="rgba(250,204,21,0.18)"/>
+                  <text x="210" y="102" text-anchor="middle" fill="#FACC15" font-family="Inter,sans-serif" font-size="10" font-weight="700">Jeu 9 h 30</text>
+                  <text x="210" y="136" text-anchor="middle" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="9">Google Agenda</text>
+                </g>
+                <g class="svg-flotte-2">
+                  <rect x="278" y="36" width="104" height="118" rx="12" fill="#152043" stroke="rgba(52,211,153,0.4)"/>
+                  <text x="330" y="66" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="9" font-weight="700">3. SUIVI</text>
+                  <rect x="298" y="80" width="64" height="36" rx="8" fill="rgba(52,211,153,0.16)"/>
+                  <text x="330" y="102" text-anchor="middle" fill="#34D399" font-family="Inter,sans-serif" font-size="10" font-weight="700">SMS + Mail</text>
+                  <text x="330" y="136" text-anchor="middle" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9">Résumé clair</text>
+                </g>
               </svg>
             </div>
             <div class="illustration-texte">
