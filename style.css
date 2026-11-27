@@ -1376,6 +1376,42 @@ details {
   color: #E2E8F5;
   margin: 0 0 1.6rem;
 }
+/* Hero avec image de fond doucement fondue dans le bleu nuit (+ parallaxe) */
+.hero-fondu {
+  position: relative;
+  overflow: hidden;
+  padding: 108px 0 96px;
+}
+.hero-fondu .parallaxe-media {
+  inset: -24% 0;
+}
+.hero-fondu .parallaxe-img {
+  opacity: 0.34;
+  object-position: 42% 28%;
+  filter: saturate(0.92);
+}
+.hero-fondu-voile {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 70% at 50% 45%, rgba(7, 11, 26, 0.36), rgba(7, 11, 26, 0.88) 85%),
+    linear-gradient(180deg, rgba(7, 11, 26, 0.82) 0%, rgba(7, 11, 26, 0.42) 48%, rgba(7, 11, 26, 0.96) 100%);
+}
+.hero-fondu > .conteneur {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 640px) {
+  .hero-fondu {
+    padding: 76px 0 68px;
+  }
+  .hero-fondu .parallaxe-img {
+    opacity: 0.3;
+    object-position: 38% 22%;
+  }
+}
 @media (max-width: 900px) {
   .section-bureau {
     min-height: 520px;
