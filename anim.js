@@ -217,4 +217,30 @@
       requestAnimationFrame(pas);
     }).observe(perdu, { childList: true, characterData: true, subtree: true });
   }
+
+  // 6. Effet parallaxe fluide sur les photos pleine largeur
+  var zonesParallaxe = document.querySelectorAll(".parallaxe-zone");
+  if (zonesParallaxe.length && !calme) {
+    var enAttente = false;
+    function majParallaxe() {
+      enAttente = false;
+      var vh = window.innerHeight || 800;
+      zonesParallaxe.forEach(function (zone) {
+        var img = zone.querySelector(".parallaxe-img");
+        if (!img) return;
+        var r = zone.getBoundingClientRect();
+        if (r.bottom < -120 || r.top > vh + 120) return;
+        var progression = (vh - r.top) / (vh + r.height);
+        var amplitude = Math.min(100, Math.max(48, r.height * 0.16));
+        var decalage = (progression - 0.5) * 2 * amplitude;
+        img.style.setProperty("--parallaxe-y", decalage.toFixed(1) + "px");
+      });
+    }
+    function demanderMaj() {
+      if (!enAttente) { enAttente = true; requestAnimationFrame(majParallaxe); }
+    }
+    majParallaxe();
+    window.addEventListener("scroll", demanderMaj, { passive: true });
+    window.addEventListener("resize", demanderMaj, { passive: true });
+  }
 })();
