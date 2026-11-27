@@ -1443,11 +1443,18 @@ details {
 /* =========================================================
    Continuité UI/UX — Charte graphique unifiée Allo Réception (Bleu Nuit, Or & Material 3)
    ========================================================= */
+.logo {
+  gap: 0;
+}
 .logo .logo-icone {
+  margin-right: 10px;
   background: var(--jaune);
   color: var(--bleu-fonce);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
   transition: transform 0.2s ease, background 0.2s ease;
+}
+.logo > span:not(.logo-icone) {
+  margin-left: 0.28em;
 }
 .logo:hover .logo-icone {
   transform: translateY(-1px);
