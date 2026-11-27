@@ -167,13 +167,13 @@
 
     if (installationData && estInstallation) {
       boutons([
-        { texte: "✨ Remplir le formulaire automatiquement", principal: true, action: function () {
+        { texte: "Remplir le formulaire automatiquement", principal: true, action: function () {
           if (remplirFormulaire(installationData)) {
             ajouter("C'est fait ! J'ai pré-rempli votre fiche d'installation avec ces informations. Si vous voulez changer quelque chose, corrigez-le ici ou cliquez sur « Recommencer ma fiche ».", "ia");
           }
         } },
         { texte: "Corriger un détail", action: function () { champ.focus(); } },
-        { texte: "🔄 Recommencer ma fiche", action: function () {
+        { texte: "Recommencer ma fiche", action: function () {
           historiqueIA = [];
           var form = document.getElementById("form-installation");
           if (form) {

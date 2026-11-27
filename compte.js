@@ -633,7 +633,7 @@
         listeSug.innerHTML = suggs.data.map(function (sg) {
           return '<div style="padding:8px 0;border-top:1px solid rgba(255,255,255,.1)">' +
             '<p style="margin:0 0 6px"><strong>Question fréquente / correction :</strong> ' + esc(sg.question) + '<br><em>Consigne proposée :</em> ' + esc(sg.suggestion) + '</p>' +
-            '<button type="button" class="bouton bouton-jaune bouton-petit sug-ok" data-id="' + esc(sg.id) + '" data-txt="' + esc(sg.suggestion) + '">✨ Ajouter aux consignes</button> ' +
+            '<button type="button" class="bouton bouton-jaune bouton-petit sug-ok" data-id="' + esc(sg.id) + '" data-txt="' + esc(sg.suggestion) + '">Ajouter aux consignes</button> ' +
             '<button type="button" class="bouton bouton-contour-clair bouton-petit sug-no" data-id="' + esc(sg.id) + '">Ignorer</button></div>';
         }).join("");
         listeSug.querySelectorAll(".sug-ok").forEach(function (b) {
