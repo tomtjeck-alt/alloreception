@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>La solution — Allo reception</title>
-  <meta name="description" content="Allo reception, la réceptionniste IA qui répond à vos clients 24 h sur 24, 7 jours sur 7. Bilingue avec les forfaits Pro et Premium. Pour les garages et les PME partout au Canada. Essai gratuit de 14 jours.">
+  <meta name="description" content="Découvrez simplement comment Allo reception accueille vos clients 24/7, réserve dans Google Agenda et vous envoie un résumé clair après chaque appel. Essai gratuit de 14 jours.">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=29">
+  <link rel="stylesheet" href="style.css?v=30">
   <link rel="stylesheet" href="assistant.css?v=17">
   <link rel="stylesheet" href="anim.css?v=18">
 </head>
@@ -21,11 +21,11 @@
       <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>Allo <span>reception</span></a>
       <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
       <nav class="menu" id="menu">
-          <a href="index.html">Accueil</a>
-          <a href="solution.html" class="actif" aria-current="page">Solution</a>
-          <a href="forfaits.html">Forfaits</a>
-          <a href="faq.html">FAQ</a>
-          <a href="contact.html">Contact</a>
+        <a href="index.html">Accueil</a>
+        <a href="solution.html" class="actif" aria-current="page">Solution</a>
+        <a href="forfaits.html">Forfaits</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
         <a href="espace-client.html" class="lien-compte">Espace client</a>
         <a href="forfaits.html" class="bouton bouton-jaune bouton-petit">Essai gratuit</a>
       </nav>
@@ -42,82 +42,144 @@
       <div class="conteneur">
         <p class="surtitre surtitre-hero">La solution · Accueil 24 h/24</p>
         <h1>Une réception qui ne prend jamais de pause</h1>
-        <p class="sous-titre">Tout ce que votre accueil gère automatiquement pendant que vous travaillez.</p>
+        <p class="sous-titre">Quand vous ne pouvez pas décrocher, Allo reception répond à vos clients, note leurs rendez-vous et vous envoie un résumé clair.</p>
+        <div class="boutons-centre">
+          <a href="#video-promo" class="bouton bouton-jaune">Regarder la présentation (37 s)</a>
+          <a href="forfaits.html" class="bouton bouton-contour-clair">Essai gratuit de 14 jours</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="video-promo">
+      <div class="conteneur">
+        <div class="video-promo-bloc">
+          <div class="video-promo-entete">
+            <p class="surtitre">Comprendre en 37 secondes</p>
+            <h2>Comment fonctionne Allo reception</h2>
+            <p>De votre inscription jusqu'au premier rendez-vous réservé automatiquement.</p>
+          </div>
+          <div class="video-promo-cadre">
+            <video controls preload="metadata" playsinline poster="solution-video-poster.jpg" aria-label="Vidéo promotionnelle expliquant simplement le fonctionnement d'Allo reception">
+              <source src="videos/solution-promo.mp4" type="video/mp4">
+            </video>
+            <div class="video-promo-legende">
+              <span><strong>Simple et rapide</strong> · Aucun équipement à acheter, aucune application à installer</span>
+              <a href="tel:+17822233839">Écouter la démo : +1 782 223-3839</a>
+            </div>
+          </div>
+          <div class="solution-promesses">
+            <div class="solution-promesse">
+              <span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+              <div><strong>Vous gardez votre numéro</strong><span>Un simple renvoi d'appel suffit</span></div>
+            </div>
+            <div class="solution-promesse">
+              <span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
+              <div><strong>Réponse en &lt; 2 secondes</strong><span>Jour, nuit, soirs et fins de semaine</span></div>
+            </div>
+            <div class="solution-promesse">
+              <span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
+              <div><strong>Prêt en 5 minutes</strong><span>14 jours d'essai gratuit, sans contrat</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-claire">
+      <div class="conteneur">
+        <p class="surtitre">Le parcours d'un appel</p>
+        <h2>Ce qui se passe dès que votre téléphone sonne</h2>
+        <div class="parcours-3">
+
+          <article class="illustration-carte">
+            <div class="illustration-scene" aria-hidden="true">
+              <svg viewBox="0 0 320 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="14" y="14" width="292" height="147" rx="14" fill="#0F1733" stroke="rgba(255,255,255,0.1)"/>
+                <circle class="svg-anneau" cx="76" cy="88" r="28" fill="rgba(250,204,21,0.14)" stroke="#FACC15" stroke-width="1.5"/>
+                <path d="M68 80.5a11.5 11.5 0 0 0 5 5l1.6-1.6c.2-.2.5-.27.78-.18.85.28 1.77.43 2.72.43.42 0 .76.34.76.76v2.65c0 .42-.34.76-.76.76-7.14 0-12.92-5.78-12.92-12.92 0-.42.34-.76.76-.76h2.65c.42 0 .76.34.76.76 0 .95.15 1.87.43 2.72.09.28.02.58-.18.78l-1.6 1.6z" fill="#FACC15" transform="translate(4,4)"/>
+                <path class="svg-flux" d="M114 88 H142" stroke="#FACC15" stroke-width="2"/>
+                <g class="svg-flotte">
+                  <rect x="148" y="42" width="142" height="92" rx="12" fill="#152043" stroke="rgba(110,139,255,0.4)"/>
+                  <text x="164" y="68" fill="#34D399" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">ACCUEIL IMMÉDIAT</text>
+                  <text x="164" y="92" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="11" font-weight="700">« Bonjour ! »</text>
+                  <text x="164" y="114" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9.5">Horaires, tarifs, infos</text>
+                </g>
+              </svg>
+            </div>
+            <div class="illustration-texte">
+              <p class="illustration-etape">Étape 01</p>
+              <h3>Votre client est accueilli</h3>
+              <p>On répond poliment à votre place avec vos vraies informations : horaires, adresse, services et tarifs.</p>
+            </div>
+          </article>
+
+          <article class="illustration-carte">
+            <div class="illustration-scene" aria-hidden="true">
+              <svg viewBox="0 0 320 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="14" y="14" width="292" height="147" rx="14" fill="#0F1733" stroke="rgba(255,255,255,0.1)"/>
+                <rect x="34" y="34" width="252" height="108" rx="12" fill="#152043" stroke="rgba(255,255,255,0.12)"/>
+                <text x="52" y="58" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">GOOGLE AGENDA</text>
+                <rect x="52" y="74" width="54" height="48" rx="8" fill="rgba(110,139,255,0.18)"/>
+                <rect x="116" y="84" width="54" height="38" rx="8" fill="rgba(110,139,255,0.18)"/>
+                <g class="svg-flotte">
+                  <rect x="180" y="68" width="88" height="58" rx="10" fill="rgba(250,204,21,0.2)" stroke="#FACC15" stroke-width="1.5"/>
+                  <text x="192" y="90" fill="#FACC15" font-family="Inter,sans-serif" font-size="10" font-weight="700">Jeu · 9 h 30</text>
+                  <text x="192" y="110" fill="#34D399" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">RDV confirmé</text>
+                </g>
+              </svg>
+            </div>
+            <div class="illustration-texte">
+              <p class="illustration-etape">Étape 02</p>
+              <h3>Le rendez-vous est pris</h3>
+              <p>Le créneau libre est réservé dans votre Google Agenda et un SMS de confirmation part au client.</p>
+            </div>
+          </article>
+
+          <article class="illustration-carte">
+            <div class="illustration-scene" aria-hidden="true">
+              <svg viewBox="0 0 320 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="14" y="14" width="292" height="147" rx="14" fill="#0F1733" stroke="rgba(255,255,255,0.1)"/>
+                <g class="svg-flotte-2">
+                  <rect x="36" y="34" width="248" height="108" rx="12" fill="#152043" stroke="rgba(52,211,153,0.45)"/>
+                  <text x="56" y="60" fill="#34D399" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">RÉSUMÉ REÇU</text>
+                  <text x="56" y="86" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="11" font-weight="700">Marc Tremblay · 819-555-0192</text>
+                  <text x="56" y="106" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="9.5">Changement de pneus · Jeudi 9 h 30</text>
+                  <rect class="svg-badge-vif" x="56" y="116" width="124" height="18" rx="9" fill="rgba(250,204,21,0.16)"/>
+                  <text x="118" y="128" text-anchor="middle" fill="#FACC15" font-family="Inter,sans-serif" font-size="8.5" font-weight="700">Courriel + Espace client</text>
+                </g>
+              </svg>
+            </div>
+            <div class="illustration-texte">
+              <p class="illustration-etape">Étape 03</p>
+              <h3>Vous gardez le contrôle</h3>
+              <p>Vous recevez un résumé clair par courriel. En cas d'urgence, l'appel est transféré vers vous.</p>
+            </div>
+          </article>
+
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="conteneur">
-        <div class="illustrations-grille" style="margin-bottom:28px;">
-          <article class="illustration-carte">
-            <div class="illustration-scene" aria-hidden="true">
-              <svg viewBox="0 0 420 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="16" y="16" width="388" height="148" rx="14" fill="#0F1733" stroke="rgba(255,255,255,0.1)"/>
-                <rect x="38" y="42" width="110" height="96" rx="12" fill="#152043" stroke="rgba(110,139,255,0.35)"/>
-                <text x="93" y="76" text-anchor="middle" fill="#6E8BFF" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">APPEL ENTRANT</text>
-                <text x="93" y="98" text-anchor="middle" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="11" font-weight="700">24 h/24 · 7 j/7</text>
-                <text x="93" y="118" text-anchor="middle" fill="#93A0BF" font-family="Inter,sans-serif" font-size="9">FR + EN</text>
-                <path class="svg-flux" d="M156 90 H182" stroke="#FACC15" stroke-width="2"/>
-                <polygon points="182,85 192,90 182,95" fill="#FACC15"/>
-                <g class="svg-flotte">
-                  <rect x="198" y="42" width="184" height="96" rx="12" fill="#152043" stroke="rgba(250,204,21,0.45)"/>
-                  <text x="216" y="68" fill="#FACC15" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">ACTIONS INSTANTANÉES</text>
-                  <text x="216" y="90" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="10">• Répond à vos tarifs &amp; horaires</text>
-                  <text x="216" y="108" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="10">• Réserve dans Google Agenda</text>
-                  <text x="216" y="126" fill="#34D399" font-family="Inter,sans-serif" font-size="10">• Envoie SMS + résumé courriel</text>
-                </g>
-              </svg>
-            </div>
-            <div class="illustration-texte">
-              <h3>Accueil et prise de rendez-vous</h3>
-              <p>Votre ligne répond en moins de 2 secondes et remplit votre agenda.</p>
-            </div>
-          </article>
-          <article class="illustration-carte">
-            <div class="illustration-scene" aria-hidden="true">
-              <svg viewBox="0 0 420 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="16" y="16" width="388" height="148" rx="14" fill="#0F1733" stroke="rgba(255,255,255,0.1)"/>
-                <rect x="38" y="38" width="344" height="104" rx="12" fill="#152043" stroke="rgba(52,211,153,0.4)"/>
-                <text x="58" y="64" fill="#34D399" font-family="Inter,sans-serif" font-size="9.5" font-weight="700">ESPACE CLIENT · SUIVI EN DIRECT</text>
-                <g class="svg-flotte">
-                  <rect x="58" y="78" width="94" height="46" rx="8" fill="rgba(250,204,21,0.14)"/>
-                  <text x="105" y="100" text-anchor="middle" fill="#FACC15" font-family="Montserrat,sans-serif" font-size="15" font-weight="800">100 %</text>
-                  <text x="105" y="116" text-anchor="middle" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="8.5">Appels répondus</text>
-                </g>
-                <g class="svg-flotte-2">
-                  <rect x="164" y="78" width="94" height="46" rx="8" fill="rgba(110,139,255,0.14)"/>
-                  <text x="211" y="100" text-anchor="middle" fill="#FFFFFF" font-family="Montserrat,sans-serif" font-size="14" font-weight="800">CRM</text>
-                  <text x="211" y="116" text-anchor="middle" fill="#93A0BF" font-family="Inter,sans-serif" font-size="8.5">Historique &amp; CSV</text>
-                </g>
-                <g class="svg-flotte">
-                  <rect x="270" y="78" width="94" height="46" rx="8" fill="rgba(52,211,153,0.14)"/>
-                  <text x="317" y="100" text-anchor="middle" fill="#34D399" font-family="Montserrat,sans-serif" font-size="14" font-weight="800">Loi 25</text>
-                  <text x="317" y="116" text-anchor="middle" fill="#DCE3F2" font-family="Inter,sans-serif" font-size="8.5">Montréal · Canada</text>
-                </g>
-              </svg>
-            </div>
-            <div class="illustration-texte">
-              <h3>Suivi clair et souveraineté</h3>
-              <p>Historique complet, minutes en direct et données hébergées au Canada.</p>
-            </div>
-          </article>
-        </div>
+        <p class="surtitre">Pensé pour le terrain</p>
+        <h2>Simple pour vous, rassurant pour vos clients</h2>
         <ul class="fonctions">
-          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span><strong>Vos consignes respectées</strong>Heures, adresse, prix et règles propres à votre métier.</li>
-          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></span><strong>Bilingue FR / EN</strong>S'adapte à la langue du client (Pro et Premium).</li>
-          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><strong>Routage des urgences</strong>Transfert vers un humain ou alerte prioritaire selon vos règles.</li>
-          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg></span><strong>Connecté à vos outils</strong>Slack, Zapier, Make, HubSpot, Notion ou votre CRM.</li>
+          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></span><strong>Plusieurs appels en même temps</strong>Même aux heures de pointe, aucune ligne occupée ni attente.</li>
+          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></span><strong>Bilingue français et anglais</strong>Répond naturellement dans la langue de votre client (Pro et Premium).</li>
+          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg></span><strong>Rappel SMS la veille</strong>Réduit les oublis et les rendez-vous manqués sans effort.</li>
+          <li><span class="carte-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span><strong>Hébergé au Canada · Loi 25</strong>Données protégées à Montréal, zéro enregistrement audio par défaut.</li>
         </ul>
       </div>
     </section>
 
     <section class="section cta-final">
       <div class="conteneur">
-        <h2>Voyez le parcours étape par étape</h2>
-        <p>Découvrez le fonctionnement illustré ou choisissez votre forfait d'essai gratuit.</p>
+        <h2>Essayez gratuitement pendant 14 jours</h2>
+        <p>0 $ aujourd'hui, installation incluse, sans engagement.</p>
         <div class="boutons-centre">
-          <a href="forfaits.html" class="bouton bouton-jaune">Voir les forfaits</a>
-          <a href="contact.html" class="bouton bouton-contour-clair">Parler à notre équipe</a>
+          <a href="forfaits.html" class="bouton bouton-jaune">Choisir mon forfait</a>
+          <a href="contact.html" class="bouton bouton-contour-clair">Poser une question</a>
         </div>
       </div>
     </section>
@@ -132,7 +194,8 @@
       </div>
       <div>
         <p class="pied-titre">Produit</p>
-        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="garage.html">Garages</a><a href="clinique.html">Cliniques</a>      </div>
+        <a href="solution.html">Solution</a><a href="forfaits.html">Forfaits</a><a href="garage.html">Garages</a><a href="clinique.html">Cliniques</a>
+      </div>
       <div>
         <p class="pied-titre">Aide</p>
         <a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="conditions.html">Conditions d'utilisation</a><a href="confidentialite.html">Confidentialité</a><a href="#" class="gerer-temoins">Gérer les témoins</a>

@@ -1697,6 +1697,104 @@ details {
   .illustrations-grille { grid-template-columns: 1fr; }
 }
 
+/* Lecteur vidéo promotionnel 16:9 (page Solution) */
+.video-promo-bloc {
+  max-width: 960px;
+  margin: 0 auto 48px;
+}
+.video-promo-entete {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.video-promo-entete h2 {
+  margin-bottom: 0.6rem;
+}
+.video-promo-entete p {
+  color: var(--texte-doux);
+  margin: 0 auto;
+  max-width: 600px;
+}
+.video-promo-cadre {
+  background: var(--carte);
+  border: 1px solid var(--bordure-forte);
+  border-radius: 22px;
+  padding: 12px;
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.42);
+}
+.video-promo-cadre video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  background: var(--fond);
+}
+.video-promo-legende {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 18px;
+  padding: 14px 8px 4px;
+  font-size: 0.9rem;
+  color: var(--texte-doux);
+}
+.video-promo-legende strong {
+  color: var(--titre);
+}
+.solution-promesses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.solution-promesse {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.solution-promesse .carte-icone {
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  flex: none;
+}
+.solution-promesse strong {
+  display: block;
+  font-size: 0.96rem;
+  color: var(--titre);
+  line-height: 1.25;
+}
+.solution-promesse span {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--texte-doux);
+  margin-top: 2px;
+}
+.parcours-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+@media (max-width: 900px) {
+  .solution-promesses,
+  .parcours-3 {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .video-promo-cadre {
+    padding: 8px;
+    border-radius: 16px;
+  }
+  .video-promo-cadre video {
+    border-radius: 10px;
+  }
+}
+
 /* =========================================================
    Responsive complet : Ordinateur · Tablette · Téléphone
    ========================================================= */
