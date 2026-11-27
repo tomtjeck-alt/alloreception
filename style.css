@@ -963,3 +963,197 @@ body > .skiptranslate:not(#google_translate_element) {
   pointer-events: none !important;
 }
 html, body, body[style] { top: 0 !important; margin-top: 0 !important; }
+
+/* =========================================================
+   Édition Signature — Bleu Nuit & Or Brossé (haute précision, 0 ms de latence)
+   ========================================================= */
+:root {
+  --or-clair: #FEF08A;
+  --or-vif: #FACC15;
+  --or-chaud: #F59E0B;
+  --verre: linear-gradient(165deg, rgba(22, 34, 72, 0.78), rgba(10, 16, 38, 0.94));
+  --verre-eleve: linear-gradient(165deg, rgba(28, 43, 89, 0.88), rgba(12, 20, 46, 0.96));
+  --reflet-haut: inset 0 1px 0 rgba(255, 255, 255, 0.13);
+  --ressort: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+::selection { background: rgba(250, 204, 21, 0.28); color: #FFFFFF; }
+:focus-visible { outline: 2px solid var(--jaune); outline-offset: 3px; border-radius: 6px; }
+
+/* En-tête verre fumé avec filet lumineux */
+.entete {
+  background: rgba(7, 11, 26, 0.72);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 -1px 0 rgba(250, 204, 21, 0.08);
+}
+.logo .logo-icone {
+  background: linear-gradient(135deg, var(--or-clair) 0%, var(--or-vif) 52%, var(--or-chaud) 100%);
+  box-shadow: 0 4px 20px rgba(250, 204, 21, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: transform 0.25s var(--ressort), box-shadow 0.25s var(--ressort);
+}
+.logo:hover .logo-icone {
+  transform: scale(1.06) rotate(-4deg);
+  box-shadow: 0 6px 28px rgba(250, 204, 21, 0.55);
+}
+.menu a { transition: color 0.18s ease, background 0.18s ease, transform 0.18s var(--ressort); }
+.menu a.actif {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+/* Boutons haute précision */
+.bouton {
+  letter-spacing: -0.01em;
+  transition: transform 0.24s var(--ressort), box-shadow 0.28s var(--ressort), background 0.2s ease, border-color 0.2s ease;
+}
+.bouton-jaune {
+  background: linear-gradient(135deg, #FDE047 0%, #FACC15 52%, #EAB308 100%);
+  color: #07102B;
+  box-shadow: 0 10px 30px rgba(250, 204, 21, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+.bouton-jaune:hover {
+  transform: translateY(-2.5px);
+  background: linear-gradient(135deg, #FEF08A 0%, #FACC15 55%, #F59E0B 100%);
+  box-shadow: 0 14px 40px rgba(250, 204, 21, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.bouton-contour-clair, .bouton-contour {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.bouton-contour-clair:hover, .bouton-contour:hover {
+  transform: translateY(-2px);
+  border-color: rgba(250, 204, 21, 0.65);
+  background: rgba(250, 204, 21, 0.07);
+  box-shadow: 0 8px 26px rgba(250, 204, 21, 0.14);
+}
+
+/* Hero architectural : grille subtile + aurore bleu nuit / or */
+.hero {
+  background:
+    radial-gradient(ellipse 64% 52% at 82% 16%, rgba(99, 132, 255, 0.24), transparent 68%),
+    radial-gradient(ellipse 52% 46% at 14% 96%, rgba(250, 204, 21, 0.14), transparent 68%),
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    var(--fond);
+  background-size: auto, auto, 56px 56px, 56px 56px, auto;
+}
+.surtitre-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(110, 139, 255, 0.14), rgba(250, 204, 21, 0.09));
+  border: 1px solid rgba(110, 139, 255, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: #C7D7FF;
+  margin-bottom: 1.25rem;
+}
+.surtitre-hero::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--jaune);
+  box-shadow: 0 0 10px var(--jaune);
+}
+.hero h1 { letter-spacing: -0.032em; line-height: 1.04; }
+.hero h1 .accent,
+.calc-resultat .calc-gros {
+  background: linear-gradient(135deg, #FEF08A 0%, #FACC15 48%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 28px rgba(250, 204, 21, 0.28));
+}
+
+/* Surfaces usinées avec reflet supérieur 1px */
+.agent,
+.panneau-comparaison,
+.carte,
+.fonctions li,
+.etapes li,
+.calculateur,
+.apercu,
+.forfait,
+.demo-fenetre,
+.contact-carte,
+.tableau-conteneur,
+details {
+  background: var(--verre);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.32), var(--reflet-haut);
+}
+.agent {
+  background: var(--verre-eleve);
+  box-shadow: 0 32px 84px rgba(0, 0, 0, 0.6), 0 0 70px rgba(110, 139, 255, 0.2), var(--reflet-haut);
+}
+.carte,
+.fonctions li,
+.etapes li,
+.apercu,
+.forfait {
+  transition: transform 0.32s var(--ressort), border-color 0.25s ease, box-shadow 0.32s var(--ressort);
+}
+.carte:hover,
+.fonctions li:hover,
+.etapes li:hover,
+.apercu:hover {
+  transform: translateY(-5px);
+  border-color: rgba(250, 204, 21, 0.45);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), 0 0 36px rgba(250, 204, 21, 0.16), var(--reflet-haut);
+}
+.carte-icone {
+  background: linear-gradient(145deg, rgba(250, 204, 21, 0.12), rgba(110, 139, 255, 0.08));
+  border-color: rgba(250, 204, 21, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.etape-num {
+  background: linear-gradient(135deg, var(--or-clair), var(--or-vif) 60%, var(--or-chaud));
+  box-shadow: 0 8px 22px rgba(250, 204, 21, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* Cartes vedettes (Forfait Pro) avec couronne dorée */
+.forfait-vedette,
+.apercu-vedette {
+  border-color: rgba(250, 204, 21, 0.58);
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 0%, rgba(250, 204, 21, 0.14), transparent 70%),
+    var(--verre-eleve);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55), 0 0 46px rgba(250, 204, 21, 0.2), inset 0 1px 0 rgba(254, 240, 138, 0.45);
+}
+.badge,
+.apercu em {
+  background: linear-gradient(135deg, #FEF08A 0%, #FACC15 55%, #F59E0B 100%);
+  box-shadow: 0 6px 18px rgba(250, 204, 21, 0.36);
+}
+
+/* Onglets & bascule fluides */
+.onglets,
+.bascule {
+  background: rgba(10, 16, 38, 0.85);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.onglets button[aria-selected="true"] {
+  background: linear-gradient(180deg, rgba(31, 47, 96, 0.95), rgba(18, 29, 64, 0.95));
+  border-color: rgba(250, 204, 21, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Pied de page avec filet lumineux supérieur */
+.pied {
+  position: relative;
+  background: linear-gradient(180deg, #060A1B 0%, #040714 100%);
+}
+.pied::before {
+  content: "";
+  position: absolute;
+  left: 10%; right: 10%; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.45), rgba(110, 139, 255, 0.45), transparent);
+}
+
