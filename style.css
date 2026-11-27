@@ -2236,3 +2236,87 @@ summary {
   .mot-fondateur { padding: 26px 22px; }
 }
 
+/* =========================================================
+   Centrage précis de toutes les icônes sur tout le site
+   ========================================================= */
+.carte-icone,
+.logo .logo-icone,
+.etape-num,
+.lt-icone,
+.merci-icone,
+.langue-globe,
+.graphe-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.carte-icone,
+.logo .logo-icone,
+.lt-icone,
+.merci-icone,
+.langue-globe,
+.menu-bouton {
+  line-height: 0;
+  padding: 0;
+}
+.carte-icone svg,
+.logo .logo-icone svg,
+.lt-icone svg,
+.merci-icone svg,
+.langue-globe svg,
+.menu-bouton svg,
+.graphe-badge svg {
+  display: block;
+  margin: 0;
+  flex-shrink: 0;
+}
+/* Icônes centrées proprement dans les cartes autonomes */
+.carte,
+.fonctions li,
+.etapes li,
+.contact-carte {
+  text-align: center;
+}
+.carte .carte-icone,
+.fonctions li .carte-icone,
+.etapes li .etape-num,
+.contact-carte .carte-icone {
+  margin: 0 auto 14px;
+}
+.carte details.detail-carte {
+  text-align: left;
+}
+/* Cartes à disposition horizontale : icône parfaitement centrée verticalement */
+.agent-profil,
+.solution-promesse,
+.option-haut,
+.ligne-temps li {
+  align-items: center;
+}
+.agent-profil .carte-icone,
+.solution-promesse .carte-icone,
+.option-haut .carte-icone {
+  margin: 0;
+}
+.cartes-colonne .carte {
+  text-align: center;
+}
+.option-carte {
+  text-align: center;
+  align-items: center;
+}
+.option-haut {
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.option-puces {
+  justify-content: center;
+}
+.option-carte details.detail-carte {
+  width: 100%;
+  text-align: left;
+}
+

@@ -5,21 +5,24 @@
   width: 58px; height: 58px;
   border-radius: 18px;
   border: none;
+  padding: 0;
+  line-height: 0;
   background: var(--jaune);
   color: var(--bleu-fonce);
   cursor: pointer;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background 0.18s ease;
-  display: grid; place-items: center;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 .assistant-bulle:hover { transform: translateY(-2px); background: #FFD83A; }
-.assistant-bulle-icone { display: grid; place-items: center; }
+.assistant-bulle-icone { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
 .assistant-bulle-icone svg { width: 24px; height: 24px; fill: currentColor; display: block; }
 .assistant-bulle-icone .icone-fermer { display: none; }
 .assistant-ouvert .assistant-bulle-icone .icone-ouvrir { display: none; }
 .assistant-ouvert .assistant-bulle-icone .icone-fermer { display: block; }
+.assistant-avatar { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
 .assistant-avatar svg, .assistant-fermer svg { width: 20px; height: 20px; fill: currentColor; display: block; }
-.assistant-fermer { display: grid; place-items: center; border-radius: 10px; }
+.assistant-fermer { display: inline-flex; align-items: center; justify-content: center; line-height: 0; border-radius: 10px; }
 .assistant-fermer:hover { background: rgba(255, 255, 255, 0.08); }
 .assistant-pastille {
   position: absolute; top: -2px; right: -2px;
