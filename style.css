@@ -1331,7 +1331,7 @@ details {
 }
 .parallaxe-media {
   position: absolute;
-  inset: -20% 0;
+  inset: -24% 0;
   z-index: 0;
   pointer-events: none;
 }
@@ -1341,7 +1341,7 @@ details {
   object-fit: cover;
   object-position: 68% 28%;
   display: block;
-  transform: translate3d(0, var(--parallaxe-y, 0px), 0) scale(1.03);
+  transform: translate3d(0, var(--parallaxe-y, 0px), 0) scale(1.04);
   will-change: transform;
 }
 .section-bureau-voile {
@@ -1609,12 +1609,23 @@ details {
   padding: 20px;
   display: grid;
   place-items: center;
+  overflow: hidden;
 }
-.illustration-scene svg {
+.illustration-scene svg,
+.illustration-scene img {
   width: 100%;
   max-width: 440px;
   height: auto;
   display: block;
+  transform: translate3d(0, var(--parallaxe-y, 0px), 0);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .illustration-scene svg,
+  .illustration-scene img {
+    transform: none !important;
+    will-change: auto;
+  }
 }
 .illustration-texte {
   padding: 22px 24px 24px;
