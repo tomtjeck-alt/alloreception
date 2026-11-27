@@ -190,7 +190,7 @@ h2 { font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800; }
 }
 .hero-court { padding: 80px 0 72px; text-align: center; border-bottom: 1px solid var(--bordure); }
 .hero-court .sous-titre { margin-left: auto; margin-right: auto; }
-.hero-court a { color: var(--jaune); }
+.hero-court a:not(.bouton) { color: var(--jaune); }
 .hero-grille { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
 .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 1.2rem; }
 .hero h1 .accent { color: var(--jaune); display: block; text-shadow: 0 0 40px rgba(250, 204, 21, 0.35); }
@@ -1280,15 +1280,26 @@ details {
   border-color: rgba(110, 139, 255, 0.36);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
 }
-.bouton-jaune {
+.bouton-jaune,
+a.bouton-jaune,
+a.bouton-jaune:visited,
+.hero-court a.bouton-jaune {
   background: var(--jaune);
-  color: var(--bleu-fonce);
+  color: #07102B !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
-.bouton-jaune:hover {
+.bouton-jaune:hover,
+a.bouton-jaune:hover,
+.hero-court a.bouton-jaune:hover {
   transform: translateY(-1px);
   background: #FFD83A;
+  color: #07102B !important;
   box-shadow: 0 6px 18px rgba(250, 204, 21, 0.24);
+}
+a.bouton-contour-clair,
+a.bouton-contour-clair:visited,
+.hero-court a.bouton-contour-clair {
+  color: var(--titre) !important;
 }
 .mot-fondateur {
   background: var(--carte);
