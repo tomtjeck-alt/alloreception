@@ -94,40 +94,6 @@
   display: inline-flex; align-items: center; gap: 40px;
 }
 .defilant span::after { content: "•"; color: rgba(250, 204, 21, 0.7); font-size: 0.9rem; }
-.defilant-illustrations {
-  padding: 18px 0;
-}
-.defilant-illustrations .defilant-piste {
-  gap: 20px;
-  animation-duration: 36s;
-}
-.defilant-illustrations .defilant-vignette {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: var(--carte);
-  border: 1px solid var(--bordure);
-  color: var(--bleu);
-  display: inline-grid;
-  place-items: center;
-  gap: 0;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-}
-.defilant-illustrations .defilant-vignette::after {
-  display: none;
-  content: none;
-}
-.defilant-illustrations .defilant-vignette:nth-child(odd) {
-  color: var(--jaune);
-  background: rgba(250, 204, 21, 0.08);
-  border-color: rgba(250, 204, 21, 0.24);
-}
-.defilant-illustrations .defilant-vignette svg {
-  width: 26px;
-  height: 26px;
-  fill: currentColor;
-  display: block;
-}
 .defilant:hover .defilant-piste { animation-play-state: paused; }
 @keyframes defile { to { transform: translateX(-50%); } }
 
