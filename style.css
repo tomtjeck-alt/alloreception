@@ -1582,6 +1582,66 @@ details {
 @media (max-width: 760px) {
   .graphe-echelle { display: none; }
 }
+
+/* Illustrations éditoriales (page Aperçu / Comment ça marche) */
+.illustrations-grille {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.illustration-carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+.illustration-carte:hover {
+  transform: translateY(-2px);
+  background: var(--carte-2);
+  border-color: rgba(110, 139, 255, 0.36);
+}
+.illustration-scene {
+  background: var(--fond-2);
+  border-bottom: 1px solid var(--bordure);
+  padding: 20px;
+  display: grid;
+  place-items: center;
+}
+.illustration-scene svg {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  display: block;
+}
+.illustration-texte {
+  padding: 22px 24px 24px;
+}
+.illustration-etape {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin: 0 0 8px;
+}
+.illustration-texte h3 {
+  font-size: 1.2rem;
+  margin: 0 0 8px;
+  color: var(--titre);
+}
+.illustration-texte p {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--texte-doux);
+  line-height: 1.58;
+}
+@media (max-width: 820px) {
+  .illustrations-grille { grid-template-columns: 1fr; }
+}
 .agent {
   background: var(--carte);
   border: 1px solid var(--bordure-forte);
