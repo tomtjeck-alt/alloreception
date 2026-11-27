@@ -1403,6 +1403,185 @@ details {
     will-change: auto;
   }
 }
+
+/* =========================================================
+   Continuité UI/UX — Charte graphique unifiée Allo Réception (Bleu Nuit, Or & Material 3)
+   ========================================================= */
+.logo .logo-icone {
+  background: var(--jaune);
+  color: var(--bleu-fonce);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.logo:hover .logo-icone {
+  transform: translateY(-1px);
+  background: #FFD83A;
+  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.28);
+}
+.logo .logo-icone svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.menu-bouton {
+  align-items: center;
+  justify-content: center;
+}
+.menu-bouton svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  display: block;
+}
+@media (max-width: 900px) {
+  .menu-bouton { display: inline-flex; }
+}
+.lt-icone svg,
+.merci-icone svg,
+.icone-inline svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: block;
+}
+.merci-icone {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  background: rgba(52, 211, 153, 0.14);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: var(--vert);
+  display: grid;
+  place-items: center;
+}
+.merci-icone svg {
+  width: 32px;
+  height: 32px;
+}
+.etape-num {
+  background: var(--jaune);
+  color: var(--bleu-fonce);
+  box-shadow: none;
+}
+.badge,
+.apercu em {
+  background: var(--jaune);
+  color: var(--bleu-fonce);
+  box-shadow: none;
+}
+.forfait-vedette,
+.apercu-vedette {
+  background: var(--carte-2);
+  border-color: rgba(250, 204, 21, 0.55);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.36);
+}
+.forfait-vedette:hover,
+.apercu-vedette:hover {
+  border-color: var(--jaune);
+}
+.bouton-contour-clair,
+.bouton-contour {
+  backdrop-filter: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--bordure-forte);
+}
+.bouton-contour-clair:hover,
+.bouton-contour:hover {
+  transform: translateY(-1px);
+  border-color: var(--jaune);
+  background: rgba(250, 204, 21, 0.08);
+  box-shadow: none;
+}
+.onglets,
+.bascule {
+  background: var(--fond-2);
+  border-color: var(--bordure);
+  box-shadow: none;
+}
+.onglets button[aria-selected="true"] {
+  background: var(--carte-2);
+  border-color: var(--bordure-forte);
+  box-shadow: none;
+}
+.pied {
+  background: var(--fond-2);
+}
+.pied::before {
+  background: var(--bordure);
+  left: 0;
+  right: 0;
+}
+
+/* Graphique comparatif éditorial (coût mensuel + échelle visuelle) */
+.graphe-entete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--bordure);
+}
+.graphe-entete h2 {
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  margin: 6px 0 0;
+}
+.graphe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(250, 204, 21, 0.14);
+  border: 1px solid rgba(250, 204, 21, 0.38);
+  color: var(--jaune);
+  font-weight: 700;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+.graphe-badge svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.panneau-comparaison .barre {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  position: relative;
+}
+.panneau-comparaison .barre i {
+  border-radius: 999px;
+  background: rgba(147, 160, 191, 0.45);
+}
+.panneau-comparaison .barre i.jaune {
+  background: var(--jaune);
+}
+.panneau-comparaison .barre-ligne b {
+  font-variant-numeric: tabular-nums;
+}
+.graphe-echelle {
+  display: grid;
+  grid-template-columns: 220px 1fr 185px;
+  gap: 16px;
+  margin-top: 10px;
+}
+.graphe-graduations {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--texte-doux);
+  padding-top: 6px;
+  border-top: 1px dashed var(--bordure);
+}
+@media (max-width: 760px) {
+  .graphe-echelle { display: none; }
+}
 .agent {
   background: var(--carte);
   border: 1px solid var(--bordure-forte);

@@ -44,16 +44,16 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#070B1A">
-  <link rel="stylesheet" href="style.css?v=23">
-  <link rel="stylesheet" href="assistant.css?v=15">
-  <link rel="stylesheet" href="anim.css?v=14">
+  <link rel="stylesheet" href="style.css?v=24">
+  <link rel="stylesheet" href="assistant.css?v=16">
+  <link rel="stylesheet" href="anim.css?v=15">
 </head>
 <body>
 
   <header class="entete">
     <div class="conteneur entete-contenu">
-      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true">☎</span>Allo <span>Réception</span></a>
-      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+      <a href="index.html" class="logo"><span class="logo-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>Allo <span>Réception</span></a>
+      <button class="menu-bouton" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
       <nav class="menu" id="menu">
           <a href="index.html" class="actif" aria-current="page">Accueil</a>
           <a href="solution.html">Solution</a>
@@ -140,14 +140,25 @@
     <section class="section">
       <div class="conteneur">
         <div class="panneau-comparaison">
-          <p class="mono etiquette">Coût par mois · Ce que vous payez pour ne rater aucun appel</p>
-          <div class="barres">
-            <div class="barre-ligne"><span>Réceptionniste à temps plein</span><div class="barre"><i style="--l:100%"></i></div><b>3 000 $ et plus (salaire)</b></div>
-            <div class="barre-ligne"><span>Allo Réception Premium</span><div class="barre"><i class="jaune" style="--l:23%"></i></div><b>699 $</b></div>
-            <div class="barre-ligne"><span>Allo Réception Pro</span><div class="barre"><i class="jaune" style="--l:13%"></i></div><b>399 $</b></div>
-            <div class="barre-ligne"><span>Allo Réception Essentiel</span><div class="barre"><i class="jaune" style="--l:7%"></i></div><b>199 $</b></div>
+          <div class="graphe-entete">
+            <div>
+              <p class="mono etiquette">Graphique comparatif · Budget mensuel pour ne rater aucun appel</p>
+              <h2>Un accueil 24 h/24 pour une fraction du coût d'un poste</h2>
+            </div>
+            <span class="graphe-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>Jusqu'à 93 % d'économie</span>
           </div>
-          <p class="barres-note"><strong>Jusqu'à 15 fois moins cher</strong> qu'une réceptionniste, et disponible la nuit et la fin de semaine.</p>
+          <div class="barres">
+            <div class="barre-ligne"><span>Réceptionniste à temps plein</span><div class="barre"><i style="--l:100%"></i></div><b>3 000 $ et plus / mois</b></div>
+            <div class="barre-ligne"><span>Allo Réception Premium</span><div class="barre"><i class="jaune" style="--l:23%"></i></div><b>699 $ / mois</b></div>
+            <div class="barre-ligne"><span>Allo Réception Pro</span><div class="barre"><i class="jaune" style="--l:13%"></i></div><b>399 $ / mois</b></div>
+            <div class="barre-ligne"><span>Allo Réception Essentiel</span><div class="barre"><i class="jaune" style="--l:7%"></i></div><b>199 $ / mois</b></div>
+          </div>
+          <div class="graphe-echelle" aria-hidden="true">
+            <span></span>
+            <div class="graphe-graduations"><span>0 $</span><span>1 000 $</span><span>2 000 $</span><span>3 000 $+</span></div>
+            <span></span>
+          </div>
+          <p class="barres-note"><strong>Pour le prix d'une seule journée de réception par mois</strong>, votre ligne reste ouverte le soir, la fin de semaine et les jours fériés — sans charges sociales ni remplacements à gérer.</p>
         </div>
       </div>
     </section>
@@ -322,8 +333,8 @@
 
   <script src="config.js?v=18"></script>
   <script src="script.js?v=21"></script>
-  <script src="assistant.js?v=19"></script>
-  <script src="anim.js?v=16"></script>
+  <script src="assistant.js?v=20"></script>
+  <script src="anim.js?v=17"></script>
   <script>
     var pages = { "#solution": "solution.html", "#videos": "videos.html", "#forfaits": "forfaits.html", "#faq": "faq.html", "#contact": "contact.html" };
     if (pages[location.hash]) location.replace(pages[location.hash]);

@@ -79,43 +79,8 @@
     }, 1000);
   }
 
-  // 3c. Lueur et léger relief 3D qui suivent la souris sur les cartes
-  if (!calme && window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll(".carte, .fonctions li, .etapes li, .forfait, .apercu, .contact-carte, .panneau-comparaison, .demo-fenetre, .agent").forEach(function (el) {
-      el.classList.add("projecteur", "carte-3d");
-      el.addEventListener("pointermove", function (e) {
-        var r = el.getBoundingClientRect();
-        var x = e.clientX - r.left, y = e.clientY - r.top;
-        el.style.setProperty("--mx", x + "px");
-        el.style.setProperty("--my", y + "px");
-        var rx = ((0.5 - y / r.height) * 5).toFixed(2) + "deg";
-        var ry = ((x / r.width - 0.5) * 6).toFixed(2) + "deg";
-        el.style.setProperty("--rx", rx);
-        el.style.setProperty("--ry", ry);
-      });
-      el.addEventListener("pointerleave", function () {
-        el.style.setProperty("--rx", "0deg");
-        el.style.setProperty("--ry", "0deg");
-      });
-    });
-  }
-
-  // 3d. Titres qui apparaissent mot par mot (style Techsy)
-  if (!calme && "IntersectionObserver" in window) {
-    document.querySelectorAll(".section h2, .cta-final h2, .hero-court h1").forEach(function (h) {
-      if (h.querySelector("*")) return;
-      var mots = h.textContent.trim().split(/\s+/);
-      h.innerHTML = mots.map(function (m, k) {
-        return '<span class="mot" style="--k:' + k + '">' + m.replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</span>";
-      }).join(" ");
-      h.classList.add("titre-mots");
-      h.classList.remove("revele");
-      var o = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { h.classList.add("montre"); o.disconnect(); } });
-      }, { threshold: 0.4 });
-      o.observe(h);
-    });
-  }
+  // 3c. Transition sobre (sans inclinaison 3D ni projecteur gadgets)
+  // Les états de survol sont gérés de façon cohérente en CSS Material 3.
 
   // 3e. Démonstration à onglets qui défilent seuls (style Ainora)
   var demo = document.querySelector(".section-demo");

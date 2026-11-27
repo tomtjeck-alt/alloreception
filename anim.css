@@ -1,204 +1,99 @@
-/* ===== Animations ===== */
+/* ===== Animations sobres — Google Material 3 (mouvement fluide et naturel) ===== */
 
-/* Apparition au défilement (seulement si le JavaScript fonctionne) */
+/* Apparition douce au défilement */
 .js-anim .revele {
   opacity: 0;
-  transform: translateY(28px) scale(0.96);
-  transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(16px);
+  transition: opacity 0.48s cubic-bezier(0.2, 0, 0, 1), transform 0.52s cubic-bezier(0.2, 0, 0, 1);
   transition-delay: var(--delai, 0ms);
 }
 .js-anim .revele.visible { opacity: 1; transform: none; }
-/* Le forfait vedette garde son agrandissement une fois visible */
-.js-anim .forfait-vedette.revele.visible { transform: scale(1.03); }
 
-/* Entrée du hero au chargement */
-.hero h1, .hero .pastille, .hero .rotatif, .hero .sous-titre, .hero .boutons, .hero .garanties, .hero .bascule {
-  animation: entree 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+/* Entrée calme du hero au chargement */
+.hero h1, .hero .surtitre, .hero .pastille, .hero .rotatif, .hero .sous-titre, .hero .boutons, .hero .garanties, .hero .bascule {
+  animation: entree 0.55s cubic-bezier(0.2, 0, 0, 1) both;
 }
-.hero .pastille { animation-delay: 0.05s; }
-.hero h1 { animation-delay: 0.12s; }
-.hero .rotatif { animation-delay: 0.22s; }
-.hero .sous-titre { animation-delay: 0.3s; }
-.hero .boutons, .hero .bascule { animation-delay: 0.4s; }
-.hero .garanties { animation-delay: 0.5s; }
-.hero .agent { animation: entree-maquette 1s 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-@keyframes entree { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-@keyframes entree-maquette { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: none; } }
+.hero .surtitre, .hero .pastille { animation-delay: 0.04s; }
+.hero h1 { animation-delay: 0.1s; }
+.hero .rotatif { animation-delay: 0.16s; }
+.hero .sous-titre { animation-delay: 0.22s; }
+.hero .boutons, .hero .bascule { animation-delay: 0.28s; }
+.hero .garanties { animation-delay: 0.34s; }
+.hero .agent { animation: entree 0.6s 0.18s cubic-bezier(0.2, 0, 0, 1) both; }
+@keyframes entree { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-/* Halo qui bouge doucement derrière le hero */
 .hero { position: relative; }
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 520px; height: 520px;
-  right: -120px; top: -160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(250, 204, 21, 0.25), transparent 65%);
-  animation: flotte 12s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-.hero > .conteneur { position: relative; }
-@keyframes flotte { to { transform: translate(-140px, 120px) scale(1.2); } }
+.hero > .conteneur { position: relative; z-index: 1; }
 
-/* Mot qui change */
-.rotatif { font-size: 1.3rem; font-weight: 600; margin: -0.2rem 0 1.2rem; color: var(--texte); }
+/* Mot qui change sobrement */
+.rotatif { font-size: 1.25rem; font-weight: 600; margin: -0.2rem 0 1.2rem; color: var(--texte); }
 .mot-rotatif {
   display: inline-block;
   color: var(--jaune);
-  border-bottom: 3px solid var(--jaune);
-  transition: opacity 0.35s, transform 0.35s;
+  border-bottom: 2px solid rgba(250, 204, 21, 0.55);
+  transition: opacity 0.3s ease;
 }
-.mot-rotatif.sortie { opacity: 0; transform: translateY(-10px); }
+.mot-rotatif.machine { border-bottom: none; min-height: 1.2em; }
+.mot-rotatif.machine::after {
+  content: "";
+  display: inline-block;
+  width: 2px; height: 1em;
+  margin-left: 3px;
+  vertical-align: -0.14em;
+  background: var(--jaune);
+  animation: curseur 1s steps(1) infinite;
+}
+@keyframes curseur { 50% { opacity: 0; } }
 
-/* Conversation qui s'écrit */
+/* Conversation d'exemple qui s'affiche ligne par ligne */
 .maquette-animee.en-lecture .bulle,
 .maquette-animee.en-lecture .maquette-resume {
   opacity: 0;
-  transform: translateY(10px) scale(0.97);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0, 0, 1);
 }
 .maquette-animee.en-lecture .montre { opacity: 1; transform: none; }
-.maquette-animee .ok::before { content: ""; }
 
 /* Bande de chiffres */
 .bande-chiffres { background: var(--fond-2); border-top: 1px solid var(--bordure); border-bottom: 1px solid var(--bordure); padding: 40px 0; }
 .chiffres { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
 .chiffres p { margin: 0; color: var(--texte-doux); font-size: 0.92rem; }
-.chiffres .chiffre { font-family: var(--police-titre); font-size: 2.3rem; font-weight: 800; color: var(--titre); letter-spacing: -0.02em; }
-.chiffres .compteur { color: var(--jaune); font-variant-numeric: tabular-nums; text-shadow: 0 0 30px rgba(250,204,21,0.35); }
-
-/* Boutons : reflet lumineux au survol */
-.bouton-jaune { position: relative; overflow: hidden; }
-.bouton-jaune::after {
-  content: "";
-  position: absolute; top: 0; left: -75%;
-  width: 50%; height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
-  transform: skewX(-20deg);
-}
-.bouton-jaune:hover::after { animation: reflet 0.7s ease; }
-@keyframes reflet { to { left: 130%; } }
-
-/* Icônes des cartes qui bougent au survol */
-.carte:hover .carte-icone, .fonctions li:hover .carte-icone { animation: sautille 0.5s ease; }
-@keyframes sautille { 40% { transform: translateY(-6px) rotate(-6deg); } 70% { transform: translateY(1px); } }
-
-/* Bulle de l'assistante qui pulse pour attirer l'attention */
-.assistant-bulle::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--jaune);
-  animation: pulse 2.4s ease-out infinite;
-}
-.assistant-ouvert .assistant-bulle::before { animation: none; opacity: 0; }
-@keyframes pulse { from { transform: scale(1); opacity: 0.7; } to { transform: scale(1.6); opacity: 0; } }
+.chiffres .chiffre { font-family: var(--police-titre); font-size: 2.2rem; font-weight: 800; color: var(--titre); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.chiffres .compteur { color: var(--jaune); font-variant-numeric: tabular-nums; }
 
 @media (max-width: 640px) {
   .chiffres { grid-template-columns: 1fr 1fr; }
-  .chiffres .chiffre { font-size: 1.8rem; }
-  .rotatif { font-size: 1.15rem; }
+  .chiffres .chiffre { font-size: 1.75rem; }
+  .rotatif { font-size: 1.12rem; }
 }
 
-/* Respecte les visiteurs qui préfèrent moins de mouvement */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .js-anim .revele { opacity: 1; transform: none; }
-}
-
-/* Onde vocale qui bouge (carte agent du hero) */
-.onde i { animation: onde 1.1s ease-in-out infinite alternate; transform-origin: center; }
-.onde i:nth-child(3n) { animation-duration: 0.8s; }
-.onde i:nth-child(3n+1) { animation-duration: 1.3s; animation-delay: -0.4s; }
-.onde i:nth-child(4n) { animation-delay: -0.7s; }
-@keyframes onde { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
-.micro { animation: respire 2.4s ease-in-out infinite; }
-@keyframes respire { 50% { transform: scale(1.08); } }
-
-/* Barres de comparaison qui se remplissent */
-.js-anim .barre i { width: 0; transition: width 1.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
+/* Barres du graphique comparatif qui se remplissent au défilement */
+.js-anim .barre i { width: 0; transition: width 0.95s cubic-bezier(0.2, 0, 0, 1); }
 .js-anim .panneau-comparaison.visible .barre i { width: var(--l); }
-.js-anim .panneau-comparaison .barre-ligne:nth-child(2) i { transition-delay: 0.15s; }
-.js-anim .panneau-comparaison .barre-ligne:nth-child(3) i { transition-delay: 0.3s; }
-.js-anim .panneau-comparaison .barre-ligne:nth-child(4) i { transition-delay: 0.45s; }
+.js-anim .panneau-comparaison .barre-ligne:nth-child(2) i { transition-delay: 0.1s; }
+.js-anim .panneau-comparaison .barre-ligne:nth-child(3) i { transition-delay: 0.2s; }
+.js-anim .panneau-comparaison .barre-ligne:nth-child(4) i { transition-delay: 0.3s; }
 
-/* ================= Animations inspirées de Dasha, Ainora, Techsy ================= */
-
-/* Machine à écrire avec curseur clignotant */
-.mot-rotatif.machine { border-bottom: none; min-height: 1.2em; }
-.mot-rotatif.machine::after {
-  content: "";
-  display: inline-block;
-  width: 2px; height: 1.05em;
-  margin-left: 3px;
-  vertical-align: -0.15em;
-  background: var(--jaune);
-  animation: curseur 0.9s steps(1) infinite;
-}
-@keyframes curseur { 50% { opacity: 0; } }
-
-/* Bordure lumineuse qui tourne autour de la carte agent */
-@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-.agent-lueur { isolation: isolate; }
-.agent-lueur::before {
-  content: "";
-  position: absolute; inset: -1px;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(from var(--angle), transparent 0deg, rgba(250,204,21,0.9) 60deg, transparent 120deg, transparent 200deg, rgba(110,139,255,0.8) 260deg, transparent 320deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: tourne 6s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-@keyframes tourne { to { --angle: 360deg; } }
-
-/* Projecteur : lueur qui suit la souris sur les cartes */
-.projecteur { position: relative; }
-.projecteur::after {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(250, 204, 21, 0.10), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-.projecteur:hover::after { opacity: 1; }
-
-/* Titres qui apparaissent mot par mot */
-.titre-mots .mot {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.5em);
-  filter: blur(6px);
-  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;
-  transition-delay: calc(var(--k) * 60ms);
-}
-.titre-mots.montre .mot { opacity: 1; transform: none; filter: none; }
-
-/* Bande qui défile en continu */
+/* Bande métiers sobre */
 .defilant {
   overflow: hidden;
   border-top: 1px solid var(--bordure);
-  background: var(--fond);
-  padding: 18px 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  background: var(--fond-2);
+  padding: 16px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
-.defilant-piste { display: flex; width: max-content; gap: 48px; animation: defile 38s linear infinite; }
+.defilant-piste { display: flex; width: max-content; gap: 40px; animation: defile 44s linear infinite; }
 .defilant span {
-  font-family: var(--mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.85rem;
   color: var(--texte-doux);
   white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 48px;
+  display: inline-flex; align-items: center; gap: 40px;
 }
-.defilant span::after { content: "✦"; color: var(--jaune); font-size: 0.7rem; }
+.defilant span::after { content: "•"; color: rgba(250, 204, 21, 0.7); font-size: 0.9rem; }
 .defilant:hover .defilant-piste { animation-play-state: paused; }
 @keyframes defile { to { transform: translateX(-50%); } }
 
@@ -210,20 +105,21 @@
   width: fit-content; max-width: 100%;
   margin: 0 auto 28px;
   padding: 5px;
-  background: rgba(255,255,255,0.04);
+  background: var(--fond-2);
   border: 1px solid var(--bordure);
   border-radius: 999px;
 }
 .onglets button {
   position: relative; overflow: hidden;
-  font: inherit; font-weight: 600; font-size: 0.93rem;
+  font: inherit; font-weight: 600; font-size: 0.92rem;
   color: var(--texte-doux);
   background: none; border: 1px solid transparent;
   padding: 9px 18px; border-radius: 999px; cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
 }
 .onglets button:hover { color: var(--titre); }
 .onglets button[aria-selected="true"] { color: var(--titre); background: var(--carte-2); border-color: var(--bordure-forte); }
-.onglets button i { position: absolute; left: 14px; right: 14px; bottom: 3px; height: 2px; border-radius: 2px; background: var(--jaune); transform: scaleX(0); transform-origin: left; }
+.onglets button i { position: absolute; left: 16px; right: 16px; bottom: 3px; height: 2px; border-radius: 2px; background: var(--jaune); transform: scaleX(0); transform-origin: left; }
 .onglets button.progresse i { animation: progression 7s linear forwards; }
 @keyframes progression { to { transform: scaleX(1); } }
 
@@ -232,12 +128,11 @@
   border: 1px solid var(--bordure-forte);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--ombre-forte);
 }
-.demo-barre { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--bordure); }
-.demo-barre span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+.demo-barre { display: flex; align-items: center; gap: 7px; padding: 12px 18px; border-bottom: 1px solid var(--bordure); }
+.demo-barre span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.14); }
 .demo-barre p { margin: 0 0 0 auto; }
-.demo-corps { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 330px; }
+.demo-corps { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 320px; }
 .demo-appel, .demo-resultat { padding: 24px; }
 .demo-resultat { border-left: 1px solid var(--bordure); background: rgba(255,255,255,0.015); }
 .demo-titre { display: flex; justify-content: space-between; align-items: center; margin: 0 0 18px; }
@@ -265,7 +160,7 @@
   display: grid; place-items: center;
   background: rgba(52, 211, 153, 0.15); color: var(--vert); font-size: 0.8rem; font-weight: 800;
 }
-.demo-ligne, .demo-carte { opacity: 0; transform: translateY(10px); transition: opacity 0.45s, transform 0.45s; }
+.demo-ligne, .demo-carte { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0, 0, 1); }
 .demo-ligne.montre, .demo-carte.montre { opacity: 1; transform: none; }
 .demo-bas { margin: 0; padding: 14px 20px; border-top: 1px solid var(--bordure); color: var(--titre); font-size: 0.95rem; }
 .demo-bas .mono { margin-right: 10px; }
@@ -278,63 +173,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js-anim .revele, .demo-ligne, .demo-carte { opacity: 1; transform: none; }
   .defilant-piste { animation: none; }
-  .titre-mots .mot, .demo-ligne, .demo-carte { opacity: 1; transform: none; filter: none; }
-}
-
-/* ===== Visuels IA ===== */
-/* Réseau de neurones en fond d'en-tête */
-.reseau-ia { position: absolute; inset: 0; z-index: 0; opacity: 0.85; pointer-events: none; }
-.hero > .conteneur { z-index: 1; }
-
-/* Orbe IA en particules 3D */
-.orbe-ia { position: relative; width: 250px; max-width: 75%; aspect-ratio: 1; margin: -6px auto 0; }
-.orbe-ia canvas { position: absolute; inset: 0; }
-.orbe-icone {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: 46px; height: 46px; border-radius: 50%;
-  background: var(--jaune); color: var(--bleu-fonce);
-  display: grid; place-items: center; font-size: 1.2rem;
-  box-shadow: 0 0 30px rgba(250, 204, 21, 0.6);
-  z-index: 1;
-  animation: respire 2.4s ease-in-out infinite;
-}
-.agent-voix .onde { height: 40px; margin-top: -4px; }
-
-/* ===== Motion Design 3D (Option 1 : bleu nuit + jaune) ===== */
-.carte-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-  will-change: transform;
-}
-.carte-3d:hover {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), 0 0 28px rgba(250, 204, 21, 0.14);
-}
-.forfait-vedette.carte-3d:hover {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.03) translateY(-4px);
-}
-
-/* Trait lumineux animé sur la carte du hero et le forfait vedette */
-.agent.agent-lueur, .forfait-vedette { position: relative; overflow: hidden; }
-.agent.agent-lueur::before, .forfait-vedette::before {
-  content: "";
-  position: absolute;
-  top: 0; left: -60%;
-  width: 60%; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--jaune), #60A5FA, transparent);
-  animation: rayon-bord 3.6s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 2;
-}
-@keyframes rayon-bord {
-  0% { left: -60%; opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { left: 110%; opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .carte-3d:hover { transform: none; }
-  .agent.agent-lueur::before, .forfait-vedette::before { animation: none; display: none; }
 }

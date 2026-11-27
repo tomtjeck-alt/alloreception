@@ -2,20 +2,25 @@
 .assistant { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; flex-direction: column; align-items: flex-end; }
 .assistant-bulle {
   position: relative;
-  width: 62px; height: 62px;
-  border-radius: 50%;
+  width: 58px; height: 58px;
+  border-radius: 18px;
   border: none;
   background: var(--jaune);
   color: var(--bleu-fonce);
-  font-size: 1.7rem;
   cursor: pointer;
-  box-shadow: var(--ombre-forte);
-  transition: transform 0.2s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background 0.18s ease;
   display: grid; place-items: center;
 }
-.assistant-bulle:hover { transform: scale(1.07); }
-.assistant-ouvert .assistant-bulle-icone { font-size: 0; }
-.assistant-ouvert .assistant-bulle-icone::before { content: "✕"; font-size: 1.4rem; }
+.assistant-bulle:hover { transform: translateY(-2px); background: #FFD83A; }
+.assistant-bulle-icone { display: grid; place-items: center; }
+.assistant-bulle-icone svg { width: 24px; height: 24px; fill: currentColor; display: block; }
+.assistant-bulle-icone .icone-fermer { display: none; }
+.assistant-ouvert .assistant-bulle-icone .icone-ouvrir { display: none; }
+.assistant-ouvert .assistant-bulle-icone .icone-fermer { display: block; }
+.assistant-avatar svg, .assistant-fermer svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+.assistant-fermer { display: grid; place-items: center; border-radius: 10px; }
+.assistant-fermer:hover { background: rgba(255, 255, 255, 0.08); }
 .assistant-pastille {
   position: absolute; top: -2px; right: -2px;
   width: 22px; height: 22px; border-radius: 50%;
