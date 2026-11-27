@@ -355,6 +355,6 @@ if (bandeau) {
 if (!document.getElementById("allo-langues-script")) {
   var sLang = document.createElement("script");
   sLang.id = "allo-langues-script";
-  sLang.src = "langues.js?v=3";
+  sLang.src = "langues.js?v=4";
   document.body.appendChild(sLang);
 }

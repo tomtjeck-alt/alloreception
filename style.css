@@ -1454,7 +1454,7 @@ details {
   transition: transform 0.2s ease, background 0.2s ease;
 }
 .logo > span:not(.logo-icone) {
-  margin-left: 0.28em;
+  margin-left: 0;
 }
 .logo:hover .logo-icone {
   transform: translateY(-1px);
