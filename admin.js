@@ -336,9 +336,15 @@
   function afficherProspects() {
     var corps = document.getElementById("tb-prospects");
     if (!corps) return;
-    var filtre = (document.getElementById("pr-statut") || {}).value || "";
+    var elFiltre = document.getElementById("pr-statut");
+    var filtre = elFiltre ? elFiltre.value : "nouveau";
     var rows = PROSPECTS.filter(function (p) { return !filtre || p.statut === filtre; });
-    if (!rows.length) { corps.innerHTML = ligneVide(5, "Aucun prospect. Lancez une recherche ci-dessus."); return; }
+    if (!rows.length) {
+      corps.innerHTML = ligneVide(5, filtre === "nouveau"
+        ? "Tous les prospects ont été contactés ! Lancez une nouvelle recherche ci-dessus."
+        : "Aucun prospect dans ce statut.");
+      return;
+    }
     corps.innerHTML = rows.map(function (p) {
       var contact = [
         p.telephone ? esc(p.telephone) : "",
@@ -368,9 +374,11 @@
       }
       PROSPECTS = (r.data && r.data.prospects) || [];
       afficherProspects();
+      var nbNouveaux = PROSPECTS.filter(function (x) { return x.statut === "nouveau"; }).length;
+      var nbContactes = PROSPECTS.filter(function (x) { return x.statut === "contacte"; }).length;
       if (info) info.textContent = action === "rechercher"
-        ? ((r.data.ajoutes || 0) + " nouvelle(s) entreprise(s) ajoutée(s) · " + PROSPECTS.length + " au total.")
-        : (PROSPECTS.length + " prospect(s) enregistré(s).");
+        ? ((r.data.ajoutes || 0) + " nouvelle(s) entreprise(s) ajoutée(s) · " + nbNouveaux + " à contacter · " + nbContactes + " déjà contacté(s) masqué(s).")
+        : (nbNouveaux + " prospect(s) à contacter · " + nbContactes + " déjà contacté(s) masqué(s).");
       if (!action && !PROSPECTS.length && !chargerProspects._autoLance) {
         chargerProspects._autoLance = true;
         chargerProspects("rechercher", { ville: "", secteur: "tous" });
@@ -414,6 +422,7 @@
       await sb.functions.invoke("prospection?forceFunctionRegion=ca-central-1", { body: { action: "statut", id: id, statut: el.value } });
       var p = PROSPECTS.find(function (x) { return x.id === id; });
       if (p) p.statut = el.value;
+      afficherProspects();
     });
     tbPr.addEventListener("click", async function (ev) {
       var btnEnv = ev.target.closest && ev.target.closest("[data-envoyer]");
