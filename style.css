@@ -1796,6 +1796,97 @@ a.bouton-contour-clair:visited,
     grid-template-columns: 1fr;
   }
 }
+
+/* Cartes Options épurées avec étiquettes et puces (page Forfaits) */
+.options-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.option-carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.option-carte:hover {
+  transform: translateY(-2px);
+  background: var(--carte-2);
+  border-color: rgba(110, 139, 255, 0.36);
+}
+.option-haut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.option-haut .carte-icone {
+  margin: 0;
+}
+.option-etiquette {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(110, 139, 255, 0.12);
+  border: 1px solid rgba(110, 139, 255, 0.28);
+  color: var(--bleu);
+}
+.option-etiquette-inclus {
+  background: rgba(52, 211, 153, 0.12);
+  border-color: rgba(52, 211, 153, 0.32);
+  color: var(--vert);
+}
+.option-etiquette-or {
+  background: rgba(250, 204, 21, 0.12);
+  border-color: rgba(250, 204, 21, 0.34);
+  color: var(--jaune);
+}
+.option-carte h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--titre);
+}
+.option-puces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.option-puces span {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--texte);
+  background: var(--fond-2);
+  border: 1px solid var(--bordure);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.option-lien {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--jaune);
+  text-decoration: none;
+}
+.option-lien:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.option-carte details.detail-carte {
+  margin: 4px 0 0;
+  padding: 10px 14px;
+  background: var(--fond-2);
+}
 @media (max-width: 640px) {
   .video-promo-cadre {
     padding: 8px;
