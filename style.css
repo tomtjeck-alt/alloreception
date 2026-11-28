@@ -2321,11 +2321,39 @@ summary {
 }
 
 /* =========================================================
-   Page Sondage en ligne (PME · attentes tarifaires)
+   Page Sondage en ligne interactif (PME · attentes tarifaires)
    ========================================================= */
+.sondage-progres {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.sondage-progres-barre {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--fond-2);
+  border: 1px solid var(--bordure);
+  overflow: hidden;
+}
+.sondage-progres-barre i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--jaune);
+  transition: width 0.35s cubic-bezier(0.2, 0, 0, 1);
+}
+.sondage-progres-texte {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--jaune);
+  white-space: nowrap;
+}
 .sondage-bloc {
   display: grid;
-  gap: 24px;
+  gap: 28px;
 }
 .sondage-question {
   border: 0;
@@ -2334,11 +2362,61 @@ summary {
 }
 .sondage-question legend {
   font-family: var(--police-titre);
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--titre);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   padding: 0;
+}
+.sondage-grille-cartes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  gap: 10px;
+}
+.sondage-carte-choix {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 88px;
+  padding: 14px 12px;
+  border-radius: 16px;
+  background: var(--fond-2);
+  border: 1px solid var(--bordure-forte);
+  color: var(--texte);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.sondage-carte-choix input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.sondage-carte-choix svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--bleu);
+  display: block;
+  transition: fill 0.18s ease;
+}
+.sondage-carte-choix:hover {
+  transform: translateY(-2px);
+  border-color: var(--jaune);
+  color: var(--titre);
+}
+.sondage-carte-choix:has(input:checked) {
+  background: rgba(250, 204, 21, 0.14);
+  border-color: var(--jaune);
+  color: var(--titre);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.22);
+}
+.sondage-carte-choix:has(input:checked) svg {
+  fill: var(--jaune);
 }
 .sondage-choix {
   display: flex;
@@ -2375,6 +2453,63 @@ summary {
   border-color: var(--jaune);
   color: #07102B;
 }
+.sondage-apercu {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(110, 139, 255, 0.1);
+  border: 1px solid rgba(110, 139, 255, 0.3);
+  color: var(--texte);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+.sondage-apercu strong {
+  color: var(--jaune);
+}
+.sondage-resultats {
+  margin: 24px 0;
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--fond-2);
+  border: 1px solid var(--bordure-forte);
+  text-align: left;
+}
+.sondage-resultats h3 {
+  font-size: 1.05rem;
+  margin: 0 0 14px;
+  color: var(--titre);
+}
+.sondage-res-grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.sondage-res-ligne {
+  margin-bottom: 10px;
+}
+.sondage-res-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.86rem;
+  margin-bottom: 4px;
+  color: var(--texte);
+}
+.sondage-res-meta b {
+  color: var(--jaune);
+  font-variant-numeric: tabular-nums;
+}
+.sondage-res-barre {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.sondage-res-barre i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--jaune);
+}
 .sondage-partage {
   margin-top: 22px;
   padding: 20px;
@@ -2387,5 +2522,10 @@ summary {
   margin: 0 0 14px;
   color: var(--texte);
   font-size: 0.95rem;
+}
+@media (max-width: 720px) {
+  .sondage-res-grille {
+    grid-template-columns: 1fr;
+  }
 }
 
