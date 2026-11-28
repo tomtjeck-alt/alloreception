@@ -2320,3 +2320,72 @@ summary {
   text-align: left;
 }
 
+/* =========================================================
+   Page Sondage en ligne (PME · attentes tarifaires)
+   ========================================================= */
+.sondage-bloc {
+  display: grid;
+  gap: 24px;
+}
+.sondage-question {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.sondage-question legend {
+  font-family: var(--police-titre);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--titre);
+  margin-bottom: 12px;
+  padding: 0;
+}
+.sondage-choix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sondage-puce {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--fond-2);
+  border: 1px solid var(--bordure-forte);
+  color: var(--texte);
+  font-size: 0.93rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.sondage-puce input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.sondage-puce:hover {
+  border-color: var(--jaune);
+  color: var(--titre);
+}
+.sondage-puce:has(input:checked) {
+  background: var(--jaune);
+  border-color: var(--jaune);
+  color: #07102B;
+}
+.sondage-partage {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--fond-2);
+  border: 1px solid var(--bordure);
+  text-align: center;
+}
+.sondage-partage p {
+  margin: 0 0 14px;
+  color: var(--texte);
+  font-size: 0.95rem;
+}
+
